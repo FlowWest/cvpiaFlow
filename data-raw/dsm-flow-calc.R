@@ -1,5 +1,6 @@
 library(tidyverse)
 library(lubridate)
+library(dataRetrieval)
 
 
 # Notes from Mike Wright about WilkinsSlough.csv (cell A1)
@@ -83,3 +84,61 @@ redbluff_disaggregated <- redbluff %>%
          cs_date = dmy(cs_date)) %>%
   select(date, cs_date, `Cow Creek`:`Paynes Creek`)
 
+# Mike Wrights notes on YubaFeather.csv
+
+#date is the CalLite-CV date column, the next column with the name of a
+#CalLite-CV element is the LocalInflow node (note occasional negative
+#values...), cs_date is for my reference to avoid screwing up the
+#10/2014=10/1925 matching and it sounds like you can use it for something too,
+#and the CalSim II records corresponding to the local inflows to the CalLite-CV
+#element are listed afterward (I've got them in cfs now, to match the CalLite-CV
+#data). 'matches for other csvs.csv' contains the mappings between the DSM
+#streams and CalSim II elements, as a one-stop summary for which DSM streams are
+#showing up in which specific .csvs like this one. I renamed the CalSim II
+#elements that map to DSM streams in this csv; everything that still has a
+#CalSim II name is one of the elements that contributes to the total (the
+#denominator) but is NOT a DSM stream. Here we have only the Bear River (C282)
+#and a small 'projected gain in DSA69' element I207 in the area the
+#documentation considers the YubaFeather node's Local Inflow area.
+# EXAMPLE CALCULATION: For 1/2015, Bear River has 12.24 cfs, the total of all inflows
+#sum(D6:E6)=3138.24, and 12.24/3138.24=0.003901, the fraction of total CalSim II
+#inflow in the Bear River. Applying that fraction to the CalLite-CV YubaFeather
+#LocalInflow number we get Bear River DSM flow = 0.003901*258.1=1.01 cfs. Given
+#the bizarre spikiness of I207, maybe the CSII Bear River numbers unadjusted for
+#anything or the YubaFeather LocalInflows alone would be better representations
+#of the Bear River...
+
+yubafeather <- read_csv('data-raw/YubaFeather.csv', skip = 1)
+
+bb <- yubafeather %>%
+  mutate(denom = `Bear River` + I207,
+         `Bear River` = `Bear River` / denom * YubaFeather,
+         cs_date = dmy(cs_date)) %>%
+  select(date, cs_date, `Bear River`, YubaFeather)
+
+# compare monthly mean gage flow during the period to see if YubaFeather node is better
+bear <- dataRetrieval::readNWISdv(siteNumbers = '11424000', parameterCd = '00060',
+                          '1980-01-01', '1999-12-31')
+glimpse(bear)
+
+gage_data <- bear %>%
+  mutate(year = year(Date), month = month(Date), flow =  X_00060_00003) %>%
+  group_by(year, month) %>%
+  summarise(monthly_mean_flow = mean(flow, na.rm = TRUE)) %>%
+  mutate(type = 'gage data')
+
+bb %>%
+  gather(Node, flow, -date, -cs_date) %>%
+  mutate(type = ifelse(Node == 'Bear River', 'disaggregated', 'YubaFeather'),
+         year = year(cs_date), month = month(cs_date)) %>%
+  select(year, month, monthly_mean_flow = flow, type) %>%
+  filter(year >= 1980, year <= 1999) %>%
+  bind_rows(gage_data) %>%
+  mutate(date = ymd(paste(year, month, '01', sep = '-'))) %>%
+  ggplot(aes(x = date, y = monthly_mean_flow, color = type)) +
+  geom_line() +
+  theme_minimal() +
+  labs(y = 'monthly mean flow') +
+  theme(text = element_text(size = 18))
+
+# waiting to hear from mike before finishing bear
