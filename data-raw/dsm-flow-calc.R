@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(dataRetrieval)
+library(devtools)
 
 
 # Notes from Mike Wright about WilkinsSlough.csv (cell A1)
@@ -190,3 +191,18 @@ eastside_disaggregated <- eastside %>%
   arrange(cs_date)
 
 View(eastside_disaggregated)
+
+ord <- read_csv('data-raw/watershed_order.csv') %>%
+  pull(Watershed)
+
+all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
+  mutate(`Bear River` = NA, `Sutter Bypass` = NA,
+         `Bear Creek` = NA, `Butte Creek` = NA) %>% #place holders
+  bind_cols(select(eastside_disaggregated, -date),
+            select(wilkins_disaggregated, -date, -cs_date),
+            select(redbluff_disaggregated, -date, -cs_date)) %>%
+  select(date = cs_date, ord) %>%
+  filter(!is.na(date))
+
+use_data(all_flow, overwrite = TRUE)
+
