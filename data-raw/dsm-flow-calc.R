@@ -51,3 +51,35 @@ wilkins_disaggregated <- wilkins %>%
   select(date, cs_date, `Elder Creek`: `Stony Creek`)
 
 View(wilkins_disaggregated)
+
+# Mike Wrights notes on RedBluff.csv
+
+# date is the CalLite-CV date column, the next column with the name of a
+# CalLite-CV element is the LocalInflow node, cs_date is for my reference to
+# avoid screwing up the 10/2014=10/1925 matching and it sounds like you can use
+# it for something too, and the CalSim II records corresponding to the local
+# inflows to the CalLite-CV element are listed afterward (I've got them in cfs
+# now, to match the CalLite-CV data). 'matches for other csvs.csv' contains the
+# mappings between the DSM streams and CalSim II elements, as a one-stop summary
+# for which DSM streams are showing up in which specific .csvs like this one. I
+# renamed the CalSim II elements that map to DSM streams in this csv; everything
+# that still has a CalSim II name is one of the elements that contributes to the
+# total (the denominator) but is NOT a DSM stream.
+# EXAMPLE CALCULATION: For 10/2014, Cow Creek has 27.1 cfs,
+# the total of all inflows sum(D3:I3)=405.8,
+# and 27.1/405.8=0.066668, the fraction of total CalSim II inflow in Cow Creek.
+# Applying that fraction to the CalLite-CV RedBluff LocalInflow number we get
+# Cow Creek DSM flow = 0.066668*259.7=17.31 cfs.
+
+redbluff <- read_csv('data-raw/RedBluff.csv', skip = 1)
+
+redbluff_disaggregated <- redbluff %>%
+  mutate(denom = `Cow Creek` + `Cottonwood Creek` + `Battle Creek` +
+           `Paynes Creek` + I109 + I112,
+         `Cow Creek` = `Cow Creek` / denom * RedBluff,
+         `Cottonwood Creek` = `Cottonwood Creek` / denom * RedBluff,
+         `Battle Creek` = `Battle Creek` / denom * RedBluff,
+         `Paynes Creek` = `Paynes Creek` / denom * RedBluff,
+         cs_date = dmy(cs_date)) %>%
+  select(date, cs_date, `Cow Creek`:`Paynes Creek`)
+
