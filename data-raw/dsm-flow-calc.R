@@ -112,9 +112,10 @@ yubafeather <- read_csv('data-raw/YubaFeather.csv', skip = 1)
 
 bb <- yubafeather %>%
   mutate(denom = `Bear River` + I207,
-         `Bear River` = `Bear River` / denom * YubaFeather,
+         BearRiver = `Bear River` / denom * YubaFeather,
          cs_date = dmy(cs_date)) %>%
-  select(date, cs_date, `Bear River`, YubaFeather)
+  select(date, cs_date, `Bear River`, BearRiver, YubaFeather)
+View(bb)
 
 # compare monthly mean gage flow during the period to see if YubaFeather node is better
 bear <- dataRetrieval::readNWISdv(siteNumbers = '11424000', parameterCd = '00060',
@@ -141,4 +142,51 @@ bb %>%
   labs(y = 'monthly mean flow') +
   theme(text = element_text(size = 18))
 
-# waiting to hear from mike before finishing bear
+# TODO waiting to hear from mike before selecting node for bear
+
+# Mike Wrights notes on Eastside.csv
+
+# date is the CalLite-CV date column, the next column with the name of a
+# CalLite-CV element is in this case the OUTFLOW node because the LocalInflow
+# one isn't saving results and when I run the model it has negative values
+# pretty regularly (this is different from other nodes but this node is unique
+# with only two inflows so maybe that's defensible... but note negative value in
+# (only) first time step...), cs_date is for my reference to avoid screwing up
+# the 10/2014=10/1925 matching and it sounds like you can use it for something
+# too, and the CalSim II records corresponding to the local inflows to the
+# CalLite-CV element are listed afterward (I've got them in cfs now, to match
+# the CalLite-CV data). 'matches for other csvs.csv' contains the mappings
+# between the DSM streams and CalSim II elements, as a one-stop summary for
+# which DSM streams are showing up in which specific .csvs like this one. I
+# renamed the CalSim II elements that map to DSM streams in this csv; everything
+# that still has a CalSim II name is one of the elements that contributes to the
+# total (the denominator) but is NOT a DSM stream. The CalSim II run I'm using
+# at the moment is the most recent representation of current operations I've
+# received; probably we'll be choosing a different baseline in the future but
+# the matches csv mentioned above contains the CalSim II match for DSM streams,
+# so I can go back and re-pull those time series if/when necessary. NOTE that
+# matching 2014 to 1925 results in the last ~7 years of the CalLite-CV run not
+# having an equivalent CS2 number... EXAMPLE CALCULATION: For 11/2014, Mokelumne
+# River has 240.7 cfs, the total of all inflows sum(D4:E4)=269.4, and
+# 240.7/269.4=0.893467, the fraction of total CalSim II inflow in the Mokelumne
+# River. Applying that fraction to the CalLite-CV Eastside Outflow number we get
+# Mokelumne River DSM flow = 0.893467*79.16=70.73 cfs.
+
+eastside <- read_csv('data-raw/Eastside.csv', skip = 1)
+
+eastside_disaggregated <- eastside %>%
+  mutate(denom = `Mokelumne River` + `Cosumnes River`,
+         `Mokelumne River` = `Mokelumne River` / denom * Eastside,
+         `Cosumnes River` = `Cosumnes River` / denom * Eastside,
+         cs_date = dmy(cs_date)) %>%
+  select(date, cs_date, `Mokelumne River`, `Cosumnes River`) %>%
+  gather(river, flow, -date, -cs_date) %>%
+  mutate(flow = case_when(
+    flow < 0 ~ 0,
+    is.nan(flow) ~ 0,
+    TRUE ~ flow
+  )) %>%
+  spread(river, flow) %>%
+  arrange(cs_date)
+
+View(eastside_disaggregated)
