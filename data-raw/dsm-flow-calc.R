@@ -131,10 +131,13 @@ gage_data <- bear %>%
 
 bb %>%
   gather(Node, flow, -date, -cs_date) %>%
-  mutate(type = ifelse(Node == 'Bear River', 'disaggregated', 'YubaFeather'),
+  mutate(type = case_when(
+    Node == 'Bear River' ~'BearRiver',
+    Node == 'YubaFeather' ~ 'YubaFeather',
+    TRUE ~ 'disaggregated'),
          year = year(cs_date), month = month(cs_date)) %>%
   select(year, month, monthly_mean_flow = flow, type) %>%
-  filter(year >= 1980, year <= 1999) %>%
+  filter(year >= 1980, year <= 1999, type != 'disaggregated') %>%
   bind_rows(gage_data) %>%
   mutate(date = ymd(paste(year, month, '01', sep = '-'))) %>%
   ggplot(aes(x = date, y = monthly_mean_flow, color = type)) +
@@ -143,7 +146,10 @@ bb %>%
   labs(y = 'monthly mean flow') +
   theme(text = element_text(size = 18))
 
-# TODO waiting to hear from mike before selecting node for bear
+# TODO waiting to hear from mike before selecting node for bear river
+bear_river <- yubafeather %>%
+  mutate(cs_date = dmy(cs_date)) %>%
+  select(date, cs_date, `Bear River`)
 
 # Mike Wrights notes on Eastside.csv
 
@@ -196,11 +202,13 @@ ord <- read_csv('data-raw/watershed_order.csv') %>%
   pull(Watershed)
 
 all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
-  mutate(`Bear River` = NA, `Sutter Bypass` = NA,
-         `Bear Creek` = NA, `Butte Creek` = NA) %>% #place holders
+  mutate(`Sutter Bypass` = NA,
+         `Bear Creek` = NA,
+         `Butte Creek` = NA) %>% #place holders
   bind_cols(select(eastside_disaggregated, -date),
             select(wilkins_disaggregated, -date, -cs_date),
-            select(redbluff_disaggregated, -date, -cs_date)) %>%
+            select(redbluff_disaggregated, -date, -cs_date),
+            select(bear_river, -date, -cs_date)) %>%
   select(date = cs_date, ord) %>%
   filter(!is.na(date))
 
