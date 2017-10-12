@@ -8,3 +8,8 @@ wilkins$denominator <- denoms
 
 # basic logic to be implemented
 apply(wilkins[, 4:ncol(wilkins)], 2, function(x) (x/denoms) * wilkins$WilkinsSlough)
+
+get_denominators <- function(df, start_index, end_index) {
+  rowSums(df[, start_index:end_index])
+}
+
