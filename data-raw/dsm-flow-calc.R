@@ -2,6 +2,7 @@ library(tidyverse)
 library(lubridate)
 library(dataRetrieval)
 library(devtools)
+library(CDECRetrieve)
 
 
 # Notes from Mike Wright about WilkinsSlough.csv (cell A1)--------------
@@ -111,6 +112,8 @@ redbluff_disaggregated <- redbluff %>%
 
 yubafeather <- read_csv('data-raw/YubaFeather.csv', skip = 1)
 
+
+# compare monthly mean gage flow during the period to see if YubaFeather node is better
 bb <- yubafeather %>%
   mutate(denom = `Bear River` + I207,
          BearRiver = `Bear River` / denom * YubaFeather,
@@ -118,7 +121,6 @@ bb <- yubafeather %>%
   select(date, cs_date, `Bear River`, BearRiver, YubaFeather)
 View(bb)
 
-# compare monthly mean gage flow during the period to see if YubaFeather node is better
 bear <- dataRetrieval::readNWISdv(siteNumbers = '11424000', parameterCd = '00060',
                           '1980-01-01', '1999-12-31')
 glimpse(bear)
@@ -146,7 +148,7 @@ bb %>%
   labs(y = 'monthly mean flow') +
   theme(text = element_text(size = 18))
 
-# TODO waiting to hear from mike before selecting node for bear river
+# after investigating, selected Bear River column to represent Bear River
 bear_river <- yubafeather %>%
   mutate(cs_date = dmy(cs_date)) %>%
   select(date, cs_date, `Bear River`)
@@ -247,6 +249,27 @@ sutter_butte <- sutter %>%
          cs_date = dmy(cs_date)) %>%
   select(date, cs_date, `Butte Creek`, `Sutter Bypass`)
 
+# no good gage data to check if modeled sutter representation is good
+# sutter_gage <- CDECRetrieve::retrieve_station_data(station_id = 'SBP', sensor_num = '20', dur_code = 'H',
+#                                     start_date = '1998-01-01', end_date = '2002-12-31')
+# sss <- sutter_butte %>%
+#   select(date = cs_date, flow = `Sutter Bypass`) %>%
+#   filter(year(date) >= 1998) %>%
+#   mutate(date = ymd(paste(year(date), month(date), '01', sep = '-')), scenario = 'modeled')
+#
+# sutter_gage %>%
+#   filter(!is.na(parameter_value)) %>%
+#   mutate(date = as_date(datetime), year = year(date), month = month(date)) %>%
+#   group_by(year, month) %>%
+#   summarise(flow = mean(parameter_value)) %>%
+#   ungroup() %>%
+#   mutate(scenario = 'gage', date = ymd(paste(year, month, '01', sep = '-'))) %>%
+#   select(date, flow, scenario) %>%
+#   bind_rows(sss) %>%
+#   ggplot(aes(x = date, y = flow)) +
+#   geom_col() +
+#   facet_grid(scenario~.)
+
 # combine all---------------
 ord <- read_csv('data-raw/watershed_order.csv') %>%
   pull(Watershed)
@@ -263,7 +286,32 @@ all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
 
 use_data(all_flow, overwrite = TRUE)
 
-Delta <- read_csv('data-raw/Delta.csv', skip = 1)
-View(Delta)
+# Mike Wrights notes on Delta--------------------------------
 
+# date is CalLite-CV time series. Unlike the other csv's I've left the original
+# labels, although I replaced the .'s with _'s to fit with the nomenclature I
+# think Sadie prefers, since we might use these differently than I've laid out
+# in the next sentence (and we'll probably need the DCC time series in
+# particular separated out for apportioning Sacramento River fish between Delta
+# regions). It should be as 'simple' as this: North Delta flow = Hood.Outflow,
+# Central Delta flow = Eastside.Outflow + DCC.Diversion, and South Delta flow =
+# SJR_Calaveras.Outflow + SJR_FlowSplit.C417B + CentralDelta.Outflow. If the
+# Central Delta is really just a constituent part of the South Delta then
+# replace CentralDelta.Outflow with Eastside.Outflow + DCC.Diversion. I hope
+# that's all there is to it... NOTE the one (and only one) negative value for
+# Eastside.Outflow, in the first time step
+
+Delta <- read_csv('data-raw/Delta.csv', skip = 1)
+glimpse(Delta)
+
+# assuming central delta is included in south delta
+delta_flow <- Delta %>%
+  mutate(`North Delta` = Hood_Outflow,
+         `South Delta` = Eastside_Outflow + DCC_Diversion +
+           SJR_Calaveras_Outflow + SJR_FlowSplit_C417B) %>%
+  left_join(sutter_butte) %>%
+  select(date = cs_date, `North Delta`, `South Delta`) %>%
+  filter(!is.na(date))
+
+use_data(delta_flow)
 
