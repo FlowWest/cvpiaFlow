@@ -76,6 +76,17 @@ View(wilkins_disaggregated)
 
 redbluff <- read_csv('data-raw/RedBluff.csv', skip = 1)
 
+# bear creek pick a neighbor to represent flows, no gage data
+redbluff %>%
+  select(cs_date, `Cow Creek`, `Battle Creek`, I109) %>%
+  mutate(cs_date = dmy(cs_date), `Bear Creek` = I109/2) %>%
+  gather(watershed, flow, -cs_date) %>%
+  filter(year(cs_date) >= 1980, watershed != 'I109') %>%
+  ggplot(aes(x = cs_date, y = flow, color = watershed)) +
+  geom_line() +
+  theme_minimal() +
+  theme(text = element_text(size = 18))
+
 redbluff_disaggregated <- redbluff %>%
   mutate(denom = `Cow Creek` + `Cottonwood Creek` + `Battle Creek` +
            `Paynes Creek` + I109 + I112,
@@ -83,8 +94,9 @@ redbluff_disaggregated <- redbluff %>%
          `Cottonwood Creek` = `Cottonwood Creek` / denom * RedBluff,
          `Battle Creek` = `Battle Creek` / denom * RedBluff,
          `Paynes Creek` = `Paynes Creek` / denom * RedBluff,
+         `Bear Creek` = I109 / 2 / denom * RedBluff,
          cs_date = dmy(cs_date)) %>%
-  select(date, cs_date, `Cow Creek`:`Paynes Creek`)
+  select(date, cs_date, `Cow Creek`:`Bear Creek`)
 
 # Mike Wrights notes on YubaFeather.csv-------------
 
@@ -267,12 +279,12 @@ sutter <- read_csv('data-raw/Sutter.csv', skip = 1) %>%
 sutter_calsim <- date_mapping %>%
   left_join(sutter)
 
+
 # combine all---------------
 ord <- read_csv('data-raw/watershed_order.csv') %>%
   pull(Watershed)
 
 all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
-  mutate(`Bear Creek` = NA) %>% #place holder
   bind_cols(select(eastside_disaggregated, -date),
             select(wilkins_disaggregated, -date, -cs_date),
             select(redbluff_disaggregated, -date, -cs_date),
@@ -283,6 +295,8 @@ all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
   filter(!is.na(date))
 
 use_data(all_flow, overwrite = TRUE)
+
+# TODO need to fix negative values and QA/QC
 
 # Mike Wrights notes on Delta--------------------------------
 
