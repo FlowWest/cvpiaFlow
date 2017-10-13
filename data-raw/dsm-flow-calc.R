@@ -223,19 +223,19 @@ View(eastside_disaggregated)
 # whether to include Butte Creek in the Sutter flows is a tougher task than I'm
 # anticipating I can reacquaint myself with the code and we can talk it through.
 
-sutter <- read_csv('data-raw/SutterButte.csv', skip = 1)
-View(sutter)
+sutter_butte <- read_csv('data-raw/SutterButte.csv', skip = 1)
+View(sutter_butte)
 
 # fitting a model that is the sum of the D arcs (D117, D124, D125, D126) as a function of C112
 # Sutter Bypass Flow will be the predicted values computed with WilkinsSlough_Inflow
-sutter %>%
+sutter_butte %>%
   mutate(D_arcs = D117 + D124 + D125 + D126) %>%
   filter(C112 >= 15000) %>% # choose 15000 as threshold, anything under gets a 0 flow
   ggplot(aes(x = C112, y = D_arcs)) +
   geom_point(alpha = .2) +
   geom_smooth(method = 'lm')
 
-sutter_data <- sutter %>%
+sutter_data <- sutter_butte %>%
   mutate(D_arcs = D117 + D124 + D125 + D126) %>%
   filter(C112 >= 15000)
 
@@ -243,32 +243,29 @@ sutter_model <- lm(D_arcs ~ C112, sutter_data)
 
 summary(sutter_model)
 
-sutter_butte <- sutter %>%
-  mutate(`Sutter Bypass` = ifelse(WilkinsSlough_Inflow >= 15000,
-           predict.lm(sutter_model, data.frame(C112 = WilkinsSlough_Inflow)), 0),
-         cs_date = dmy(cs_date)) %>%
-  select(date, cs_date, `Butte Creek`, `Sutter Bypass`)
+# sutter_butte <- sutter_butte %>%
+#   mutate(`Sutter Bypass` = ifelse(WilkinsSlough_Inflow >= 15000,
+#            predict.lm(sutter_model, data.frame(C112 = WilkinsSlough_Inflow)), 0),
+#          cs_date = dmy(cs_date)) %>%
+#   select(date, cs_date, `Butte Creek`, `Sutter Bypass`)
 
-# no good gage data to check if modeled sutter representation is good
-# sutter_gage <- CDECRetrieve::retrieve_station_data(station_id = 'SBP', sensor_num = '20', dur_code = 'H',
-#                                     start_date = '1998-01-01', end_date = '2002-12-31')
-# sss <- sutter_butte %>%
-#   select(date = cs_date, flow = `Sutter Bypass`) %>%
-#   filter(year(date) >= 1998) %>%
-#   mutate(date = ymd(paste(year(date), month(date), '01', sep = '-')), scenario = 'modeled')
-#
-# sutter_gage %>%
-#   filter(!is.na(parameter_value)) %>%
-#   mutate(date = as_date(datetime), year = year(date), month = month(date)) %>%
-#   group_by(year, month) %>%
-#   summarise(flow = mean(parameter_value)) %>%
-#   ungroup() %>%
-#   mutate(scenario = 'gage', date = ymd(paste(year, month, '01', sep = '-'))) %>%
-#   select(date, flow, scenario) %>%
-#   bind_rows(sss) %>%
-#   ggplot(aes(x = date, y = flow)) +
-#   geom_col() +
-#   facet_grid(scenario~.)
+butte_creek <- sutter_butte %>%
+    mutate(cs_date = dmy(cs_date)) %>%
+    select(date, cs_date, `Butte Creek`)
+
+# use cal sim sutter to represent cal lite sutter flows becasue no good corollary exists
+cl_dates <- read_csv('data-raw/calLite_calSim_date_mapping.csv')
+
+date_mapping <- cl_dates %>%
+  mutate(cs_year = year(cs_date), cs_month = month(cs_date),
+         cs_date = ymd(paste(cs_year, cs_month, '01', sep = '-'))) %>%
+  select(cl_date, cs_date)
+
+sutter <- read_csv('data-raw/Sutter.csv', skip = 1) %>%
+  mutate(cs_date = mdy(cs_date))
+
+sutter_calsim <- date_mapping %>%
+  left_join(sutter)
 
 # combine all---------------
 ord <- read_csv('data-raw/watershed_order.csv') %>%
@@ -280,7 +277,8 @@ all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
             select(wilkins_disaggregated, -date, -cs_date),
             select(redbluff_disaggregated, -date, -cs_date),
             select(bear_river, -date, -cs_date),
-            select(sutter_butte, -date, -cs_date)) %>%
+            select(butte_creek, -date, -cs_date),
+            select(sutter_calsim, -cl_date, -cs_date)) %>%
   select(date = cs_date, ord) %>%
   filter(!is.na(date))
 
