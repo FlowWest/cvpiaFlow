@@ -37,7 +37,7 @@ library(CDECRetrieve)
 # Applying that fraction to the CalLite-CV WilkinsSlough LocalInflow number we
 # get Elder Creek DSM flow = 0.25155*189.9=4.78 cfs.
 
-wilkins <- read_csv("data-raw/WilkinsSlough.csv", skip=1)
+wilkins <- read_csv("data-raw/calLite_mapping/WilkinsSlough.csv", skip=1)
 
 wilkins_disaggregated <- wilkins %>%
   mutate(denom = `Elder Creek` + `Thomes Creek` + `Antelope Creek` +
@@ -74,7 +74,7 @@ View(wilkins_disaggregated)
 # Applying that fraction to the CalLite-CV RedBluff LocalInflow number we get
 # Cow Creek DSM flow = 0.066668*259.7=17.31 cfs.
 
-redbluff <- read_csv('data-raw/RedBluff.csv', skip = 1)
+redbluff <- read_csv('data-raw/calLite_mapping/RedBluff.csv', skip = 1)
 
 # bear creek pick a neighbor to represent flows, no gage data
 redbluff %>%
@@ -122,7 +122,7 @@ redbluff_disaggregated <- redbluff %>%
 #anything or the YubaFeather LocalInflows alone would be better representations
 #of the Bear River...
 
-yubafeather <- read_csv('data-raw/YubaFeather.csv', skip = 1)
+yubafeather <- read_csv('data-raw/calLite_mapping/YubaFeather.csv', skip = 1)
 
 
 # compare monthly mean gage flow during the period to see if YubaFeather node is better
@@ -193,7 +193,7 @@ bear_river <- yubafeather %>%
 # River. Applying that fraction to the CalLite-CV Eastside Outflow number we get
 # Mokelumne River DSM flow = 0.893467*79.16=70.73 cfs.
 
-eastside <- read_csv('data-raw/Eastside.csv', skip = 1)
+eastside <- read_csv('data-raw/calLite_mapping/Eastside.csv', skip = 1)
 
 eastside_disaggregated <- eastside %>%
   mutate(denom = `Mokelumne River` + `Cosumnes River`,
@@ -235,7 +235,7 @@ View(eastside_disaggregated)
 # whether to include Butte Creek in the Sutter flows is a tougher task than I'm
 # anticipating I can reacquaint myself with the code and we can talk it through.
 
-sutter_butte <- read_csv('data-raw/SutterButte.csv', skip = 1)
+sutter_butte <- read_csv('data-raw/calLite_mapping/SutterButte.csv', skip = 1)
 View(sutter_butte)
 
 # fitting a model that is the sum of the D arcs (D117, D124, D125, D126) as a function of C112
@@ -266,7 +266,7 @@ butte_creek <- sutter_butte %>%
     select(date, cs_date, `Butte Creek`)
 
 # use cal sim sutter to represent cal lite sutter flows becasue no good corollary exists
-cl_dates <- read_csv('data-raw/calLite_calSim_date_mapping.csv')
+cl_dates <- read_csv('data-raw/calLite_mapping/calLite_calSim_date_mapping.csv')
 
 date_mapping <- cl_dates %>%
   mutate(cs_year = year(cs_date), cs_month = month(cs_date),
@@ -281,10 +281,10 @@ sutter_calsim <- date_mapping %>%
 
 
 # combine all---------------
-ord <- read_csv('data-raw/watershed_order.csv') %>%
+ord <- read_csv('data-raw/calLite_mapping/calLite_mapping/watershed_order.csv') %>%
   pull(Watershed)
 
-all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
+all_flow_cc <- read_csv('data-raw/calLite_mapping/flowmaster.csv', skip = 1) %>%
   bind_cols(select(eastside_disaggregated, -date),
             select(wilkins_disaggregated, -date, -cs_date),
             select(redbluff_disaggregated, -date, -cs_date),
@@ -294,7 +294,7 @@ all_flow <- read_csv('data-raw/flowmaster.csv', skip = 1) %>%
   select(date = cs_date, ord) %>%
   filter(!is.na(date))
 
-use_data(all_flow, overwrite = TRUE)
+use_data(all_flow_cc, overwrite = TRUE)
 
 # TODO need to fix negative values and QA/QC
 
@@ -313,11 +313,11 @@ use_data(all_flow, overwrite = TRUE)
 # that's all there is to it... NOTE the one (and only one) negative value for
 # Eastside.Outflow, in the first time step
 
-Delta <- read_csv('data-raw/Delta.csv', skip = 1)
+Delta <- read_csv('data-raw/calLite_mapping/Delta.csv', skip = 1)
 glimpse(Delta)
 
 # assuming central delta is included in south delta
-delta_flow <- Delta %>%
+delta_flow_cc <- Delta %>%
   mutate(`North Delta` = Hood_Outflow,
          `South Delta` = Eastside_Outflow + DCC_Diversion +
            SJR_Calaveras_Outflow + SJR_FlowSplit_C417B) %>%
@@ -325,5 +325,5 @@ delta_flow <- Delta %>%
   select(date = cs_date, `North Delta`, `South Delta`) %>%
   filter(!is.na(date))
 
-use_data(delta_flow)
+use_data(delta_flow_cc)
 
