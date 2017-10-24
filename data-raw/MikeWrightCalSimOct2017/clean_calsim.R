@@ -19,8 +19,9 @@ div_split <- cvpia_nodes$cal_sim_diversion_nodes[need_split] %>% str_split(', ')
 div_nodes <- c(cvpia_nodes$cal_sim_diversion_nodes[!need_split], div_split)
 diversion_nodes <- div_nodes[!is.na(div_nodes)] %>% str_trim('both') %>% str_replace(',', '')
 
+combined_flow_nodes <- c('C11305', 'C11301')
 #combine all nodes to select columns
-all_nodes <- c(habitat_nodes, div_flow_nodes, diversion_nodes, 'X2') %>% unique()
+all_nodes <- c(habitat_nodes, div_flow_nodes, diversion_nodes, combined_flow_nodes, 'X2') %>% unique()
 
 pick_columns <- function(file) {
   temp <- read_csv(paste0('data-raw/MikeWrightCalSimOct2017/', file), skip = 1)
@@ -37,6 +38,7 @@ tt <- map_df(file_names, pick_columns)
 cvpia_calsim <- tt %>%
   gather(node, flow, -date) %>%
   filter(!is.na(flow)) %>%
+  mutate(flow = as.numeric(flow)) %>%
   spread(node, flow)
 
 write_rds(cvpia_calsim, 'data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
