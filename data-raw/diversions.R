@@ -19,6 +19,7 @@ combined_flow_nodes <- c('C11305', 'C11301')
 all_div_nodes <- c(div_flow_nodes, diversion_nodes, combined_flow_nodes, 'date') %>% unique()
 all_div_nodes
 node_columns <- names(calsim) %in% all_div_nodes
+
 div_calsim <- calsim[, node_columns]
 
 temp_diver <- div_calsim %>%
@@ -37,25 +38,27 @@ temp_diver <- div_calsim %>%
          `Paynes Creek` = NA,
          `Stony Creek` = D17301 / C42,
          `Thomes Creek` = (C11304 / (C11303 + C11304) * D11301) / C11304,
-         # `Upper-mid Sacramento River` = (D109 + D112 + D113A + D113B + D114 + D118 + D122A +
-         #                                   D122B + D122_EWA + D122_WTS + D123 + D124A + D128_EWA
-         #                                 + D128_WTS + D128) / C110,
+         `Upper-mid Sacramento River` = (D109 + D112 + D113A + D113B + D114 + D118 + D122A + D122B
+                                         # + D122_EWA  #not in baseline calsim run
+                                         # + D122_WTS  #not in baseline calsim run
+                                         # + D128_EWA  #not in baseline calsim run
+                                         + D123 + D124A + D128_WTS + D128) / C110,
          `Sutter Bypass` = NA,
          `Bear River` = D285 / (C285 + D285),
          `Feather River` = (D201 + D202 + D7A + D7B) / C6,
          `Yuba River` = D230 / (C230 + D230),
-         # `Lower-mid Sacramento River` = (D129A + D134 + D162 + D163 + D165 + D165A) / C128,
+         `Lower-mid Sacramento River` = (D129A + D134 + D162 + D163 + D165) / C128, # D165A does not exist
          `Yolo Bypass` = NA,
          `American River` = D302 / C9,
          `Lower Sacramento River` = (D167 + D168 + D168A_WTS) / C166,
          `Calaveras River` = (D506A + D506B + D506C + D507) / C92,
          `Cosumnes River` = NA,
-         # `Mokelumne River` = (D502A + D502B + D503A + D503B + D503C + D504) / C91,
+         `Mokelumne River` = NA, # waiting on other run from mike U
          `Merced River` = (D562 + D566) / C561,
          `Stanislaus River` = D528 / C520,
          `Tuolumne River` = D545 / C540,
          `San Joaquin River` = (D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)) %>%
-  select(date, watersheds[c(-16, -21, -27)])
+  select(date, watersheds)
 
 #fix prop_div > 1 or inf or nan
 proportion_diverted <- temp_diver %>%
@@ -68,7 +71,9 @@ proportion_diverted <- temp_diver %>%
            TRUE ~ prop_diver
          )) %>%
   spread(watershed, prop_diver) %>%
-  select(date, watersheds[c(-16, -21, -27)])
+  select(date, watersheds)
+
+use_data(proportion_diverted, overwrite = TRUE)
 
 # diagnostic plots and solutions for prop_div > 1 or inf or nan-----------------------------------
   #yuba div/div+flow is solution
