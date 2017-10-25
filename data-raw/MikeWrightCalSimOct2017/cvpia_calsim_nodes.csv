@@ -1,4 +1,4 @@
-to calculate diversions with a value in the combined_flow column: cal_sim_flow_node / combined_flow * cal_sim_diversion_nodes ; watersheds with multiple nodes are represented by suming the nodes,,,,,,,
+to calculate diversions with a value in the combined_flow column: cal_sim_flow_node / combined_flow * cal_sim_diversion_nodes , watersheds with multiple nodes are represented by suming the nodes,,,,,,
 order,watershed,calsim_habitat_flow,cal_sim_flow_nodes,cal_sim_diversion_nodes,combined_flow,notes,Tompkins Review
 1,Upper Sacramento River,C104,C104,D104,,"flow between Keswick and Clear Creek Confluence -- only sac river spawners populate, no migration in",Agree
 2,Antelope Creek,C11307,C11307,D11305,C11305,,Agree
@@ -26,7 +26,7 @@ order,watershed,calsim_habitat_flow,cal_sim_flow_nodes,cal_sim_diversion_nodes,c
 24,Lower Sacramento River,C166,C166,"D167, D168, D168A_WTS",,collector segment for sac river,Agree
 25,Calaveras River,C92,C92,"D506A, D506B, D506C, D507",,,Agree
 26,Cosumnes River,C501,C501,NA,,,Agree
-27,Mokelumne River,C91,C91,"D502A, D502B, D503A, D503B, D503C, D504",,need seperate run from mike U,Agree
+27,Mokelumne River,C91,C91,"D503A, D503B, D503C, D502A, D502B",,need seperate run from mike U,Agree
 28,Merced River,C561,C561,"D562, D566",,,Agree
 29,Stanislaus River,C520,C520,D528,,,Agree
 30,Tuolumne River,C540,C540,D545,,,Agree

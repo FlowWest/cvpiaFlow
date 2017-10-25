@@ -2,7 +2,6 @@ library(tidyverse)
 
 calsim <- read_rds('data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
-View(cvpia_nodes)
 watersheds <- cvpia_nodes$watershed
 
 need_split <- cvpia_nodes$cal_sim_flow_nodes %>% str_detect(', ')
@@ -53,15 +52,15 @@ temp_diver <- div_calsim %>%
          `Lower Sacramento River` = (D167 + D168 + D168A_WTS) / C166,
          `Calaveras River` = (D506A + D506B + D506C + D507) / C92,
          `Cosumnes River` = NA,
-         `Mokelumne River` = NA, # waiting on other run from mike U
+         # `Mokelumne River` = NA, # waiting on other run from mike U
          `Merced River` = (D562 + D566) / C561,
          `Stanislaus River` = D528 / C520,
          `Tuolumne River` = D545 / C540,
          `San Joaquin River` = (D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)) %>%
-  select(date, watersheds)
+  select(date, watersheds[-27])
 
 #fix prop_div > 1 or inf or nan
-proportion_diverted <- temp_diver %>%
+prop_diverted <- temp_diver %>%
   gather(watershed, prop_diver, -date) %>%
   mutate(prop_diver = round(prop_diver, 6),
          prop_diver = case_when(
@@ -71,7 +70,16 @@ proportion_diverted <- temp_diver %>%
            TRUE ~ prop_diver
          )) %>%
   spread(watershed, prop_diver) %>%
-  select(date, watersheds)
+  select(date, watersheds[-27])
+
+# bring in Moke diversions from other model run
+moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
+  mutate(date = as_date(Date), `Mokelumne River` = (D503A + D503B + D503C + D502A + D502B) / C91) %>%
+  select(date, `Mokelumne River`)
+
+proportion_diverted <- prop_diverted %>%
+  left_join(moke) %>%
+  select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
 
 use_data(proportion_diverted, overwrite = TRUE)
 

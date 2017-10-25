@@ -31,7 +31,7 @@
 #' \item{Lower Sacramento River}{(D167 + D168 + D168A_WTS) / C166}
 #' \item{Calaveras River}{(D506A + D506B + D506C + D507) / C92}
 #' \item{Cosumnes River}{no modeled diversions}
-#' \item{Mokelumne River}{no modeled diversions}
+#' \item{Mokelumne River}{(D503A + D503B + D503C + D502A + D502B) / C91*}
 #' \item{Merced River}{(D562 + D566) / C561}
 #' \item{Stanislaus River}{D528 / C520}
 #' \item{Tuolumne River}{D545 / C540}
@@ -40,6 +40,8 @@
 #'
 #' @details The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
 #' The nodes and calculation for each watershed are outlined above.
+#'
+#' *Mokelumne River flow and diversions are from a separate model provided by EBMUD.
 #'
 #' \href{}{CALSIMII schematic}
 #'
