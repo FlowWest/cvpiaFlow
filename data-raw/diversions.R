@@ -21,6 +21,56 @@ node_columns <- names(calsim) %in% all_div_nodes
 
 div_calsim <- calsim[, node_columns]
 
+
+# total diverted------------------------------------
+temp_diver <- div_calsim %>%
+  mutate(`Upper Sacramento River` = D104 / C104,
+         `Antelope Creek` = ifelse(C11307 == 0, 0, (C11307 / (C11307 + C11308 + C11309) * D11305)),
+         `Battle Creek` = NA,
+         `Bear Creek` = NA,
+         `Big Chico Creek` = NA,
+         `Butte Creek` = (C217B + D217),
+         `Clear Creek` = NA,
+         `Cottonwood Creek` = NA,
+         `Cow Creek` = NA,
+         `Deer Creek` = ifelse(C11309 == 0 ,0, (C11309 / (C11307 + C11308 + C11309) * D11305)),
+         `Elder Creek` = ifelse(C11303 == 0, 0, (C11303 / (C11303 + C11304) * D11301)),
+         `Mill Creek` = ifelse(C11308 == 0, 0, (C11308 / (C11307 + C11308 + C11309) * D11305)),
+         `Paynes Creek` = NA,
+         `Stony Creek` = D17301,
+         `Thomes Creek` = ifelse(C11304 == 0, 0, (C11304 / (C11303 + C11304) * D11301)),
+         `Upper-mid Sacramento River` = (D109 + D112 + D113A + D113B + D114 + D118 + D122A + D122B
+                                         + D123 + D124A + D128_WTS + D128),
+         `Sutter Bypass` = NA,
+         `Bear River` = D285,
+         `Feather River` = (D201 + D202 + D7A + D7B),
+         `Yuba River` = D230,
+         `Lower-mid Sacramento River` = (D129A + D134 + D162 + D163 + D165),
+         `Yolo Bypass` = NA,
+         `American River` = D302,
+         `Lower Sacramento River` = (D167 + D168 + D168A_WTS),
+         `Calaveras River` = (D506A + D506B + D506C + D507),
+         `Cosumnes River` = NA,
+         # `Mokelumne River` = NA, # other run from mike U ebmud
+         `Merced River` = (D562 + D566),
+         `Stanislaus River` = D528,
+         `Tuolumne River` = D545,
+         `San Joaquin River` = (D637 + D630B + D630A + D620B)) %>%
+  select(date, watersheds[-27])
+
+# bring in Moke diversions from other model run
+moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
+  mutate(date = as_date(Date), `Mokelumne River` = (D503A + D503B + D503C + D502A + D502B)) %>%
+  select(date, `Mokelumne River`)
+
+total_diverted <- temp_diver %>%
+  left_join(moke) %>%
+  select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
+
+use_data(total_diverted, overwrite = TRUE)
+
+# proportion diverted------------------------------------
+
 temp_diver <- div_calsim %>%
   mutate(`Upper Sacramento River` = D104 / C104,
          `Antelope Creek` = (C11307 / (C11307 + C11308 + C11309) * D11305) / C11307,

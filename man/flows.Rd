@@ -10,7 +10,7 @@
 \item{Upper Sacramento River}{C104}
 \item{Antelope Creek}{C11307}
 \item{Battle Creek}{C10803}
-\item{Bear Creek}{C11001}
+\item{Bear Creek}{C11001*}
 \item{Big Chico Creek}{C11501}
 \item{Butte Creek}{C217A}
 \item{Clear Creek}{C3}
@@ -34,7 +34,7 @@
 \item{Lower Sacramento River}{C166}
 \item{Calaveras River}{C92}
 \item{Cosumnes River}{C501}
-\item{Mokelumne River}{C91*}
+\item{Mokelumne River}{C91**}
 \item{Merced River}{C561}
 \item{Stanislaus River}{C520}
 \item{Tuolumne River}{C540}
@@ -63,7 +63,8 @@ When calculating habitat for the Lower-Mid Sacramento river, calculate the habit
 sum them proportion to the length of stream above and below the weir:
 \deqn{35.6/58 * (habitat at C134) + 22.4/58 * (habitat at C160)}
 
-*Mokelumne River flow is from a separate model provided by EBMUD.
+*Because there are no modeled flows at Bear Creek, flows at Paynes Creek are used
+**Mokelumne River flow is from a separate model provided by EBMUD.
 
 \href{}{CALSIMII schematic}
 }
