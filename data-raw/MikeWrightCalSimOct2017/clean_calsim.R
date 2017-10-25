@@ -6,9 +6,7 @@ library(devtools)
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
 need_split <- cvpia_nodes$calsim_habitat_flow %>% str_detect(', ')
 habitat_split <- cvpia_nodes$calsim_habitat_flow[need_split] %>% str_split(', ') %>% flatten_chr()
-habitat_node <- c(cvpia_nodes$calsim_habitat_flow[!need_split], habitat_split)
-habitat_nodes <- habitat_node[!is.na(habitat_node)]
-
+habitat_nodes <- c(cvpia_nodes$calsim_habitat_flow[!need_split], habitat_split, 'C134', 'C160')[-20]
 
 need_split <- cvpia_nodes$cal_sim_flow_nodes %>% str_detect(', ')
 div_split <- cvpia_nodes$cal_sim_flow_nodes[need_split] %>% str_split(', ') %>% flatten_chr()

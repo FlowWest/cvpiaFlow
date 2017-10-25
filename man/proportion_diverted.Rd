@@ -51,7 +51,7 @@ proportion_diverted
 }
 \description{
 A dataset containing the proportion of flow diverted within watersheds for
-use with the CVPIA Science Integration Team Decision Support Model
+use with the CVPIA Science Integration Team Decision Support Model.
 }
 \details{
 The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
