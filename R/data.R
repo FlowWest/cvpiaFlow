@@ -47,7 +47,7 @@
 #' \itemize{
 #'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
 #'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
-#'   \item \strong{CALSIM model Output:} Michael Wright \email{mwright@@usbr.gov}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
 #' }
 #'
 "proportion_diverted"
@@ -86,7 +86,7 @@
 #' \item{Lower Sacramento River}{C166}
 #' \item{Calaveras River}{C92}
 #' \item{Cosumnes River}{C501}
-#' \item{Mokelumne River}{no modeled flow}
+#' \item{Mokelumne River}{C91*}
 #' \item{Merced River}{C561}
 #' \item{Stanislaus River}{C520}
 #' \item{Tuolumne River}{C540}
@@ -101,13 +101,15 @@
 #' sum them proportion to the length of stream above and below the weir:
 #' \deqn{35.6/58 * (habitat at C134) + 22.4/58 * (habitat at C160)}
 #'
+#' *Mokelumne River flow is from a separate model provided by EBMUD.
+#'
 #' \href{}{CALSIMII schematic}
 #'
 #' @source
 #' \itemize{
 #'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
 #'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
-#'   \item \strong{CALSIM model Output:} Michael Wright \email{mwright@@usbr.gov}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
 #' }
 #'
-"flow"
+"flows"

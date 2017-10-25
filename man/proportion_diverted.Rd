@@ -43,7 +43,7 @@
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}
   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@flowwest.com} and Mike Urkov \email{mike.urkov@gmail.com}
-  \item \strong{CALSIM model Output:} Michael Wright \email{mwright@usbr.gov}
+  \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@usbr.gov}
 }
 }
 \usage{

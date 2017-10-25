@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(devtools)
+library(readxl)
 
 calsim <- read_rds('data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
@@ -42,11 +43,20 @@ flow <- flow_calsim %>%
          `Lower Sacramento River` = C166,
          `Calaveras River` = C92,
          `Cosumnes River` = C501,
-         `Mokelumne River` = NA,
+         # `Mokelumne River` = NA,
          `Merced River` = C561,
          `Stanislaus River` = C520,
          `Tuolumne River` = C540,
          `San Joaquin River` = C630) %>%
   select(date, `Upper Sacramento River`:`San Joaquin River`)
 
-use_data(flow)
+# bring in Moke flow from other model run
+moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
+  mutate(date = as_date(Date), `Mokelumne River` = C91) %>%
+  select(date, `Mokelumne River`)
+
+flows <- flow %>%
+  left_join(moke) %>%
+  select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
+
+use_data(flows)
