@@ -2,6 +2,7 @@ library(tidyverse)
 library(lubridate)
 library(devtools)
 
+watersheds <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1) %>% select(order, watershed)
 
 cs <- read_csv('data-raw/MikeWrightCalSimOct2017/C1_C169.csv', skip = 1) %>%
   select(date = X2, C134, C165, C116, C123, C124, C125, C109) %>%
@@ -51,5 +52,3 @@ upsacQ <- misc_flows %>%
 
 use_data(upsacQ)
 
-# retQ----------------------------
-# mean CALSIMII flow Oct-Dec trib/mainstem
