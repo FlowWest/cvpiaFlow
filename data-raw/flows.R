@@ -50,6 +50,28 @@ flow <- flow_calsim %>%
          `San Joaquin River` = C630) %>%
   select(date, `Upper Sacramento River`:`San Joaquin River`)
 
+# testing Moke flows from exteranl model to calsim II - C503 vs 04-501
+moke_test <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
+  mutate(date = as_date(Date), C503) %>%
+  select(date, C503)
+
+c501_504 <- read_csv('data-raw/MikeWrightCalSimOct2017/C422-C843.csv', skip = 1) %>%
+  select(date = X2, C504, C501) %>%
+  filter(!is.na(date)) %>%
+  mutate(date = dmy(date))
+
+moke_test %>%
+  left_join(c501_504) %>%
+  mutate(calsim = as.numeric(C504) - as.numeric(C501)) %>%
+  select(date, ebmudsim = C503, calsim) %>%
+  gather(model, flow, -date) %>%
+  filter(year(date) >= 1980, year(date) < 2000) %>%
+  ggplot(aes(x = date, y = flow, color = model)) +
+  geom_line() +
+  theme_minimal() +
+  theme(text = element_text(size = 18))
+#looks great
+
 # bring in Moke flow from other model run
 moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
   mutate(date = as_date(Date), `Mokelumne River` = C91) %>%
@@ -58,6 +80,7 @@ moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCon
 flows <- flow %>%
   left_join(moke) %>%
   select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
+
 
 use_data(flows)
 
