@@ -4,7 +4,7 @@
 #'
 #' @format dataframe with 985 rows and 32 variables:
 #' \describe{
-#' \item{date}{CALSIMII date}
+#' \item{date}{CALSIM II date}
 #' \item{Upper Sacramento River}{D104}
 #' \item{Antelope Creek}{(C11307 / (C11307 + C11308 + C11309) * D11305)}
 #' \item{Battle Creek}{no modeled diversions}
@@ -38,7 +38,7 @@
 #' \item{San Joaquin River}{(D637 + D630B + D630A + D620B)}
 #' }
 #'
-#' @details The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
+#' @details The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 #' The nodes and calculation for each watershed are outlined above.
 #'
 #' The diversions of Antelope Creek, Deer Creek and Mill Creek are represented by one diversion node.
@@ -47,7 +47,16 @@
 #'
 #' *Mokelumne River flow and diversions are from a separate model provided by EBMUD.
 #'
-#' \href{}{CALSIMII schematic}
+#' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+#' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+#' Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+#' were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+#' Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+#' steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+#' run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+#' More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+#'
+#' \href{}{CALSIM II schematic}
 #'
 #' @source
 #' \itemize{
@@ -64,7 +73,7 @@
 #'
 #' @format dataframe with 985 rows and 32 variables:
 #' \describe{
-#' \item{date}{CALSIMII date}
+#' \item{date}{CALSIM II date}
 #' \item{Upper Sacramento River}{D104 / C104}
 #' \item{Antelope Creek}{(C11307 / (C11307 + C11308 + C11309) * D11305) / C11307}
 #' \item{Battle Creek}{no modeled diversions}
@@ -98,7 +107,7 @@
 #' \item{San Joaquin River}{(D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)}
 #' }
 #'
-#' @details The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
+#' @details The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 #' The nodes and calculation for each watershed are outlined above.
 #'
 #' The diversions of Antelope Creek, Deer Creek and Mill Creek are represented by one diversion node.
@@ -107,7 +116,16 @@
 #'
 #' *Mokelumne River flow and diversions are from a separate model provided by EBMUD.
 #'
-#' \href{}{CALSIMII schematic}
+#' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+#' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+#' Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+#' were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+#' Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+#' steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+#' run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+#' More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+#'
+#' \href{}{CALSIM II schematic}
 #'
 #' @source
 #' \itemize{
@@ -124,7 +142,7 @@
 #'
 #' @format dataframe with 985 rows and 33 variables:
 #' \describe{
-#' \item{date}{CALSIMII date}
+#' \item{date}{CALSIM II date}
 #' \item{Upper Sacramento River}{C104}
 #' \item{Antelope Creek}{C11307}
 #' \item{Battle Creek}{C10803}
@@ -159,7 +177,7 @@
 #' \item{San Joaquin River}{C630}
 #' }
 #'
-#' @details The flow is represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
+#' @details The flow is represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 #' The nodes and calculation for each watershed are outlined above.
 #'
 #' The Lower-mid Sacramento River has two nodes, one above Fremont Weir (C134) and one below (C160).
@@ -170,7 +188,16 @@
 #' *Because there are no modeled flows at Bear Creek, flows at Paynes Creek are used
 #' **Mokelumne River flow is from a separate model provided by EBMUD.
 #'
-#' \href{}{CALSIMII schematic}
+#' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+#' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+#' Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+#' were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+#' Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+#' steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+#' run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+#' More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+#'
+#' \href{}{CALSIM II schematic}
 #'
 #' @source
 #' \itemize{
@@ -187,7 +214,7 @@
 #'
 #' @format dataframe with 984 rows and 9 variables:
 #' \describe{
-#' \item{date}{CALSIMII date}
+#' \item{date}{CALSIM II date}
 #' \item{propQyolo}{D160/C134}
 #' \item{propQyolo1}{D160/C134}
 #' \item{propQyolo2}{D166A/C165}
@@ -199,7 +226,7 @@
 #' }
 #'
 #' @details The proportions of Sacramento River flowing through the bypasses are represented using
-#' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
+#' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 #' The nodes and calculation for each watershed are outlined above.
 #'
 #' \strong{Model Usage:}
@@ -208,7 +235,16 @@
 #'
 #' Option 2 - use the numbered propQ columns to represent the proportion of flow at each weir
 #'
-#' \href{}{CALSIMII schematic}
+#' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+#' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+#' Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+#' were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+#' Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+#' steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+#' run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+#' More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+#'
+#' \href{}{CALSIM II schematic}
 #'
 #' @source
 #' \itemize{
@@ -224,14 +260,23 @@
 #'
 #' @format dataframe with 984 rows and 3 variables:
 #' \describe{
-#' \item{date}{CALSIMII date}
+#' \item{date}{CALSIM II date}
 #' \item{upsacQcfs}{C109, flow in cfs}
 #' \item{upsacQcms}{C109, flow in cms}
 #' }
 #'
-#' @details The Upper Sacramento River is represented using node CALSIMII 'FLOW-CHANNEL' C109 node at Bend.
+#' @details The Upper Sacramento River is represented using node CALSIM II 'FLOW-CHANNEL' C109 node at Bend.
 #'
-#' \href{}{CALSIMII schematic}
+#' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+#' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+#' Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+#' were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+#' Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+#' steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+#' run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+#' More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+#'
+#' \href{}{CALSIM II schematic}
 #'
 #' @source
 #' \itemize{

@@ -6,7 +6,7 @@
 \title{Upper Sacramento River Flow}
 \format{dataframe with 984 rows and 3 variables:
 \describe{
-\item{date}{CALSIMII date}
+\item{date}{CALSIM II date}
 \item{upsacQcfs}{C109, flow in cfs}
 \item{upsacQcms}{C109, flow in cms}
 }}
@@ -24,8 +24,17 @@ upsacQ
 A dataset containing the Upper Sacramento River flow in cfs and cms
 }
 \details{
-The Upper Sacramento River is represented using node CALSIMII 'FLOW-CHANNEL' C109 node at Bend.
+The Upper Sacramento River is represented using node CALSIM II 'FLOW-CHANNEL' C109 node at Bend.
 
-\href{}{CALSIMII schematic}
+The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+
+\href{}{CALSIM II schematic}
 }
 \keyword{datasets}

@@ -4,8 +4,8 @@ Title: CALSIMII Modeled Flow Date for use with the CVPIA SIT Model
 Version: 0.1.0
 Author: Sadie Gill
 Maintainer: Sadie Gill (FlowWest) <sgill@flowwest.com>
-Description: This data package contains CALSIMII nodes representing flows and diversions
-for each of the watersheds within the CVPIA salmon life cycle model.
+Description: This data package contains modeled flows and diversions for each of the watersheds 
+    within the CVPIA salmon life cycle model.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

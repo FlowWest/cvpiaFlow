@@ -6,7 +6,7 @@
 \title{Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses}
 \format{dataframe with 984 rows and 9 variables:
 \describe{
-\item{date}{CALSIMII date}
+\item{date}{CALSIM II date}
 \item{propQyolo}{D160/C134}
 \item{propQyolo1}{D160/C134}
 \item{propQyolo2}{D166A/C165}
@@ -32,7 +32,7 @@ use with the CVPIA Science Integration Team Decision Support Model to apportion 
 }
 \details{
 The proportions of Sacramento River flowing through the bypasses are represented using
-'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIMII.
+'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 The nodes and calculation for each watershed are outlined above.
 
 \strong{Model Usage:}
@@ -41,6 +41,15 @@ Option 1 - propQyolo and propQsutter represent the proportion of flow as a singl
 
 Option 2 - use the numbered propQ columns to represent the proportion of flow at each weir
 
-\href{}{CALSIMII schematic}
+The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+
+\href{}{CALSIM II schematic}
 }
 \keyword{datasets}
