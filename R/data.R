@@ -367,3 +367,37 @@
 #' }
 #'
 "return_flow"
+
+#' Proportion of Flow from Lower Sacramento River into the Central/South Delta
+#' @description A dataset containing the proportion of Lower Sacramento River flow into the Georgiana Slough and
+#' the Delta Cross Channel Gates. To be used for routing fish from the Lower Sacramento River into the Central/South delta
+#' in the SIT Salmon Lifecycle Model.
+#'
+#' @format dataframe with 984 rows and 3 variables:
+#' \describe{
+#' \item{date}{CALSIM II date}
+#' \item{propQdcc}{C401B / C400}
+#' }
+#'
+#' @details The Lower Sacramento River is represented using node CALSIM II 'FLOW-CHANNEL' C400 and the
+#' flow in the Georgiana Slough and the Delta Cross Channel Gates is node C401B.
+#'
+#' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
+#' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
+#' Fisheries Service. A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP operations
+#' were likely to jeopardize the continued existence of four federally- listed anadromous fish species:
+#' Sacramento River winter-run Chinook salmon, Central Valley spring-run Chinook salmon, California Central Valley
+#' steelhead, and the Southern distinct population segment of the North American green sturgeon. This CALSIM II
+#' run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
+#' More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
+#'
+#' \href{}{CALSIM II schematic}
+#'
+#' @source
+#' \itemize{
+#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
+#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
+#' }
+#'
+"propQdcc"

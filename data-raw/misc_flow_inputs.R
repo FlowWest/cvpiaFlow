@@ -52,3 +52,15 @@ upsacQ <- misc_flows %>%
 
 use_data(upsacQ)
 
+
+# propQdcc---------------------------
+# proportion of lower sac flow into georgiana slough and the delta cross channel
+propQdcc <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%
+  select(date = X2, C400, C401B) %>%
+  filter(!is.na(date)) %>%
+  mutate(date = dmy(date),
+         propQdcc = as.numeric(C401B) / as.numeric(C400)) %>%
+  select(date, propQdcc) %>%
+  filter(!is.na(propQdcc))
+
+use_data(propQdcc)
