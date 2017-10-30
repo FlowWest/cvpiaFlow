@@ -75,6 +75,6 @@ steelhead, and the Southern distinct population segment of the North American gr
 run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
 More information on CALSIM II is available \href{http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm}{here}
 
-\href{}{CALSIM II schematic}
+\href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
 }
 \keyword{datasets}
