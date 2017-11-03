@@ -55,12 +55,22 @@ use_data(upsacQ)
 
 # propQdcc---------------------------
 # proportion of lower sac flow into georgiana slough and the delta cross channel
-propQdcc <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%
-  select(date = X2, C400, C401B) %>%
+#  C400 flow at freeport
+# 1) daily discharge of the Sacramento River at Freeport
+# 2) an indicator variable for whether the DCC is open (1) or closed (0).
+delta_cross_channel_closed <- read_csv('data-raw/DeltaCrossChannelTypicalOperations.csv', skip = 2) %>%
+  mutate(Month = which(month.name == Month)) %>%
+  select(-Note)
+
+use_data(delta_cross_channel_closed)
+
+freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%
+  select(date = X2, C400) %>%
   filter(!is.na(date)) %>%
   mutate(date = dmy(date),
-         propQdcc = as.numeric(C401B) / as.numeric(C400)) %>%
-  select(date, propQdcc) %>%
-  filter(!is.na(propQdcc))
+         freeportQcfs = as.numeric(C400),
+         freeportQcms = cfs_to_cms(freeportQcfs)) %>%
+  select(date, freeportQcfs, freeportQcms) %>%
+  filter(!is.na(freeportQcfs))
 
-use_data(propQdcc)
+use_data(freeportQ)

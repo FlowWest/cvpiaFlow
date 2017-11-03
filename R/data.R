@@ -368,19 +368,18 @@
 #'
 "return_flow"
 
-#' Proportion of Flow from Lower Sacramento River into the Central/South Delta
-#' @description A dataset containing the proportion of Lower Sacramento River flow into the Georgiana Slough and
-#' the Delta Cross Channel Gates. To be used for routing fish from the Lower Sacramento River into the Central/South delta
-#' in the SIT Salmon Lifecycle Model.
+#' The Flow from Lower Sacramento River into the Central/South Delta
+#' @description A dataset containing the flow at Freeport Weir. To be used for routing fish from the Lower
+#' Sacramento River into the Central/South delta in the SIT Salmon Lifecycle Model.
 #'
-#' @format dataframe with 984 rows and 3 variables:
+#' @format dataframe with 996 rows and 3 variables:
 #' \describe{
 #' \item{date}{CALSIM II date}
-#' \item{propQdcc}{C401B / C400}
+#' \item{freeportQcfs}{C400 - flow in cubic feet per second}
+#' \item{freeportQcms}{C400 - flow in cubic meters per second}
 #' }
 #'
-#' @details The Lower Sacramento River is represented using node CALSIM II 'FLOW-CHANNEL' C400 and the
-#' flow in the Georgiana Slough and the Delta Cross Channel Gates is node C401B.
+#' @details The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400 and the
 #'
 #' The CALSIM II run is a Reclamation product used to replicate current operations for comparison
 #' with proposed adjustments under an ongoing Endangered Species Act consultation with the National Marine
@@ -400,4 +399,28 @@
 #'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
 #' }
 #'
-"propQdcc"
+"freeportQ"
+
+#' Delta Cross Channel Operations
+#' @description The number of days the Delta Cross Channel gates are closed for each month
+#' @format dataframe with 12 rows and 2 variables:
+#' \describe{
+#' \item{Month}{Integar representation of months}
+#' \item{Days Closed}{the number of days the delta cross channel gates are typically closed}
+#' }
+#' @details By rule, 45 days between November-January, based on real time monitoring.
+#' For modeling purposes, the days were divided evenly across the three months.
+#'
+#' Note: Some real-time changes possible based on:
+#' \itemize{
+#'  \item fish monitoring
+#'  \item interior delta salinity
+#'  \item flood operations
+#' }
+#'
+#' In May, typically open for Memorial Day.
+#'
+#' @source \href{http://www.westcoast.fisheries.noaa.gov/central_valley/water_operations/ocap.html}{2009 NMFS BiOp Action IV.1 and D-1641}
+#' Compiled by Mike Urkov \email{mike.urkov@@gmail.com}
+#'
+"delta_cross_channel_closed"

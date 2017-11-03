@@ -28,22 +28,24 @@ combined_flow_nodes <- c('C11305', 'C11301')
 all_nodes <- c(habitat_nodes, div_flow_nodes, diversion_nodes, delta_nodes, combined_flow_nodes, 'X2') %>% unique()
 
 pick_columns <- function(file, nodes) {
-  temp <- read_csv(paste0('data-raw/MikeWrightCalSimOct2017/', file), skip = 1)
-  ii <- names(temp) %in% nodes
-  cleaned <- temp[6:nrow(temp),ii] %>%
+  col_nm <- read_csv(paste0('data-raw/MikeWrightCalSimOct2017/', file), skip = 1) %>% names()
+  temp <- read_csv(paste0('data-raw/MikeWrightCalSimOct2017/', file), skip = 7, col_names = col_nm)
+
+  desired_nodes <- col_nm %in% nodes
+
+  cleaned <- temp %>%
+    select(col_nm[desired_nodes]) %>%
     rename(date = X2) %>%
-    mutate(date = dmy(date))
+    mutate(date = dmy(date)) %>%
+    filter(year(date) >= 1922, year(date) <= 2002)
   return(cleaned)
 }
 
 file_names <- list.files('data-raw/MikeWrightCalSimOct2017/', '*.csv')[-5]
 
-tt <- map_df(file_names, pick_columns, all_nodes)
-cvpia_calsim <- tt %>%
-  gather(node, flow, -date) %>%
-  filter(!is.na(flow)) %>%
-  mutate(flow = as.numeric(flow)) %>%
-  spread(node, flow)
+cvpia_calsim <- map_dfc(file_names, pick_columns, all_nodes) %>%
+  select(-date1, -date2, -date3, -date4, -date5, -date6)
+
 
 write_rds(cvpia_calsim, 'data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 

@@ -123,18 +123,26 @@ devtools::use_data(return_flow, overwrite = TRUE)
 return_flow %>%
   select(watershed, starts_with('198'), starts_with('199')) %>% View()
 
-# delta flows--------------------
+# delta flows and diversions --------------------
 # North Delta inflows: C400 + C157
 # South Delta inflow: C401B + C504 + C508 + C644
-delta_inflow <- cvpia_calsim %>%
-  select(date, C400, C157, C401B, C504, C508, C644) %>%
-  mutate(north_delta_inflow = C400 + C157,
-         south_delta_inflow = C401B + C504 + C508 + C644) %>%
-  filter(!is.na(north_delta_inflow)) %>%
-  select(date, north_delta_inflow, south_delta_inflow)
-
-
-
-
 # North Delta diversions: D403A + D403B + D403C + D403D + D404
-# South Delta diversions: D418 + D419 + D412 + D410 + D413 + 409B + D416 + D408_OR + D408_VC
+# South Delta diversions: D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC
+delta_flows <- cvpia_calsim %>%
+  select(date, C400, C157, C401B, C504, C508, C644, D403A, D403B, D403C, D403D,
+         D404, D418, D419, D412, D410, D413, D409B, D416, D408_OR, D408_VC) %>%
+  mutate(north_delta_inflow = C400 + C157,
+         south_delta_inflow = C401B + C504 + C508 + C644,
+         north_delta_div =  D403A + D403B + D403C + D403D + D404,
+         south_delta_div = D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC,
+         north_delta_prop_div = north_delta_div / north_delta_inflow,
+         south_delta_prop_div = south_delta_div / south_delta_inflow,
+         south_delta_prop_div = ifelse(south_delta_prop_div > 1, 1, south_delta_prop_div)) %>%
+  select(date, north_delta_inflow, south_delta_inflow,
+         north_delta_div, north_delta_prop_div,
+         south_delta_div, south_delta_prop_div)
+
+devtools::use_data(delta_flows)
+
+
+
