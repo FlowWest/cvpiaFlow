@@ -78,12 +78,11 @@ moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCon
   mutate(date = as_date(Date), `Mokelumne River` = C91) %>%
   select(date, `Mokelumne River`)
 
-flows <- flow %>%
+flow_cfs <- flow %>%
   left_join(moke) %>%
   select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
 
-
-use_data(flows)
+use_data(flows_cfs)
 
 # retQ----------------------------
 # proportion flows at tributary junction coming from natal watershed using october average flow
@@ -128,21 +127,33 @@ return_flow %>%
 # South Delta inflow: C401B + C504 + C508 + C644
 # North Delta diversions: D403A + D403B + D403C + D403D + D404
 # South Delta diversions: D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC
-delta_flows <- cvpia_calsim %>%
+delta_flows <- calsim %>%
   select(date, C400, C157, C401B, C504, C508, C644, D403A, D403B, D403C, D403D,
          D404, D418, D419, D412, D410, D413, D409B, D416, D408_OR, D408_VC) %>%
-  mutate(north_delta_inflow = C400 + C157,
-         south_delta_inflow = C401B + C504 + C508 + C644,
-         north_delta_div =  D403A + D403B + D403C + D403D + D404,
-         south_delta_div = D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC,
-         north_delta_prop_div = north_delta_div / north_delta_inflow,
-         south_delta_prop_div = south_delta_div / south_delta_inflow,
+  mutate(north_delta_inflow_cfs = C400 + C157,
+         south_delta_inflow_cfs = C401B + C504 + C508 + C644,
+         north_delta_inflow_cms = cfs_to_cms(north_delta_inflow_cfs),
+         south_delta_inflow_cms = cfs_to_cms(south_delta_inflow_cfs),
+         north_delta_div_cfs =  D403A + D403B + D403C + D403D + D404,
+         south_delta_div_cfs = D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC,
+         north_delta_div_cms = cfs_to_cms(north_delta_div_cfs),
+         south_delta_div_cms = cfs_to_cms(south_delta_div_cfs),
+         north_delta_prop_div = north_delta_div_cfs / north_delta_inflow_cfs,
+         south_delta_prop_div = south_delta_div_cfs / south_delta_inflow_cfs,
          south_delta_prop_div = ifelse(south_delta_prop_div > 1, 1, south_delta_prop_div)) %>%
-  select(date, north_delta_inflow, south_delta_inflow,
-         north_delta_div, north_delta_prop_div,
-         south_delta_div, south_delta_prop_div)
+  select(date,
+         north_delta_inflow_cfs,
+         south_delta_inflow_cfs,
+         north_delta_inflow_cms,
+         south_delta_inflow_cms,
+         north_delta_div_cfs,
+         south_delta_div_cfs,
+         north_delta_div_cms,
+         south_delta_div_cms,
+         north_delta_prop_div,
+         south_delta_prop_div)
 
-devtools::use_data(delta_flows)
+devtools::use_data(delta_flows, overwrite = TRUE)
 
 
 
