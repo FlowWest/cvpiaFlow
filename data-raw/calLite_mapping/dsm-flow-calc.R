@@ -325,5 +325,5 @@ delta_flow_cc <- Delta %>%
   select(date = cs_date, `North Delta`, `South Delta`) %>%
   filter(!is.na(date))
 
-use_data(delta_flow_cc)
-
+use_data(delta_flow)
+#use_data(delta_flow_cc)
