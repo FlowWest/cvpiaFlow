@@ -2,6 +2,7 @@ library(tidyverse)
 library(lubridate)
 library(devtools)
 library(readxl)
+library(stringr)
 
 calsim <- read_rds('data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
@@ -121,3 +122,19 @@ devtools::use_data(return_flow, overwrite = TRUE)
 
 return_flow %>%
   select(watershed, starts_with('198'), starts_with('199')) %>% View()
+
+# delta flows--------------------
+# North Delta inflows: C400 + C157
+# South Delta inflow: C401B + C504 + C508 + C644
+delta_inflow <- cvpia_calsim %>%
+  select(date, C400, C157, C401B, C504, C508, C644) %>%
+  mutate(north_delta_inflow = C400 + C157,
+         south_delta_inflow = C401B + C504 + C508 + C644) %>%
+  filter(!is.na(north_delta_inflow)) %>%
+  select(date, north_delta_inflow, south_delta_inflow)
+
+
+
+
+# North Delta diversions: D403A + D403B + D403C + D403D + D404
+# South Delta diversions: D418 + D419 + D412 + D410 + D413 + 409B + D416 + D408_OR + D408_VC

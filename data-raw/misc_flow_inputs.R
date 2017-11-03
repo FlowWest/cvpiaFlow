@@ -48,7 +48,7 @@ use_data(propQbypass)
 # flow at Bend C109, CALSIMII units cfs, sit-model units cms
 upsacQ <- misc_flows %>%
   select(date, upsacQcfs = C109) %>%
-  mutate(upsacQcms = upsacQcfs * 0.028316847)
+  mutate(upsacQcms = cvpiaFlow::cfs_to_cms(upsacQcfs))
 
 use_data(upsacQ)
 
