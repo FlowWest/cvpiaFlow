@@ -22,7 +22,7 @@ The number of days the Delta Cross Channel gates are closed for each month
 }
 \details{
 By rule, 45 days between November-January, based on real time monitoring.
-For modeling purposes, the days were divided evenly across the three months.
+For modeling purposes, the days closed where divided between December and January.
 
 Note: Some real-time changes possible based on:
 \itemize{

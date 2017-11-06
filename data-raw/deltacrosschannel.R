@@ -18,8 +18,11 @@ gate <- read_csv('data-raw/DeltaCrossChannelGateOperations.csv') %>%
 
 View(gate)
 
+# use 2009 and on, that is when biological opinion went into effect
+# double checking mike's rule set
+
 start_end_dates <- gate %>%
-  filter(year(Date) <= 1999) %>%
+  filter(year(Date) >= 2009) %>%
   mutate(opened = lag(Date),
          days_opened = as.numeric(Date - opened),
          month_opened = month(opened), month_closed = month(Date)) %>%
@@ -37,7 +40,7 @@ special_cases <- tibble(date = dates) %>%
   ungroup()
 
 days_opened <- gate %>%
-  filter(year(Date) <= 1999) %>%
+  filter(year(Date) >= 2009) %>%
   mutate(opened = lag(Date),
          days_opened = as.numeric(Date - opened),
          month_opened = month(opened), month_closed = month(Date),
@@ -60,10 +63,14 @@ days_opened %>%
 
 #by year
 days_opened %>%
-  mutate(month = factor(month, labels = month.abb[1:12])) %>%
+  mutate(month = factor(month, labels = month.abb[c(2, 5:12)])) %>%
   ggplot(aes(x = month, y = days_opened)) +
   geom_col() +
   facet_wrap(~year, ncol = 3) +
   theme_minimal()
 
-#issue: measured doesn't match up with info from Mike
+
+days_opened %>%
+  group_by(month) %>%
+  summarise(mean = mean(days_opened), med = median(days_opened),
+            min = min(days_opened), max = max(days_opened), total = n())

@@ -409,7 +409,7 @@
 #' \item{Days Closed}{the number of days the delta cross channel gates are typically closed}
 #' }
 #' @details By rule, 45 days between November-January, based on real time monitoring.
-#' For modeling purposes, the days were divided evenly across the three months.
+#' For modeling purposes, the days closed where divided between December and January.
 #'
 #' Note: Some real-time changes possible based on:
 #' \itemize{

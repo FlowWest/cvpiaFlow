@@ -62,7 +62,7 @@ delta_cross_channel_closed <- read_csv('data-raw/DeltaCrossChannelTypicalOperati
   mutate(Month = which(month.name == Month)) %>%
   select(-Note)
 
-use_data(delta_cross_channel_closed)
+devtools::use_data(delta_cross_channel_closed, overwrite = TRUE)
 
 freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%
   select(date = X2, C400) %>%
