@@ -254,13 +254,13 @@
 #' @format dataframe with 31 rows and 83 variables:
 #' \describe{
 #' \item{watershed}{31 CVPIA watersheds}
-#' \item{1921-10-31}{The modeled proportion flow for October 1921}
-#' \item{Years 1922 - 2001}{....}
-#' \item{2002-10-31}{The modeled proportion flow for October 2002}
+#' \item{date}{CALSIM II date}
+#' \item{retQ}{proportion of flow at tributary junction from natal watershed in October}
 #' }
 #'
-#' @details This dataset is formated with years as columns and each row containing all observations
-#' for one watershed.
+#' @details The return flow proportion is calculated using the average October flow in each watershed divided by the
+#' average October flow of the tributary it flows into for each year of the simulation. These tributary relationships
+#' are described in detail below.
 #'
 #'
 #' \strong{Flow into Upper-mid Sacramento River:}
@@ -348,8 +348,9 @@
 #' @description The number of days the Delta Cross Channel gates are closed for each month
 #' @format dataframe with 12 rows and 2 variables:
 #' \describe{
-#' \item{Month}{Integar representation of months}
-#' \item{Days Closed}{the number of days the delta cross channel gates are typically closed}
+#' \item{month}{Integar representation of months}
+#' \item{days_closed}{the number of days the delta cross channel gates are typically closed}
+#' \item{prop_days_closed}{the proportion of days during the month that the delta cross channel gates are typically closed}
 #' }
 #' @details By rule, 45 days between November-January, based on real time monitoring.
 #' For modeling purposes, the days closed where divided between December and January.

@@ -7,9 +7,8 @@
 \format{dataframe with 31 rows and 83 variables:
 \describe{
 \item{watershed}{31 CVPIA watersheds}
-\item{1921-10-31}{The modeled proportion flow for October 1921}
-\item{Years 1922 - 2001}{....}
-\item{2002-10-31}{The modeled proportion flow for October 2002}
+\item{date}{CALSIM II date}
+\item{retQ}{proportion of flow at tributary junction from natal watershed in October}
 }}
 \source{
 \itemize{
@@ -27,8 +26,9 @@ coming from natal watershed using October CALSIM II flows. These proportions are
 straying in the CVPIA SIT Salmon Population Model.
 }
 \details{
-This dataset is formated with years as columns and each row containing all observations
-for one watershed.
+The return flow proportion is calculated using the average October flow in each watershed divided by the
+average October flow of the tributary it flows into for each year of the simulation. These tributary relationships
+are described in detail below.
 
 
 \strong{Flow into Upper-mid Sacramento River:}

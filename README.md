@@ -1,5 +1,5 @@
 ## Modeled Flow Data for the CVPIA SIT Model
-*This data package contains modeled flows and diversions for each of the watersheds within the CVPIA salmon life cycle model.*
+*This data package contains modeled flow and diversion data for each of the watersheds within the Central Valley Project Improvement Act Salmon Life Cycle Model.*
 
 ### About the Models
 Output from two operational models are used to generate hydrologic inputs for the Salmon Population Model, Calite and CALSIM II. Both models replicate the operations of the Central Valley water system, with an emphasis on major reservoirs and diversions over a period of years. Calite is a simplified version of CALSIM, with fewer system nodes.   

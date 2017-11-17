@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -39,7 +39,7 @@
   <body>
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-standard navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -52,10 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../index.html"></a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -63,7 +60,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/flowwest/cvpiaFlow">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -90,9 +92,8 @@ straying in the CVPIA SIT Salmon Population Model.</p>
 
     <p>dataframe with 31 rows and 83 variables:</p><dl class='dl-horizontal'>
 <dt>watershed</dt><dd><p>31 CVPIA watersheds</p></dd>
-<dt>1921-10-31</dt><dd><p>The modeled proportion flow for October 1921</p></dd>
-<dt>Years 1922 - 2001</dt><dd><p>....</p></dd>
-<dt>2002-10-31</dt><dd><p>The modeled proportion flow for October 2002</p></dd>
+<dt>date</dt><dd><p>CALSIM II date</p></dd>
+<dt>retQ</dt><dd><p>proportion of flow at tributary junction from natal watershed in October</p></dd>
 </dl>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
@@ -105,8 +106,9 @@ straying in the CVPIA SIT Salmon Population Model.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This dataset is formated with years as columns and each row containing all observations
-for one watershed.</p>
+    <p>The return flow proportion is calculated using the average October flow in each watershed divided by the
+average October flow of the tributary it flows into for each year of the simulation. These tributary relationships
+are described in detail below.</p>
 <p><strong>Flow into Upper-mid Sacramento River:</strong></p><ul>
 <li><p>Upper Sacramento River</p></li>
 <li><p>Antelope Creek</p></li>

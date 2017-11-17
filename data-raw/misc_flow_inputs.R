@@ -1,6 +1,7 @@
 library(tidyverse)
 library(lubridate)
 library(devtools)
+library(CDECRetrieve)
 
 watersheds <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1) %>% select(order, watershed)
 
@@ -59,8 +60,8 @@ use_data(upsacQ)
 # 1) daily discharge of the Sacramento River at Freeport
 # 2) an indicator variable for whether the DCC is open (1) or closed (0).
 delta_cross_channel_closed <- read_csv('data-raw/DeltaCrossChannelTypicalOperations.csv', skip = 2) %>%
-  mutate(Month = which(month.name == Month)) %>%
-  select(-Note)
+  mutate(Month = which(month.name == Month), prop_days_closed = `Days Closed` / days_in_month(Month)) %>%
+  select(month = Month, days_closed = `Days Closed`, prop_days_closed)
 
 devtools::use_data(delta_cross_channel_closed, overwrite = TRUE)
 
@@ -74,3 +75,49 @@ freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1)
   filter(!is.na(freeportQcfs))
 
 use_data(freeportQ)
+
+# bypass over topped when stages above values:
+# fremont > 32 and tisdale > 45.5
+sac_stage_tisdale <- CDECRetrieve::cdec_query(stations = 'TIS', sensor_num = '1', dur_code = 'H',
+                         start_date = '1997-02-25', end_date = '2017-02-25')
+
+sac_stage_tisdale %>%
+  filter(!is.na(datetime)) %>%
+  mutate(date = as_date(datetime)) %>%
+  select(date, stage_ft = parameter_value) %>%
+  group_by(date) %>%
+  summarise(daily_stage_ft = mean(stage_ft, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(month = month(date), year = year(date),
+         overtopped = daily_stage_ft > 45.5) %>%
+  group_by(month, year) %>%
+  summarise(days_overtopped = sum(overtopped, na.rm = TRUE),
+            total_days = n()) %>%
+  ggplot(aes(x = as.factor(month), y = days_overtopped)) +
+  geom_boxplot() +
+  geom_jitter(size = .5, pch = 21, width = .2, height = 0) +
+  theme_minimal() +
+  labs(x = 'months', y = 'days tisdale overtopped') +
+  theme(text = element_text(size = 18))
+
+sac_stage_fremont <- CDECRetrieve::cdec_query(stations = 'FRE', sensor_num = '1', dur_code = 'H',
+                                              start_date = '1984-01-01', end_date = '2017-02-25')
+
+sac_stage_fremont %>%
+  filter(!is.na(datetime)) %>%
+  mutate(date = as_date(datetime)) %>%
+  select(date, stage_ft = parameter_value) %>%
+  group_by(date) %>%
+  summarise(daily_stage_ft = mean(stage_ft, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(month = month(date), year = year(date),
+         overtopped = daily_stage_ft > 32) %>%
+  group_by(month, year) %>%
+  summarise(days_overtopped = sum(overtopped, na.rm = TRUE),
+            total_days = n()) %>%
+  ggplot(aes(x = as.factor(month), y = days_overtopped)) +
+  geom_boxplot() +
+  geom_jitter(size = .5, pch = 21, width = .2, height = 0) +
+  theme_minimal() +
+  labs(x = 'months', y = 'days fremont overtopped') +
+  theme(text = element_text(size = 18))

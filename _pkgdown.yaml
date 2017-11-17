@@ -1,0 +1,40 @@
+title: cvpiaFlow
+url: https://flowwest.github.io/cvpiaFlow/
+template:
+  params:
+    bootswatch: paper
+
+home:
+  strip_header: false
+  links:
+  - text: Learn more about CVPIA
+    href: https://www.usbr.gov/mp/cvpia/
+
+reference:
+- title: Data Sets
+  desc: Flow related data sets used by the CVPIA Salmon Population Model
+  contents:
+  - flows_cfs
+  - delta_flows
+  - proportion_diverted
+  - total_diverted
+  - propQbypass
+  - return_flow
+  - upsacQ
+  - freeportQ
+   - delta_cross_channel_closed
+- title: Helpers
+  desc: Functions for convenience
+  contents:
+  - cfs_to_cms
+
+navbar:
+  type: standard
+  left:
+  - text: ~
+    href: index.html
+  - text: 'Reference'
+    href: reference/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/flowwest/cvpiaFlow

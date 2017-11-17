@@ -78,7 +78,7 @@ moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCon
   mutate(date = as_date(Date), `Mokelumne River` = C91) %>%
   select(date, `Mokelumne River`)
 
-flow_cfs <- flow %>%
+flows_cfs <- flow %>%
   left_join(moke) %>%
   select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
 
@@ -88,19 +88,19 @@ use_data(flows_cfs)
 # proportion flows at tributary junction coming from natal watershed using october average flow
 
 # create lookup vector for retQ denominators based on Jim's previous input
-denominators <- c(rep(watersheds$watershed[16], 16), NA, watersheds$watershed[19], watersheds$watershed[21], watersheds$watershed[19],
-                  watersheds$watershed[21], NA, rep(watersheds$watershed[24],2), watersheds$watershed[25:27], rep(watersheds$watershed[31],4))
+denominators <- c(rep(watersheds[16], 16), NA, watersheds[19], watersheds[21], watersheds[19],
+                  watersheds[21], NA, rep(watersheds[24],2), watersheds[25:27], rep(watersheds[31],4))
 
-names(denominators) <- watersheds$watershed
+names(denominators) <- watersheds
 
-dens <- flows %>%
+dens <- cvpiaFlow::flows_cfs %>%
   select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
   rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
   gather(watershed, flow, -date) %>%
   filter(month(date) == 10, watershed %in% unique(denominators)) %>%
   rename(denominator = watershed, den_flow = flow)
 
-return_flow <- flows %>%
+return_flow <- cvpiaFlow::flows_cfs %>%
   select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
   rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
   gather(watershed, flow, -date) %>%
@@ -109,13 +109,8 @@ return_flow <- flows %>%
   left_join(dens) %>%
   mutate(retQ = ifelse(flow / den_flow > 1, 1, flow / den_flow),
          retQ = replace(retQ, watershed %in% c('Calaveras River', 'Cosumnes River', 'Mokelumne River'), 1)) %>%
-  select(watershed, date, retQ) %>%
-  spread(date, retQ) %>%
-  left_join(watersheds) %>%
-  arrange(order) %>%
-  select(-order)
+  select(watershed, date, retQ)
 
-View(return_flow)
 
 devtools::use_data(return_flow, overwrite = TRUE)
 
