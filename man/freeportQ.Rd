@@ -25,7 +25,7 @@ A dataset containing the flow at Freeport Weir. To be used for routing fish from
 Sacramento River into the Central/South delta in the SIT Salmon Lifecycle Model.
 }
 \details{
-The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400 and the
+The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400.
 
 
 \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}

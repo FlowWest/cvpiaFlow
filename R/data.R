@@ -330,7 +330,7 @@
 #' \item{freeportQcms}{C400 - flow in cubic meters per second}
 #' }
 #'
-#' @details The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400 and the
+#' @details The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400.
 #'
 #'
 #' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
