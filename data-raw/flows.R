@@ -130,30 +130,27 @@ return_flow %>%
 delta_flows <- calsim %>%
   select(date, C400, C157, C401B, C504, C508, C644, D403A, D403B, D403C, D403D,
          D404, D418, D419, D412, D410, D413, D409B, D416, D408_OR, D408_VC) %>%
-  mutate(north_delta_inflow_cfs = C400 + C157,
-         south_delta_inflow_cfs = C401B + C504 + C508 + C644,
-         north_delta_inflow_cms = cfs_to_cms(north_delta_inflow_cfs),
-         south_delta_inflow_cms = cfs_to_cms(south_delta_inflow_cfs),
-         north_delta_div_cfs =  D403A + D403B + D403C + D403D + D404,
-         south_delta_div_cfs = D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC,
-         north_delta_div_cms = cfs_to_cms(north_delta_div_cfs),
-         south_delta_div_cms = cfs_to_cms(south_delta_div_cfs),
-         north_delta_prop_div = north_delta_div_cfs / north_delta_inflow_cfs,
-         south_delta_prop_div = south_delta_div_cfs / south_delta_inflow_cfs,
-         south_delta_prop_div = ifelse(south_delta_prop_div > 1, 1, south_delta_prop_div)) %>%
+  mutate(n_dlt_inflow_cfs = C400 + C157,
+         s_dlt_inflow_cfs = C401B + C504 + C508 + C644,
+         n_dlt_inflow_cms = cfs_to_cms(n_dlt_inflow_cfs),
+         s_dlt_inflow_cms = cfs_to_cms(s_dlt_inflow_cfs),
+         n_dlt_div_cfs =  D403A + D403B + D403C + D403D + D404,
+         s_dlt_div_cfs = D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC,
+         n_dlt_div_cms = cfs_to_cms(n_dlt_div_cfs),
+         s_dlt_div_cms = cfs_to_cms(s_dlt_div_cfs),
+         n_dlt_prop_div = n_dlt_div_cfs / n_dlt_inflow_cfs,
+         s_dlt_prop_div = s_dlt_div_cfs / s_dlt_inflow_cfs,
+         s_dlt_prop_div = ifelse(s_dlt_prop_div > 1, 1, s_dlt_prop_div)) %>%
   select(date,
-         north_delta_inflow_cfs,
-         south_delta_inflow_cfs,
-         north_delta_inflow_cms,
-         south_delta_inflow_cms,
-         north_delta_div_cfs,
-         south_delta_div_cfs,
-         north_delta_div_cms,
-         south_delta_div_cms,
-         north_delta_prop_div,
-         south_delta_prop_div)
+         n_dlt_inflow_cfs,
+         s_dlt_inflow_cfs,
+         n_dlt_inflow_cms,
+         s_dlt_inflow_cms,
+         n_dlt_div_cfs,
+         s_dlt_div_cfs,
+         n_dlt_div_cms,
+         s_dlt_div_cms,
+         n_dlt_prop_div,
+         s_dlt_prop_div)
 
 devtools::use_data(delta_flows, overwrite = TRUE)
-
-
-
