@@ -5,7 +5,6 @@ template:
     bootswatch: paper
 
 home:
-  strip_header: false
   links:
   - text: Learn more about CVPIA
     href: https://www.usbr.gov/mp/cvpia/
@@ -29,10 +28,8 @@ reference:
   - cfs_to_cms
 
 navbar:
-  type: standard
+  type: default
   left:
-  - text: ~
-    href: index.html
   - text: 'Reference'
     href: reference/index.html
   right:
