@@ -1,9 +1,27 @@
 -----
+<img src="cvpia_logo.png" align="right" width="40%"/>
 
 ### Modeled Flow Data for the CVPIA SIT Model
 
------
 *This data package contains modeled flow and diversion data for each of the watersheds within the Central Valley Project Improvement Act Salmon Life Cycle Model.*
+
+#### Installation
+
+``` r
+# install.packages("devtools")
+devtools::install_github("FlowWest/cvpiaFlow")
+```
+
+#### Usage
+This package provides flow related datasets to the [`cvpiaData`](https://flowwest.github.io/cvpiaData/) package.
+
+``` r
+# datasets within the package
+data(package = 'cvpiaFlow')
+
+# explore CALSIM II modeled flow mapped to CVPIA tributaries metadata
+?cvpiaFlow::flows_cfs
+```
 
 #### About the Models
 Output from two operational models are used to generate hydrologic inputs for the Salmon Population Model, Calite and CALSIM II. Both models replicate the operations of the Central Valley water system, with an emphasis on major reservoirs and diversions over a period of years. Calite is a simplified version of CALSIM, with fewer system nodes.   

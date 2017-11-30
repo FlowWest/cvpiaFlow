@@ -6,11 +6,13 @@ template:
 
 home:
   links:
-  - text: Learn more about CVPIA
+  - text: Fish and Wildlife Service's CVPIA website
+    href: https://www.fws.gov/lodi/anadromous_fish_restoration/afrp_index.htm
+  - text: Bureau of Reclamation's CVPIA website
     href: https://www.usbr.gov/mp/cvpia/
 
 reference:
-- title: Data Sets
+- title: CALSIM II Data Sets
   desc: Flow related data sets used by the CVPIA Salmon Population Model
   contents:
   - flows_cfs
