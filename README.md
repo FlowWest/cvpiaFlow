@@ -3,7 +3,7 @@
 
 ### Modeled Flow Data for the CVPIA SIT Model
 
-*This data package contains modeled flow and diversion data for each of the watersheds within the Central Valley Project Improvement Act Salmon Life Cycle Model.*
+*This data package contains modeled flow and diversion data for each of the watersheds within the CVPIA SIT Salmon Life Cycle Model.*
 
 #### Installation
 
