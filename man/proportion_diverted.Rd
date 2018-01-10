@@ -51,7 +51,7 @@ proportion_diverted
 }
 \description{
 A dataset containing the proportion of flow diverted within watersheds for
-use with the CVPIA Science Integration Team Decision Support Model.
+use with the CVPIA SIT Salmon Population Model.
 }
 \details{
 The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
@@ -61,7 +61,9 @@ The diversions of Antelope Creek, Deer Creek and Mill Creek are represented by o
 Diversions for these creeks were estimated in proportion to their flow. Elder Creek and Thomes Creek
 are also represented with a single node and their diversions were estimated using the same method.
 
-*Mokelumne River flow and diversions are from a separate model provided by EBMUD.
+
+\emph{*Mokelumne River flow and diversions are from a separate model provided by EBMUD.}
+
 
 \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
 }

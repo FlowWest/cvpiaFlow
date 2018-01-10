@@ -1,6 +1,6 @@
 #' Total Flow Diverted
 #' @description A dataset containing the diverted flow in cfs within watersheds for
-#' use with the CVPIA Science Integration Team Decision Support Model.
+#' use with the CVPIA SIT Salmon Population Model.
 #'
 #' @format dataframe with 985 rows and 32 variables:
 #' \describe{
@@ -45,7 +45,8 @@
 #' Diversions for these creeks were estimated in proportion to their flow. Elder Creek and Thomes Creek
 #' are also represented with a single node and their diversions were estimated using the same method.
 #'
-#' *Mokelumne River flow and diversions are from a separate model provided by EBMUD.
+#'
+#' \emph{*Mokelumne River flow and diversions are from a separate model provided by EBMUD.}
 #'
 #'
 #' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
@@ -61,7 +62,7 @@
 
 #' Proportion of Flow Diverted
 #' @description A dataset containing the proportion of flow diverted within watersheds for
-#' use with the CVPIA Science Integration Team Decision Support Model.
+#' use with the CVPIA SIT Salmon Population Model.
 #'
 #' @format dataframe with 985 rows and 32 variables:
 #' \describe{
@@ -106,7 +107,9 @@
 #' Diversions for these creeks were estimated in proportion to their flow. Elder Creek and Thomes Creek
 #' are also represented with a single node and their diversions were estimated using the same method.
 #'
-#' *Mokelumne River flow and diversions are from a separate model provided by EBMUD.
+#'
+#' \emph{*Mokelumne River flow and diversions are from a separate model provided by EBMUD.}
+#'
 #'
 #' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
 #'
@@ -121,7 +124,7 @@
 
 #' Flow in cfs
 #' @description A dataset containing the flow in cubic feet per second within watersheds for
-#' use with the CVPIA Science Integration Team Decision Support Model to develope habitat inputs.
+#' use with the CVPIA SIT Salmon Population Model to develope habitat inputs.
 #'
 #' @format dataframe with 985 rows and 33 variables:
 #' \describe{
@@ -168,8 +171,11 @@
 #' sum them proportion to the length of stream above and below the weir:
 #' \deqn{35.6/58 * (habitat at C134) + 22.4/58 * (habitat at C160)}
 #'
-#' *Because there are no modeled flows at Bear Creek, flows at Paynes Creek are used
-#' **Mokelumne River flow is from a separate model provided by EBMUD.
+#'
+#' \emph{*Because there are no modeled flows at Bear Creek, flows at Paynes Creek are used}
+#'
+#'
+#' \emph{**Mokelumne River flow is from a separate model provided by EBMUD.}
 #'
 #'
 #' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
@@ -185,7 +191,7 @@
 
 #' Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses
 #' @description A dataset containing the proportion of Sacramento River flow within the bypasses for
-#' use with the CVPIA Science Integration Team Decision Support Model to apportion fish onto the bypasses.
+#' use with the CVPIA SIT Salmon Population Model to apportion fish onto the bypasses.
 #'
 #' @format dataframe with 984 rows and 9 variables:
 #' \describe{
@@ -204,11 +210,12 @@
 #' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 #' The nodes and calculation for each watershed are outlined above.
 #'
+#'
 #' \strong{Model Usage:}
-#'
-#' Option 1 - propQyolo and propQsutter represent the proportion of flow as a single value for the bypasses
-#'
-#' Option 2 - use the numbered propQ columns to represent the proportion of flow at each weir
+#' \enumerate{
+#'   \item propQyolo and propQsutter represent the proportion of flow as a single value for the bypasses
+#'   \item use the numbered propQ columns to represent the proportion of flow at each weir
+#' }
 #'
 #'
 #' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
@@ -321,7 +328,7 @@
 
 #' The Flow from Lower Sacramento River into the Central/South Delta
 #' @description A dataset containing the flow at Freeport Weir. To be used for routing fish from the Lower
-#' Sacramento River into the Central/South delta in the SIT Salmon Lifecycle Model.
+#' Sacramento River into the Central/South delta in the SIT Salmon Population Model.
 #'
 #' @format dataframe with 996 rows and 3 variables:
 #' \describe{
@@ -373,10 +380,6 @@
 #' Delta Flows and Diversions
 #' @description A dataset containing the inflow, total diversions, and proportion diverted for the North and South Deltas.
 #'
-#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
-#'
-#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-#' below Vernalis.
 #'
 #' @format dataframe with 972 rows and 11 variables:
 #' \describe{
@@ -395,7 +398,10 @@
 #'
 #' @details The inflow, diversions, and proportions diverted in the North and South Deltas are represented using
 #' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
-#' The nodes and calculation for each watershed are outlined above.
+#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
+#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
+#' below Vernalis. The nodes and calculation for each delta are outlined above.
+#'
 #'
 #' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
 #'

@@ -28,18 +28,19 @@ propQbypass
 }
 \description{
 A dataset containing the proportion of Sacramento River flow within the bypasses for
-use with the CVPIA Science Integration Team Decision Support Model to apportion fish onto the bypasses.
+use with the CVPIA SIT Salmon Population Model to apportion fish onto the bypasses.
 }
 \details{
 The proportions of Sacramento River flowing through the bypasses are represented using
 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 The nodes and calculation for each watershed are outlined above.
 
+
 \strong{Model Usage:}
-
-Option 1 - propQyolo and propQsutter represent the proportion of flow as a single value for the bypasses
-
-Option 2 - use the numbered propQ columns to represent the proportion of flow at each weir
+\enumerate{
+  \item propQyolo and propQsutter represent the proportion of flow as a single value for the bypasses
+  \item use the numbered propQ columns to represent the proportion of flow at each weir
+}
 
 
 \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}

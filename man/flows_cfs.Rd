@@ -52,7 +52,7 @@ flows_cfs
 }
 \description{
 A dataset containing the flow in cubic feet per second within watersheds for
-use with the CVPIA Science Integration Team Decision Support Model to develope habitat inputs.
+use with the CVPIA SIT Salmon Population Model to develope habitat inputs.
 }
 \details{
 The flow is represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
@@ -63,8 +63,11 @@ When calculating habitat for the Lower-Mid Sacramento river, calculate the habit
 sum them proportion to the length of stream above and below the weir:
 \deqn{35.6/58 * (habitat at C134) + 22.4/58 * (habitat at C160)}
 
-*Because there are no modeled flows at Bear Creek, flows at Paynes Creek are used
-**Mokelumne River flow is from a separate model provided by EBMUD.
+
+\emph{*Because there are no modeled flows at Bear Creek, flows at Paynes Creek are used}
+
+
+\emph{**Mokelumne River flow is from a separate model provided by EBMUD.}
 
 
 \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}

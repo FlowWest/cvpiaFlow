@@ -22,7 +22,7 @@ freeportQ
 }
 \description{
 A dataset containing the flow at Freeport Weir. To be used for routing fish from the Lower
-Sacramento River into the Central/South delta in the SIT Salmon Lifecycle Model.
+Sacramento River into the Central/South delta in the SIT Salmon Population Model.
 }
 \details{
 The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400.
