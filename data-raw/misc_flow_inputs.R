@@ -54,8 +54,7 @@ upsacQ <- misc_flows %>%
 use_data(upsacQ)
 
 
-# propQdcc---------------------------
-# proportion of lower sac flow into georgiana slough and the delta cross channel
+
 #  C400 flow at freeport
 # 1) daily discharge of the Sacramento River at Freeport
 # 2) an indicator variable for whether the DCC is open (1) or closed (0).
