@@ -145,13 +145,11 @@
 #' \item{Stony Creek}{C142A}
 #' \item{Thomes Creek}{C11304}
 #' \item{Upper-mid Sacramento River}{C115}
-#' \item{Sutter Bypass}{D117 + D124 + D125 + D126}
 #' \item{Bear River}{C285}
 #' \item{Feather River}{C203}
 #' \item{Yuba River}{C230}
 #' \item{Lower-mid Sacramento River1}{C134}
 #' \item{Lower-mid Sacramento River2}{C160}
-#' \item{Yolo Bypass}{C157}
 #' \item{American River}{C9}
 #' \item{Lower Sacramento River}{C166}
 #' \item{Calaveras River}{C92}
@@ -165,6 +163,10 @@
 #'
 #' @details The flow is represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 #' The nodes and calculation for each watershed are outlined above.
+#'
+#' The Sutter and Yolo Bypasses' flows are stored in a seperate dataset
+#' \code{\link{bypass_flows}} to enable the habitat segmentation in the bypasses
+#' according to weir locations.
 #'
 #' The Lower-mid Sacramento River has two nodes, one above Fremont Weir (C134) and one below (C160).
 #' When calculating habitat for the Lower-Mid Sacramento river, calculate the habitat at each flow node and
@@ -228,6 +230,42 @@
 #' }
 #'
 "propQbypass"
+
+#' Flow through the Sutter and Yolo Bypasses
+#' @description A dataset containing the flow within the bypasses for
+#' estimating available rearing habitat within the bypasses.
+#'
+#' @format dataframe with 972 rows and 7 variables:
+#' \describe{
+#' \item{date}{CALSIM II date}
+#' \item{sutter1}{D117}
+#' \item{sutter2}{C135}
+#' \item{sutter3}{C136A}
+#' \item{sutter4}{C137}
+#' \item{yolo1}{D160}
+#' \item{yolo2}{C157}
+#' }
+#'
+#' @details The flow in cubic feet per second through the bypasses are represented using
+#' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
+#' The nodes for each watershed are outlined above.
+#'
+#'
+#' @section Model Usage:
+#' The habitat within the bypasses are split at the major weirs.
+#'
+#'
+#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
+#'
+#' @source
+#' \itemize{
+#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
+#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
+#' }
+#'
+"bypass_flows"
+
 
 #' Upper Sacramento River Flow
 #' @description A dataset containing the Upper Sacramento River flow in cfs and cms

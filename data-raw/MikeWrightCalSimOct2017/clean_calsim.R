@@ -24,8 +24,10 @@ delta_nodes <- c('C400', 'C157', 'C401B', 'C504', 'C508', 'C644', 'D403A', 'D403
 
 combined_flow_nodes <- c('C11305', 'C11301')
 
+bypass_nodes <- c('D117', 'C135', 'C136A', 'C137', 'D160', 'D165A')
+
 #combine all nodes to select columns
-all_nodes <- c(habitat_nodes, div_flow_nodes, diversion_nodes, delta_nodes, combined_flow_nodes, 'X2') %>% unique()
+all_nodes <- c(habitat_nodes, div_flow_nodes, diversion_nodes, delta_nodes, combined_flow_nodes, bypass_nodes, 'X2') %>% unique()
 
 pick_columns <- function(file, nodes) {
   col_nm <- read_csv(paste0('data-raw/MikeWrightCalSimOct2017/', file), skip = 1) %>% names()

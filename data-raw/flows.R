@@ -33,13 +33,11 @@ flow <- flow_calsim %>%
          `Stony Creek` = C142A,
          `Thomes Creek` = C11304,
          `Upper-mid Sacramento River` = C115,
-         `Sutter Bypass` = D117 + D124 + D125 + D126,
          `Bear River` = C285,
          `Feather River` = C203,
          `Yuba River` = C230,
          `Lower-mid Sacramento River1` = C134, # low-mid habitat = 35.6/58*habitat(C134) + 22.4/58*habitat(C160),
          `Lower-mid Sacramento River2` = C160,
-         `Yolo Bypass` = C157,
          `American River` = C9,
          `Lower Sacramento River` = C166,
          `Calaveras River` = C92,
@@ -82,7 +80,7 @@ flows_cfs <- flow %>%
   left_join(moke) %>%
   select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
 
-use_data(flows_cfs)
+use_data(flows_cfs, overwrite = TRUE)
 
 # retQ----------------------------
 # proportion flows at tributary junction coming from natal watershed using october average flow
@@ -149,3 +147,34 @@ delta_flows <- calsim %>%
          s_dlt_prop_div)
 
 devtools::use_data(delta_flows, overwrite = TRUE)
+
+# bypasses ------------
+# habitat flow
+bypass_flows <- calsim %>%
+  select(date,
+         sutter1 = D117,
+         sutter2 = C135,
+         sutter3 = C136A,
+         sutter4 = C137,
+         yolo1 = D160,
+         yolo2 = C157) %>%
+  mutate(sutter2 = sutter2 + sutter1,
+         sutter3 = sutter3 + sutter2,
+         sutter4 = sutter4 + sutter3,
+         yolo2 = yolo2 + yolo1)
+
+devtools::use_data(bypass_flows, overwrite = TRUE)
+
+# bypass overtopped --------------------
+# TODO resolve always overtopped
+calsim %>%
+  mutate(sutter = D117 + D124 + D125 + D126 + C137,
+         yolo = D160 + C157) %>%
+  select(date, sutter, yolo) %>%
+  filter(between(year(date), 1979, 1999)) %>%
+  gather(bypass, flow, - date) %>%
+  ggplot(aes(x = flow, color = bypass)) +
+  geom_density() +
+  theme_minimal() +
+  scale_x_log10()
+

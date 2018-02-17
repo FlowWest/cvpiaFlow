@@ -23,13 +23,11 @@
 \item{Stony Creek}{C142A}
 \item{Thomes Creek}{C11304}
 \item{Upper-mid Sacramento River}{C115}
-\item{Sutter Bypass}{D117 + D124 + D125 + D126}
 \item{Bear River}{C285}
 \item{Feather River}{C203}
 \item{Yuba River}{C230}
 \item{Lower-mid Sacramento River1}{C134}
 \item{Lower-mid Sacramento River2}{C160}
-\item{Yolo Bypass}{C157}
 \item{American River}{C9}
 \item{Lower Sacramento River}{C166}
 \item{Calaveras River}{C92}
@@ -57,6 +55,10 @@ use with the CVPIA SIT Salmon Population Model to develope habitat inputs.
 \details{
 The flow is represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
 The nodes and calculation for each watershed are outlined above.
+
+The Sutter and Yolo Bypasses' flows are stored in a seperate dataset
+\code{\link{bypass_flows}} to enable the habitat segmentation in the bypasses
+according to weir locations.
 
 The Lower-mid Sacramento River has two nodes, one above Fremont Weir (C134) and one below (C160).
 When calculating habitat for the Lower-Mid Sacramento river, calculate the habitat at each flow node and
