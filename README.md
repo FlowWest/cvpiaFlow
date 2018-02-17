@@ -38,7 +38,8 @@ A current NMFS Biological Opinion concluded that, as proposed, CVP and SWP opera
 
 This CALSIM II run was used as the basis of comparison for other potential operations that could offset impacts to listed species.
 
-[More information on Calite](https://www.goldsim.com/Web/Applications/ExampleApplications/EnvironmentalExamples/CentralValley/) [More information on CALSIM II](http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm)    
+[More information on Calite](https://www.goldsim.com/Web/Applications/ExampleApplications/EnvironmentalExamples/CentralValley/)    
+[More information on CALSIM II](http://baydeltaoffice.water.ca.gov/modeling/hydrology/CalSim/index.cfm)    
 [CALSIM II Schematic](https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg)  
 [More information on the Basin Studies](https://www.usbr.gov/watersmart/bsp/completed.html)  
 
