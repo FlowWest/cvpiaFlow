@@ -166,7 +166,6 @@ bypass_flows <- calsim %>%
 devtools::use_data(bypass_flows, overwrite = TRUE)
 
 # bypass overtopped --------------------
-# TODO resolve always overtopped
 # overtopped is > 100 cfs
 bypass_overtopped <- calsim %>%
   mutate(sutter = D117 + D124 + D125 + D126 + C137,
