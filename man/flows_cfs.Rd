@@ -50,7 +50,7 @@ flows_cfs
 }
 \description{
 A dataset containing the flow in cubic feet per second within watersheds for
-use with the CVPIA SIT Salmon Population Model to develope habitat inputs.
+use with the CVPIA SIT Salmon Population Model to develop habitat inputs.
 }
 \details{
 The flow is represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.

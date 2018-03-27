@@ -124,7 +124,7 @@
 
 #' Flow in cfs
 #' @description A dataset containing the flow in cubic feet per second within watersheds for
-#' use with the CVPIA SIT Salmon Population Model to develope habitat inputs.
+#' use with the CVPIA SIT Salmon Population Model to develop habitat inputs.
 #'
 #' @format dataframe with 985 rows and 33 variables:
 #' \describe{
