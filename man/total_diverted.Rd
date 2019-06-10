@@ -27,7 +27,7 @@
 \item{Bear River}{D285}
 \item{Feather River}{(D201 + D202 + D7A + D7B)}
 \item{Yuba River}{D230}
-\item{Lower-mid Sacramento River}{(D129A + D134 + D162 + D163 + D165)}
+\item{Lower-mid Sacramento River}{(D129A + D134 + D162 + D165)}
 \item{Yolo Bypass}{no modeled diversions}
 \item{American River}{D302}
 \item{Lower Sacramento River}{(D167 + D168 + D168A_WTS)}
