@@ -1,4 +1,7 @@
 library(tidyverse)
+library(devtools)
+library(readxl)
+library(lubridate)
 
 calsim <- read_rds('data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
@@ -45,7 +48,7 @@ temp_diver <- div_calsim %>%
          `Bear River` = D285,
          `Feather River` = (D201 + D202 + D7A + D7B),
          `Yuba River` = D230,
-         `Lower-mid Sacramento River` = (D129A + D134 + D162 + D163 + D165),
+         `Lower-mid Sacramento River` = (D129A + D134 + D162 + D165),
          `Yolo Bypass` = NA,
          `American River` = D302,
          `Lower Sacramento River` = (D167 + D168 + D168A_WTS),
@@ -96,7 +99,7 @@ temp_diver <- div_calsim %>%
          `Bear River` = D285 / (C285 + D285),
          `Feather River` = (D201 + D202 + D7A + D7B) / C6,
          `Yuba River` = D230 / (C230 + D230),
-         `Lower-mid Sacramento River` = (D129A + D134 + D162 + D163 + D165) / C128, # D165A does not exist
+         `Lower-mid Sacramento River` = (D129A + D134 + D162 + D165) / C128, # D165A does not exist
          `Yolo Bypass` = NA,
          `American River` = D302 / C9,
          `Lower Sacramento River` = (D167 + D168 + D168A_WTS) / C166,

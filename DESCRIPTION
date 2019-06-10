@@ -1,7 +1,7 @@
 Package: cvpiaFlow
 Type: Package
 Title: Modeled Flow Data for the CVPIA SIT Model
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person("Sadie", "Gill", email = "sgill@flowwest.com", role = c("aut", "cre")), 
     person("Mark", "Tompkins", email = "mtompkins@flowwest.com", role = "aut"),
