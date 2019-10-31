@@ -171,10 +171,10 @@ bypass_overtopped <- calsim %>%
   mutate(sutter = D117 + D124 + D125 + D126 + C137,
          yolo = D160 + C157) %>%
   select(date, sutter, yolo) %>%
-  filter(between(year(date), 1979, 1999)) %>%
+  filter(between(year(date), 1979, 2000)) %>%
   gather(bypass, flow, - date) %>%
   mutate(overtopped = flow >= 100) %>%
   select(-flow) %>%
   spread(bypass, overtopped)
 
-use_data(bypass_overtopped)
+use_data(bypass_overtopped, overwrite = TRUE)
