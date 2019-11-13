@@ -6,7 +6,7 @@ library(CDECRetrieve)
 watersheds <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1) %>% select(order, watershed)
 
 cs <- read_csv('data-raw/MikeWrightCalSimOct2017/C1_C169.csv', skip = 1) %>%
-  select(date = X2, C134, C165, C116, C123, C124, C125, C109) %>%
+  select(date = X2, C134, C165, C116, C123, C124, C125, C109, C137, C160) %>%
   filter(!is.na(date)) %>%
   mutate(date = dmy(date))
 
@@ -33,8 +33,8 @@ names(misc_flows)
 # option 2: sutter 1 - D117/C116 & sutter2 - D124/C123 & sutter3 - D125/C124 & sutter4 - D126/C125
 
 propQbypass <- misc_flows %>%
-  mutate(propQyolo = D160/C134,
-         propQyolo1 = D160/C134,
+  mutate(propQyolo = D160/(D160 + C160),
+         propQyolo1 = D160/(D160 + C160),
          propQyolo2 = D166A/C165,
          propQsutter = (D117 + D124 + D125 + D126)/C116,
          propQsutter1 = D117/C116,
@@ -43,7 +43,13 @@ propQbypass <- misc_flows %>%
          propQsutter4 = D126/C125) %>%
   select(date, starts_with('propQ'))
 
-use_data(propQbypass)
+propQbypass %>%
+  filter_at(vars(starts_with("prop")), any_vars(. > 1))
+
+
+propQbypass %>% arrange(desc(propQyolo))
+
+use_data(propQbypass, overwrite = TRUE)
 
 # upsacQ--------------------------
 # flow at Bend C109, CALSIMII units cfs, sit-model units cms

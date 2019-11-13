@@ -198,8 +198,8 @@
 #' @format dataframe with 984 rows and 9 variables:
 #' \describe{
 #' \item{date}{CALSIM II date}
-#' \item{propQyolo}{D160/C134}
-#' \item{propQyolo1}{D160/C134}
+#' \item{propQyolo}{D160/(D160 + C160)}
+#' \item{propQyolo1}{D160/(D160 + C160)}
 #' \item{propQyolo2}{D166A/C165}
 #' \item{propQsutter}{(D117 + D124 + D125 + D126)/C116}
 #' \item{propQsutter1}{D117/C116}
