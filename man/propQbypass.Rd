@@ -4,7 +4,8 @@
 \name{propQbypass}
 \alias{propQbypass}
 \title{Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses}
-\format{dataframe with 984 rows and 9 variables:
+\format{
+dataframe with 984 rows and 9 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{propQyolo}{D160/C134}
@@ -15,7 +16,8 @@
 \item{propQsutter2}{D124/C123}
 \item{propQsutter3}{D125/C124}
 \item{propQsutter4}{D126/C125}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

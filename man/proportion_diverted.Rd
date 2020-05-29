@@ -4,7 +4,8 @@
 \name{proportion_diverted}
 \alias{proportion_diverted}
 \title{Proportion of Flow Diverted}
-\format{dataframe with 985 rows and 32 variables:
+\format{
+dataframe with 985 rows and 32 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{Upper Sacramento River}{D104 / C104}
@@ -38,7 +39,8 @@
 \item{Stanislaus River}{D528 / C520}
 \item{Tuolumne River}{D545 / C540}
 \item{San Joaquin River}{(D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

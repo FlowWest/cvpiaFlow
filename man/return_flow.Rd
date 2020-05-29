@@ -4,12 +4,14 @@
 \name{return_flow}
 \alias{return_flow}
 \title{Return Flow}
-\format{dataframe with 31 rows and 83 variables:
+\format{
+dataframe with 31 rows and 83 variables:
 \describe{
 \item{watershed}{31 CVPIA watersheds}
 \item{date}{CALSIM II date}
 \item{retQ}{proportion of flow at tributary junction from natal watershed in October}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

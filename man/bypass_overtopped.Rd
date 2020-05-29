@@ -4,12 +4,14 @@
 \name{bypass_overtopped}
 \alias{bypass_overtopped}
 \title{Sutter and Yolo Bypasses Overtopped}
-\format{dataframe with 252 rows and 3 variables:
+\format{
+dataframe with 252 rows and 3 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{sutter}{TRUE if D117 + D124 + D125 + D126 + C137 >= 100 cfs}
 \item{yolo}{TRUE if D160 + C157 >= 100 cfs}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

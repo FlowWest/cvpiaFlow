@@ -4,12 +4,14 @@
 \name{freeportQ}
 \alias{freeportQ}
 \title{The Flow from Lower Sacramento River into the Central/South Delta}
-\format{dataframe with 996 rows and 3 variables:
+\format{
+dataframe with 996 rows and 3 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{freeportQcfs}{C400 - flow in cubic feet per second}
 \item{freeportQcms}{C400 - flow in cubic meters per second}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

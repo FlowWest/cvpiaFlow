@@ -4,7 +4,8 @@
 \name{total_diverted}
 \alias{total_diverted}
 \title{Total Flow Diverted}
-\format{dataframe with 985 rows and 32 variables:
+\format{
+dataframe with 985 rows and 32 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{Upper Sacramento River}{D104}
@@ -38,7 +39,8 @@
 \item{Stanislaus River}{D528}
 \item{Tuolumne River}{D545}
 \item{San Joaquin River}{(D637 + D630B + D630A + D620B)}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

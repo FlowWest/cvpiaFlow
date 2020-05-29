@@ -4,12 +4,14 @@
 \name{upsacQ}
 \alias{upsacQ}
 \title{Upper Sacramento River Flow}
-\format{dataframe with 984 rows and 3 variables:
+\format{
+dataframe with 984 rows and 3 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{upsacQcfs}{C109, flow in cfs}
 \item{upsacQcms}{C109, flow in cms}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}
