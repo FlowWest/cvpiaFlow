@@ -1,0 +1,242 @@
+library(dplyr)
+library(tidyr)
+library(lubridate)
+#' Generate SIT Model Compatible Array
+#' @description transforms to array data structure for SIT model input
+#' @name create_Sit_array
+#' @param input a vector of data, length = 252 for 12 months and 20 years of data
+#' @return 3 dimension array [location, month, year]
+#' @export
+create_SIT_array <- function(input) {
+
+  output <- array(NA, dim = c(nrow(input), 12, ncol(input) / 12))
+  index <-  1
+  for (i in seq(1, ncol(input), 12)) {
+    output[ , , index] <- as.matrix(input[ , i:(i + 11)])
+    index <- index + 1
+  }
+  return(output)
+
+}
+
+# using bypass node that is activated the most for meanQ
+bypass <- cvpiaFlow::bypass_flows %>%
+  select(date, `Sutter Bypass` = sutter4, `Yolo Bypass` = yolo2)
+
+meanQ <- cvpiaFlow::flows_cfs %>%
+  left_join(bypass) %>%
+  filter(between(year(date), 1980, 2000)) %>%
+  gather(watershed, flow_cfs, -date) %>%
+  filter(watershed != 'Lower-mid Sacramento River1') %>%
+  mutate(flow_cms = cvpiaFlow::cfs_to_cms(flow_cfs),
+         watershed = ifelse(watershed == 'Lower-mid Sacramento River2', 'Lower-mid Sacramento River', watershed)) %>%
+  select(-flow_cfs) %>%
+  spread(date, flow_cms) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  create_SIT_array()
+
+dim(meanQ) # 21 years
+
+# usethis::use_data(meanQ, overwrite = TRUE)
+
+prop_diversion <- cvpiaFlow::proportion_diverted %>%
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  gather(watershed, prop_diver, -date) %>%
+  mutate(prop_diver = ifelse(is.na(prop_diver), 0, prop_diver)) %>%
+  spread(date, prop_diver) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  create_SIT_array()
+
+dim(prop_diversion)
+
+# usethis::use_data(prop_diversion, overwrite = TRUE)
+
+total_diversion <- cvpiaFlow::total_diverted %>%
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  gather(watershed, tot_diver, -date) %>%
+  mutate(tot_diver = ifelse(is.na(tot_diver), 0, tot_diver)) %>%
+  spread(date, tot_diver) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  create_SIT_array()
+
+dim(total_diversion)
+
+# usethis::use_data(total_diversion, overwrite = TRUE)
+
+# bypass flows for rearing habitat
+bp_pf <- cvpiaFlow::propQbypass %>%
+  select(-propQyolo, -propQsutter) %>%
+  filter(between(year(date), 1980, 2000)) %>%
+  gather(bypass, flow, -date) %>%
+  spread(date, flow)
+
+bypass_prop_Q <- array(NA, dim = c(12, 21, 6))
+for (i in 1:6) {
+  bypass_prop_Q[ , , i] <- as.matrix(bp_pf[i, -1])
+}
+
+dim(bypass_prop_Q)
+
+# usethis::use_data(bypass_prop_Q, overwrite = TRUE)
+
+returnQ <- cvpiaFlow::return_flow %>%
+  mutate(year = year(date)) %>%
+  filter(year >= 1979, year <= 2000) %>%
+  select(watershed, year, retQ) %>%
+  mutate(retQ = ifelse(is.na(retQ), 0, retQ)) %>%
+  spread(year, retQ) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-order)
+
+# usethis::use_data(returnQ, overwrite = TRUE)
+
+upsac_flow <- cvpiaFlow::upsacQ %>%
+  mutate(year = year(date), month = month(date)) %>%
+  filter(year >= 1980, year <= 2000) %>%
+  select(-date, -upsacQcfs) %>%
+  spread(year, upsacQcms) %>%
+  select(-month)
+
+# usethis::use_data(upsac_flow, overwrite = TRUE)
+
+d <- 1:12
+names(d) <- month.name
+
+# yolo and sutter(includes tisdale) overtopping
+# flow in bypass for adults is 1
+# bypass_over_top <-
+bpo <- cvpiaFlow::bypass_overtopped %>%
+  gather(bypass, overtopped, -date) %>%
+  spread(date, overtopped)
+
+sutter_overtopped <- cvpiaFlow::bypass_overtopped %>%
+  filter(between(year(date), 1980, 1999)) %>%
+  gather(bypass, overtopped, -date) %>%
+  filter(bypass == "sutter") %>%
+  mutate(month = month(date),
+         year = year(date)) %>%
+  select(-date, -bypass) %>%
+  spread(year, overtopped) %>%
+  arrange(month) %>%
+  select(-month) %>%
+  as.matrix()
+
+yolo_overtopped <- cvpiaFlow::bypass_overtopped %>%
+  filter(between(year(date), 1980, 1999)) %>%
+  gather(bypass, overtopped, -date) %>%
+  filter(bypass == "yolo") %>%
+  mutate(month = month(date),
+         year = year(date)) %>%
+  select(-date, -bypass) %>%
+  spread(year, overtopped) %>%
+  arrange(month) %>%
+  select(-month) %>%
+  as.matrix()
+
+bypass_over <- array(as.logical(NA), dim = c(12, 20, 2))
+bypass_over[ , , 1] <- sutter_overtopped
+bypass_over[ , , 2] <- yolo_overtopped
+
+# usethis::use_data(bypass_over, overwrite = TRUE)
+
+# delta-----------
+# delta prop diverted
+dl_prop_div <- cvpiaFlow::delta_flows %>%
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  select(date, n_dlt_prop_div, s_dlt_prop_div) %>%
+  gather(delta, prop_div, -date) %>%
+  spread(date, prop_div)
+
+dlt_divers <- array(NA, dim = c(12, 21, 2))
+dlt_divers[ , , 1] <- as.matrix(dl_prop_div[1, -1])
+dlt_divers[ , , 2] <- as.matrix(dl_prop_div[2, -1])
+
+# usethis::use_data(dlt_divers, overwrite = TRUE)
+
+# delta total diversions
+dl_tot_div <- cvpiaFlow::delta_flows %>%
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  select(date, n_dlt_div_cms, s_dlt_div_cms) %>%
+  gather(delta, tot_div, -date) %>%
+  spread(date, tot_div)
+
+dlt_divers_tot <- array(NA, dim = c(12, 21, 2))
+dlt_divers_tot[ , , 1] <- as.matrix(dl_tot_div[1, -1])
+dlt_divers_tot[ , , 2] <- as.matrix(dl_tot_div[2, -1])
+
+# usethis::use_data(dlt_divers_tot, overwrite = TRUE)
+
+# delta inflows
+dl_inflow <- cvpiaFlow::delta_flows %>%
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  select(date, n_dlt_inflow_cms, s_dlt_inflow_cms) %>%
+  gather(delta, inflow, -date) %>%
+  spread(date, inflow)
+
+dlt_inflow <- array(NA, dim = c(12, 21, 2))
+dlt_inflow[ , , 1] <- as.matrix(dl_inflow[1, -1])
+dlt_inflow[ , , 2] <- as.matrix(dl_inflow[2, -1])
+
+# usethis::use_data(dlt_inflow, overwrite = TRUE)
+
+# flow at freeport
+freeportQcms <- cvpiaFlow::freeportQ %>%
+  mutate(year = year(date), month = month(date)) %>%
+  filter(year >= 1980, year <= 2000) %>%
+  select(-date, -freeportQcfs) %>%
+  spread(year, freeportQcms) %>%
+  select(-month)
+
+# usethis::use_data(freeportQcms, overwrite = TRUE)
+
+cross_channel_gates <- cvpiaFlow::delta_cross_channel_closed
+# usethis::use_data(cross_channel_gates)
+
+byp <- as.data.frame(matrix(as.numeric(NA), nrow = 2, ncol = 13))
+names(byp) <- c('watershed', as.character(1:12))
+byp$watershed <- c('Yolo Bypass', 'Sutter Bypass')
+
+prop_pulse <- cvpiaFlow::flows_cfs %>%
+  filter(between(year(date), 1980, 2000)) %>%
+  mutate(`Lower-mid Sacramento River` = 35.6/58 * `Lower-mid Sacramento River1` + 22.4/58 *`Lower-mid Sacramento River2`) %>%
+  select(-`Lower-mid Sacramento River1`, -`Lower-mid Sacramento River2`) %>%
+  gather(watershed, flow, -date) %>%
+  group_by(month = month(date), watershed) %>%
+  summarise(prop_pulse = sd(flow)/median(flow)) %>%
+  mutate(prop_pulse = replace(prop_pulse, is.infinite(prop_pulse), 0)) %>%
+  select(month, watershed, prop_pulse) %>%
+  spread(month, prop_pulse) %>%
+  bind_rows(byp) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-order)
+
+prop_pulse[is.na(prop_pulse)] <- 0
+
+# prop_pulse <- array(0, dim = c(31, 12, 20))
+# usethis::use_data(prop_pulse, overwrite = TRUE)
+
+# median flow
+med_flow <- cvpiaFlow::flows_cfs %>%
+  filter(between(year(date), 1980, 2000)) %>%
+  mutate(`Lower-mid Sacramento River` = 35.6/58 * `Lower-mid Sacramento River1` + 22.4/58 *`Lower-mid Sacramento River2`) %>%
+  select(-`Lower-mid Sacramento River1`, -`Lower-mid Sacramento River2`) %>%
+  gather(watershed, flow, -date) %>%
+  group_by(month = month(date), watershed) %>%
+  summarise(median_flow = median(flow)) %>%
+  # mutate(prop_pulse = replace(prop_pulse, is.infinite(prop_pulse), 0)) %>%
+  select(month, watershed, median_flow) %>%
+  spread(month, median_flow) %>%
+  bind_rows(byp) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-order)
+
+# usethis::use_data(med_flow, overwrite = TRUE)
