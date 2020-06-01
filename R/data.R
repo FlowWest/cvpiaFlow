@@ -481,26 +481,13 @@
 "bypass_overtopped"
 
  # NEW STUFF ----
-#' Median Flow
-#' @description The monthly median flows of 1980-2000 in cubic feet per second
-#' @format a dataframe with 31 rows and 13 variables
-#' \describe{
-#'   \item{watershed}{CVPIA watershed}
-#'   \item{1}{January median flow}
-#'   \item{2}{February median flow}
-#'   \item{3}{March median flow}
-#'   \item{4}{April median flow}
-#'   \item{5}{May median flow}
-#'   \item{6}{June median flow}
-#'   \item{7}{July median flow}
-#'   \item{8}{August median flow}
-#'   \item{9}{September median flow}
-#'   \item{10}{October median flow}
-#'   \item{11}{November median flow}
-#'   \item{12}{December median flow}
-#' }
-#' @details
+# TODO not sure what units this should be or description because of /100,
+# replaces prop.pulse
+#' Proportion Pulse Flow
+#' @description Estimated monthly proportion of flow that is a pulse
+#' @format a 31 by 12 matrix (watersheds by months)
+#' @details prop_pulse_flows = sd(flow)/median(flow)/100
 #'
 #' Calculated using \code{\link{flows_cfs}}
 #'
-"med_flow"
+"prop_pulse_flows"
