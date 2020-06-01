@@ -55,14 +55,7 @@ use_data(upsacQ)
 
 
 
-#  C400 flow at freeport
-# 1) daily discharge of the Sacramento River at Freeport
-# 2) an indicator variable for whether the DCC is open (1) or closed (0).
-delta_cross_channel_closed <- read_csv('data-raw/DeltaCrossChannelTypicalOperations.csv', skip = 2) %>%
-  mutate(Month = which(month.name == Month), prop_days_closed = `Days Closed` / days_in_month(Month)) %>%
-  select(month = Month, days_closed = `Days Closed`, prop_days_closed)
 
-devtools::use_data(delta_cross_channel_closed, overwrite = TRUE)
 
 freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%
   select(date = X2, C400) %>%

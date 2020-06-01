@@ -7,6 +7,7 @@ library(stringr)
 watershed_ordering <- read_csv('data-raw/watershed_ordering.csv')
 usethis::use_data(watershed_ordering)
 
+# clean calsim flows -----
 calsim <- read_rds('data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
 watersheds <- cvpia_nodes$watershed

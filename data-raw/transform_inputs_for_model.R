@@ -173,56 +173,22 @@ dlt_divers_tot[ , , 2] <- as.matrix(dl_tot_div[2, -1])
 
 # usethis::use_data(dlt_divers_tot, overwrite = TRUE)
 
-# delta inflows
-dl_inflow <- cvpiaFlow::delta_flows %>%
-  filter(year(date) >= 1980, year(date) <= 2000) %>%
-  select(date, n_dlt_inflow_cms, s_dlt_inflow_cms) %>%
-  gather(delta, inflow, -date) %>%
-  spread(date, inflow)
 
-dlt_inflow <- array(NA, dim = c(12, 21, 2))
-dlt_inflow[ , , 1] <- as.matrix(dl_inflow[1, -1])
-dlt_inflow[ , , 2] <- as.matrix(dl_inflow[2, -1])
-
-# usethis::use_data(dlt_inflow, overwrite = TRUE)
 
 # flow at freeport
+# TODO freeport_flows <- calib_data$Q_free, is calib_data$Q_free the same?
 freeportQcms <- cvpiaFlow::freeportQ %>%
   mutate(year = year(date), month = month(date)) %>%
-  filter(year >= 1980, year <= 2000) %>%
+  filter(year >= 1980, year <= 1999) %>%
   select(-date, -freeportQcfs) %>%
   spread(year, freeportQcms) %>%
-  select(-month)
-
-# usethis::use_data(freeportQcms, overwrite = TRUE)
-
-cross_channel_gates <- cvpiaFlow::delta_cross_channel_closed
-# usethis::use_data(cross_channel_gates)
-
-# TODO why divide by 100 again?
-byp <- as.data.frame(matrix(0, nrow = 2, ncol = 13))
-names(byp) <- c('watershed', as.character(1:12))
-byp$watershed <- c('Yolo Bypass', 'Sutter Bypass')
-
-prop_pulse_flows <- cvpiaFlow::flows_cfs %>%
-  filter(between(year(date), 1980, 2000)) %>%
-  mutate(`Lower-mid Sacramento River` = 35.6/58 * `Lower-mid Sacramento River1` + 22.4/58 *`Lower-mid Sacramento River2`) %>%
-  select(-`Lower-mid Sacramento River1`, -`Lower-mid Sacramento River2`) %>%
-  gather(watershed, flow, -date) %>%
-  group_by(month = month(date), watershed) %>%
-  summarise(prop_pulse = sd(flow)/median(flow)/100) %>%
-  mutate(prop_pulse = replace(prop_pulse, is.infinite(prop_pulse), 0)) %>%
-  select(month, watershed, prop_pulse) %>%
-  spread(month, prop_pulse) %>%
-  bind_rows(byp) %>%
-  left_join(cvpiaData::watershed_ordering) %>%
-  arrange(order) %>%
-  select(-order, - watershed) %>%
+  select(-month) %>%
   as.matrix()
 
-colnames(prop_pulse_flows) <- month.abb[1:12]
-rownames(prop_pulse_flows) <- cvpiaFlow::watershed_ordering$watershed
+rownames(freeportQcms) <- month.abb[1:12]
 
-usethis::use_data(prop_pulse_flows, overwrite = TRUE)
+usethis::use_data(freeportQcms, overwrite = TRUE)
+
+
 
 
