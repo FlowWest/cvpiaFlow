@@ -1,3 +1,19 @@
+# tributary
+# upsacQ--------------------------
+# flow at Bend C109, CALSIMII units cfs, sit-model units cms
+upper_sacramento_flows <- misc_flows %>%
+  select(date, upsacQcfs = C109) %>%
+  mutate(upsacQcms = cvpiaFlow::cfs_to_cms(upsacQcfs)) %>%
+  mutate(year = year(date), month = month(date)) %>%
+  filter(year >= 1980, year <= 2000) %>%
+  select(-date, -upsacQcfs) %>%
+  spread(year, upsacQcms) %>%
+  select(-month) %>%
+  as.matrix()
+
+rownames(upper_sacramento_flows) <- month.abb[1:12]
+usethis::use_data(upper_sacramento_flows, overwrite = TRUE)
+
 # Replaces prop.pulse
 prop_pulse_flows <- cvpiaFlow::flows_cfs %>%
   filter(between(year(date), 1980, 1999)) %>%

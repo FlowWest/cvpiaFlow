@@ -124,4 +124,5 @@ yolo_overtopped <- cvpiaFlow::bypass_overtopped %>%
 bypass_over <- array(as.logical(NA), dim = c(12, 20, 2))
 bypass_over[ , , 1] <- sutter_overtopped
 bypass_over[ , , 2] <- yolo_overtopped
+# usethis::use_data(bypass_over, overwrite = TRUE)
 ```

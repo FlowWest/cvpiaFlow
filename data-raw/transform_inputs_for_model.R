@@ -97,18 +97,6 @@ returnQ <- cvpiaFlow::return_flow %>%
 
 # usethis::use_data(returnQ, overwrite = TRUE)
 
-upsac_flow <- cvpiaFlow::upsacQ %>%
-  mutate(year = year(date), month = month(date)) %>%
-  filter(year >= 1980, year <= 2000) %>%
-  select(-date, -upsacQcfs) %>%
-  spread(year, upsacQcms) %>%
-  select(-month)
-
-# usethis::use_data(upsac_flow, overwrite = TRUE)
-
-
-
-# usethis::use_data(bypass_over, overwrite = TRUE)
 
 
 # flow at freeport

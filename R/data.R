@@ -1,5 +1,25 @@
 
 # Tributaries and Mainstems -----
+#' Upper Sacramento River Flow
+#' @description A dataset containing the Upper Sacramento River flow in cubic meters per second
+#'
+#' @format a 12 by 21 matrix (month by year)
+#'
+#' @details The Upper Sacramento River is represented using node CALSIM II 'FLOW-CHANNEL' C109 node at Bend.
+#' Each row represents a month, each column a year from 1980-2000.
+#' This data is used to route fish into the delta.
+#'
+#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
+#'
+#' @source
+#' \itemize{
+#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
+#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
+#' }
+#'
+"upper_sacramento_flows"
+
 # TODO not sure what units this should be or description because of /100,
 # replaces prop.pulse
 #' Proportion Pulse Flow

@@ -3,7 +3,8 @@ library(lubridate)
 library(devtools)
 library(CDECRetrieve)
 
-watersheds <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1) %>% select(order, watershed)
+watersheds <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1) %>%
+  select(order, watershed)
 
 cs <- read_csv('data-raw/MikeWrightCalSimOct2017/C1_C169.csv', skip = 1) %>%
   select(date = X2, C134, C165, C116, C123, C124, C125, C109) %>%
@@ -44,17 +45,6 @@ propQbypass <- misc_flows %>%
   select(date, starts_with('propQ'))
 
 use_data(propQbypass)
-
-# upsacQ--------------------------
-# flow at Bend C109, CALSIMII units cfs, sit-model units cms
-upsacQ <- misc_flows %>%
-  select(date, upsacQcfs = C109) %>%
-  mutate(upsacQcms = cvpiaFlow::cfs_to_cms(upsacQcfs))
-
-use_data(upsacQ)
-
-
-
 
 
 freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%

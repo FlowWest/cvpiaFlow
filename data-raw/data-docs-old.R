@@ -267,29 +267,7 @@
 "bypass_flows"
 
 
-#' Upper Sacramento River Flow
-#' @description A dataset containing the Upper Sacramento River flow in cfs and cms
-#'
-#' @format dataframe with 984 rows and 3 variables:
-#' \describe{
-#' \item{date}{CALSIM II date}
-#' \item{upsacQcfs}{C109, flow in cfs}
-#' \item{upsacQcms}{C109, flow in cms}
-#' }
-#'
-#' @details The Upper Sacramento River is represented using node CALSIM II 'FLOW-CHANNEL' C109 node at Bend.
-#'
-#'
-#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
-#'
-#' @source
-#' \itemize{
-#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
-#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
-#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
-#' }
-#'
-"upsacQ"
+
 
 #' Return Flow
 #' @description A dataset containing the proportion flows at tributary junction

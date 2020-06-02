@@ -82,23 +82,6 @@
 #'
 "freeportQcms"
 
-#' Upper Sacramento Flows
-#' @description Flows at bend bridge in cubic meters per second from 1980-2000.
-#'
-#' @format A dataframe with 12 rows and 21 variables
-#'
-#' @details
-#' Each row represents a month, each column a year from 1980-2000.
-#' This data is used to route fish into the delta.
-#'
-#' For more details see:
-#' \itemize{
-#'   \item use this link within R \code{\link[cvpiaFlow]{upsacQ}}
-#'   \item use this \href{https://flowwest.github.io/cvpiaFlow/reference/upsacQ.html}{link} if in a web browser
-#' }
-#'
-"upsac_flow"
-
 #' Monthly Mean Flow
 #' @description The mean flow in cubic meters per second for each watershed every month of every year in the simulation (1980-2000).
 #' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
