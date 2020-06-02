@@ -55,8 +55,8 @@ flow <- flow_calsim %>%
 
 # testing Moke flows from exteranl model to calsim II - C503 vs 04-501
 moke_test <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
-  mutate(date = as_date(Date), C503) %>%
-  select(date, C503)
+  mutate(date = as_date(Date), C503...11) %>%
+  select(date, C503 = C503...11)
 
 c501_504 <- read_csv('data-raw/MikeWrightCalSimOct2017/C422-C843.csv', skip = 1) %>%
   select(date = X2, C504, C501) %>%
@@ -119,38 +119,7 @@ devtools::use_data(return_flow, overwrite = TRUE)
 return_flow %>%
   select(watershed, starts_with('198'), starts_with('199')) %>% View()
 
-# delta flows and diversions --------------------
-# North Delta inflows: C400 + C157
-# South Delta inflow: C401B + C504 + C508 + C644
-# North Delta diversions: D403A + D403B + D403C + D403D + D404
-# South Delta diversions: D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC
-delta_flows <- calsim %>%
-  select(date, C400, C157, C401B, C504, C508, C644, D403A, D403B, D403C, D403D,
-         D404, D418, D419, D412, D410, D413, D409B, D416, D408_OR, D408_VC) %>%
-  mutate(n_dlt_inflow_cfs = C400 + C157,
-         s_dlt_inflow_cfs = C401B + C504 + C508 + C644,
-         n_dlt_inflow_cms = cfs_to_cms(n_dlt_inflow_cfs),
-         s_dlt_inflow_cms = cfs_to_cms(s_dlt_inflow_cfs),
-         n_dlt_div_cfs =  D403A + D403B + D403C + D403D + D404,
-         s_dlt_div_cfs = D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC,
-         n_dlt_div_cms = cfs_to_cms(n_dlt_div_cfs),
-         s_dlt_div_cms = cfs_to_cms(s_dlt_div_cfs),
-         n_dlt_prop_div = n_dlt_div_cfs / n_dlt_inflow_cfs,
-         s_dlt_prop_div = s_dlt_div_cfs / s_dlt_inflow_cfs,
-         s_dlt_prop_div = ifelse(s_dlt_prop_div > 1, 1, s_dlt_prop_div)) %>%
-  select(date,
-         n_dlt_inflow_cfs,
-         s_dlt_inflow_cfs,
-         n_dlt_inflow_cms,
-         s_dlt_inflow_cms,
-         n_dlt_div_cfs,
-         s_dlt_div_cfs,
-         n_dlt_div_cms,
-         s_dlt_div_cms,
-         n_dlt_prop_div,
-         s_dlt_prop_div)
 
-devtools::use_data(delta_flows, overwrite = TRUE)
 
 # bypasses ------------
 # habitat flow
