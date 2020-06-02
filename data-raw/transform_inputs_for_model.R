@@ -106,43 +106,7 @@ upsac_flow <- cvpiaFlow::upsacQ %>%
 
 # usethis::use_data(upsac_flow, overwrite = TRUE)
 
-d <- 1:12
-names(d) <- month.name
 
-# yolo and sutter(includes tisdale) overtopping
-# flow in bypass for adults is 1
-# bypass_over_top <-
-bpo <- cvpiaFlow::bypass_overtopped %>%
-  gather(bypass, overtopped, -date) %>%
-  spread(date, overtopped)
-
-sutter_overtopped <- cvpiaFlow::bypass_overtopped %>%
-  filter(between(year(date), 1980, 1999)) %>%
-  gather(bypass, overtopped, -date) %>%
-  filter(bypass == "sutter") %>%
-  mutate(month = month(date),
-         year = year(date)) %>%
-  select(-date, -bypass) %>%
-  spread(year, overtopped) %>%
-  arrange(month) %>%
-  select(-month) %>%
-  as.matrix()
-
-yolo_overtopped <- cvpiaFlow::bypass_overtopped %>%
-  filter(between(year(date), 1980, 1999)) %>%
-  gather(bypass, overtopped, -date) %>%
-  filter(bypass == "yolo") %>%
-  mutate(month = month(date),
-         year = year(date)) %>%
-  select(-date, -bypass) %>%
-  spread(year, overtopped) %>%
-  arrange(month) %>%
-  select(-month) %>%
-  as.matrix()
-
-bypass_over <- array(as.logical(NA), dim = c(12, 20, 2))
-bypass_over[ , , 1] <- sutter_overtopped
-bypass_over[ , , 2] <- yolo_overtopped
 
 # usethis::use_data(bypass_over, overwrite = TRUE)
 

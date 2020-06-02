@@ -125,3 +125,4 @@ delta_total_diverted[ , , 2] <- as.matrix(dl_tot_div[2, ])
 dimnames(delta_total_diverted) <- list(month.abb[1:12], 1980:2000, c('North Delta', 'South Delta'))
 
 usethis::use_data(delta_total_diverted, overwrite = TRUE)
+

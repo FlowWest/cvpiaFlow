@@ -390,31 +390,3 @@
 "freeportQ"
 
 
-#' Sutter and Yolo Bypasses Overtopped
-#' @description A dataset containing a boolean representation of bypasses overtopped
-#' used for adult pre-spawning survival.
-#'
-#' @format dataframe with 252 rows and 3 variables:
-#' \describe{
-#' \item{date}{CALSIM II date}
-#' \item{sutter}{TRUE if D117 + D124 + D125 + D126 + C137 >= 100 cfs}
-#' \item{yolo}{TRUE if D160 + C157 >= 100 cfs}
-#' }
-#'
-#' @details The flow upstream and down stream of the bypasses are represented using
-#' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
-#' The nodes for each watershed are outlined above. If the flow into the bypasses is
-#' greater than 100 cfs the bypass is considered overtopped.
-#'
-#'
-#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
-#'
-#' @source
-#' \itemize{
-#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
-#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com}
-#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
-#' }
-#'
-"bypass_overtopped"
-
