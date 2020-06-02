@@ -93,27 +93,35 @@ dimnames(delta_inflow) <- list(month.abb[1:12], 1980:1999, c('North Delta', 'Sou
 usethis::use_data(delta_inflow, overwrite = TRUE)
 
 # delta prop diverted
-dl_prop_div <- cvpiaFlow::delta_flows %>%
+# Replaces dlt.divers
+dl_prop_div <- delta_flows %>%
   filter(year(date) >= 1980, year(date) <= 2000) %>%
   select(date, n_dlt_prop_div, s_dlt_prop_div) %>%
   gather(delta, prop_div, -date) %>%
-  spread(date, prop_div)
+  spread(date, prop_div) %>%
+  select(-delta)
 
-dlt_divers <- array(NA, dim = c(12, 21, 2))
-dlt_divers[ , , 1] <- as.matrix(dl_prop_div[1, -1])
-dlt_divers[ , , 2] <- as.matrix(dl_prop_div[2, -1])
+delta_proportion_diverted <- array(NA, dim = c(12, 21, 2))
+delta_proportion_diverted[ , , 1] <- as.matrix(dl_prop_div[1, ])
+delta_proportion_diverted[ , , 2] <- as.matrix(dl_prop_div[2, ])
 
-# usethis::use_data(dlt_divers, overwrite = TRUE)
+dimnames(delta_proportion_diverted) <- list(month.abb[1:12], 1980:2000, c('North Delta', 'South Delta'))
+
+usethis::use_data(delta_proportion_diverted, overwrite = TRUE)
 
 # delta total diversions
-dl_tot_div <- cvpiaFlow::delta_flows %>%
+# Replaces dlt.divers.tot
+dl_tot_div <- delta_flows %>%
   filter(year(date) >= 1980, year(date) <= 2000) %>%
   select(date, n_dlt_div_cms, s_dlt_div_cms) %>%
   gather(delta, tot_div, -date) %>%
-  spread(date, tot_div)
+  spread(date, tot_div) %>%
+  select(-delta)
 
-dlt_divers_tot <- array(NA, dim = c(12, 21, 2))
-dlt_divers_tot[ , , 1] <- as.matrix(dl_tot_div[1, -1])
-dlt_divers_tot[ , , 2] <- as.matrix(dl_tot_div[2, -1])
+delta_total_diverted <- array(NA, dim = c(12, 21, 2))
+delta_total_diverted[ , , 1] <- as.matrix(dl_tot_div[1, ])
+delta_total_diverted[ , , 2] <- as.matrix(dl_tot_div[2, ])
 
-# usethis::use_data(dlt_divers_tot, overwrite = TRUE)
+dimnames(delta_total_diverted) <- list(month.abb[1:12], 1980:2000, c('North Delta', 'South Delta'))
+
+usethis::use_data(delta_total_diverted, overwrite = TRUE)

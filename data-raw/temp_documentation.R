@@ -65,52 +65,6 @@
 #'
 "cross_channel_gates"
 
-#' Delta Proportion Diverted
-#' @description The proportion of delta inflow diverted from 1980-2000.
-#'
-#' @format A 3 dimensional array: 12 by 21 by 2 [months, years, deltas]
-#'
-#' [ , , 1] North Delta
-#'
-#' [ , , 2] South Delta
-#'
-#' @details
-#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
-#'
-#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-#' below Vernalis.
-#'
-#' For more details see:
-#' \itemize{
-#'   \item use this link within R \code{\link[cvpiaFlow]{delta_flows}}
-#'   \item use this \href{https://flowwest.github.io/cvpiaFlow/reference/delta_flows.html}{link} if in a web browser
-#' }
-#'
-"dlt_divers"
-
-#' Delta Total Diverted
-#' @description The total diverted of delta inflow in cubic meters per second from 1980-2000.
-#'
-#' @format A 3 dimensional array: 12 by 21 by 2 (months, years, deltas)
-#'
-#' [ , , 1] North Delta
-#'
-#' [ , , 2] South Delta
-#'
-#' @details
-#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
-#'
-#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-#' below Vernalis.
-#'
-#' For more details see:
-#' \itemize{
-#'   \item use this link within R \code{\link[cvpiaFlow]{delta_flows}}
-#'   \item use this \href{https://flowwest.github.io/cvpiaFlow/reference/delta_flows.html}{link} if in a web browser
-#' }
-#'
-"dlt_divers_tot"
-
 
 #' Flow at Freeport
 #' @description The inflow at Freeport in cubic meters per second from 1980-2000.

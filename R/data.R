@@ -95,3 +95,41 @@
 #' Calculated using \code{\link{delta_flows}}
 #'
 "delta_inflow"
+
+#' Delta Proportion Diverted
+#' @description The proportion of delta inflow diverted from 1980-2000.
+#'
+#' @format A 3 dimensional array: 12 by 21 by 2 [months, years, deltas]
+#'
+#' [ , , 1] North Delta
+#'
+#' [ , , 2] South Delta
+#'
+#' @details
+#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
+#'
+#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
+#' below Vernalis.
+#'
+#' Calculated using \code{\link{delta_flows}}
+#'
+"delta_proportion_diverted"
+
+#' Delta Total Diverted
+#' @description The total diverted of delta inflow in cubic meters per second from 1980-2000.
+#'
+#' @format A 3 dimensional array: 12 by 21 by 2 (months, years, deltas)
+#'
+#' [ , , 1] North Delta
+#'
+#' [ , , 2] South Delta
+#'
+#' @details
+#' The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
+#'
+#' The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
+#' below Vernalis.
+#'
+#' Calculated using \code{\link{delta_flows}}
+#'
+"delta_total_diverted"
