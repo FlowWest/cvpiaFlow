@@ -1,4 +1,3 @@
-# NEW STUFF ------
 #' Proportion Flow at Yolo and Sutter Bypasses
 #' @description The proportion of Lower Sacramento River flow at each bypass weir
 #'
@@ -114,22 +113,6 @@
 #'
 "total_diversion"
 
-#' Return Flow
-#' @description The proportion flows at tributary junction coming from natal watershed using October CALSIM II flows
-#' from 1979-1998.
-#'
-#' @format A dataframe with 12 rows and 23 variables
-#'
-#' @details
-#' Each row represents a month, each column a year from 1979-2000
-#'
-#' For more details see:
-#' \itemize{
-#'   \item use this link within R \code{\link[cvpiaFlow]{return_flow}}
-#'   \item use this \href{https://flowwest.github.io/cvpiaFlow/reference/return_flow.html}{link} if in a web browser
-#' }
-#'
-"returnQ"
 
 
 

@@ -1,3 +1,6 @@
+library(dplyr)
+library(tidyr)
+library(lubridate)
 # tributary
 # upsacQ--------------------------
 # flow at Bend C109, CALSIMII units cfs, sit-model units cms
@@ -13,6 +16,52 @@ upper_sacramento_flows <- misc_flows %>%
 
 rownames(upper_sacramento_flows) <- month.abb[1:12]
 usethis::use_data(upper_sacramento_flows, overwrite = TRUE)
+
+# retQ----------------------------
+# proportion flows at tributary junction coming from natal watershed using october average flow
+
+
+# create lookup vector for retQ denominators based on Jim's previous input
+tributary_junctions <- c(rep(watersheds[16], 16), NA, watersheds[19], watersheds[21], watersheds[19],
+                  watersheds[21], NA, rep(watersheds[24],2), watersheds[25:27], rep(watersheds[31],4))
+
+names(tributary_junctions) <- watersheds
+
+denominator <- cvpiaFlow::flows_cfs %>%
+  select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
+  rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
+  gather(watershed, flow, -date) %>%
+  filter(month(date) == 10, watershed %in% unique(tributary_junctions)) %>%
+  rename(denominator = watershed, junction_flow = flow)
+
+prop_flow_natal <- cvpiaFlow::flows_cfs %>%
+  select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
+  rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
+  gather(watershed, flow, -date) %>%
+  filter(month(date) == 10) %>%
+  mutate(denominator = tributary_junctions[watershed]) %>%
+  left_join(denominator) %>%
+  mutate(retQ = ifelse(flow / junction_flow > 1, 1, flow / junction_flow),
+         retQ = replace(retQ, watershed %in% c('Calaveras River', 'Cosumnes River', 'Mokelumne River'), 1)) %>%
+  select(watershed, date, retQ) %>%
+  mutate(year = year(date)) %>%
+  filter(year >= 1979, year <= 2000) %>%
+  select(watershed, year, retQ) %>%
+  bind_rows(tibble(
+    year = 1979,
+    watershed = c('Yolo Bypass', 'Sutter Bypass'),
+    retQ = 0
+  )) %>%
+  spread(year, retQ) %>%
+  left_join(cvpiaData::watershed_ordering) %>%
+  arrange(order) %>%
+  mutate_all(~replace_na(., 0)) %>%
+  select(-order, -watershed) %>%
+  as.matrix()
+
+rownames(prop_flow_natal) <- watersheds
+
+usethis::use_data(prop_flow_natal, overwrite = TRUE)
 
 # Replaces prop.pulse
 prop_pulse_flows <- cvpiaFlow::flows_cfs %>%

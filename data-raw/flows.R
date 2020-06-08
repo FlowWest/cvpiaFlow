@@ -86,41 +86,6 @@ flows_cfs <- flow %>%
 
 use_data(flows_cfs, overwrite = TRUE)
 
-# retQ----------------------------
-# proportion flows at tributary junction coming from natal watershed using october average flow
-
-# create lookup vector for retQ denominators based on Jim's previous input
-denominators <- c(rep(watersheds[16], 16), NA, watersheds[19], watersheds[21], watersheds[19],
-                  watersheds[21], NA, rep(watersheds[24],2), watersheds[25:27], rep(watersheds[31],4))
-
-names(denominators) <- watersheds
-
-dens <- cvpiaFlow::flows_cfs %>%
-  select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
-  rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
-  gather(watershed, flow, -date) %>%
-  filter(month(date) == 10, watershed %in% unique(denominators)) %>%
-  rename(denominator = watershed, den_flow = flow)
-
-return_flow <- cvpiaFlow::flows_cfs %>%
-  select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
-  rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
-  gather(watershed, flow, -date) %>%
-  filter(month(date) == 10) %>%
-  mutate(denominator = denominators[watershed]) %>%
-  left_join(dens) %>%
-  mutate(retQ = ifelse(flow / den_flow > 1, 1, flow / den_flow),
-         retQ = replace(retQ, watershed %in% c('Calaveras River', 'Cosumnes River', 'Mokelumne River'), 1)) %>%
-  select(watershed, date, retQ)
-
-
-devtools::use_data(return_flow, overwrite = TRUE)
-
-return_flow %>%
-  select(watershed, starts_with('198'), starts_with('199')) %>% View()
-
-
-
 # bypasses ------------
 # habitat flow
 bypass_flows <- calsim %>%
