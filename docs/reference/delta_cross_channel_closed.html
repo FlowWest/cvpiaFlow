@@ -32,7 +32,8 @@
 
 <meta property="og:title" content="Delta Cross Channel Operations — delta_cross_channel_closed" />
 
-<meta property="og:description" content="The number of days the Delta Cross Channel gates are closed for each month" />
+<meta property="og:description" content="The number of days and proportion of days the Delta Cross Channel
+gates are typically closed for each month" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,7 +104,8 @@
 
     <div class="ref-description">
     
-    <p>The number of days the Delta Cross Channel gates are closed for each month</p>
+    <p>The number of days and proportion of days the Delta Cross Channel
+gates are typically closed for each month</p>
     
     </div>
 
@@ -111,11 +113,8 @@
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>dataframe with 12 rows and 2 variables:</p><dl class='dl-horizontal'>
-<dt>month</dt><dd><p>Integar representation of months</p></dd>
-<dt>days_closed</dt><dd><p>the number of days the delta cross channel gates are typically closed</p></dd>
-<dt>prop_days_closed</dt><dd><p>the proportion of days during the month that the delta cross channel gates are typically closed</p></dd>
-</dl>
+    <p>a 2 by 12 matrix, row one and two are the count and proportion of days
+closed respectively, columns are months</p>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
