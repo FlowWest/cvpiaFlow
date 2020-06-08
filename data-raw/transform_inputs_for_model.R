@@ -41,34 +41,6 @@ dim(meanQ) # 21 years
 
 # usethis::use_data(meanQ, overwrite = TRUE)
 
-prop_diversion <- cvpiaFlow::proportion_diverted %>%
-  filter(year(date) >= 1980, year(date) <= 2000) %>%
-  gather(watershed, prop_diver, -date) %>%
-  mutate(prop_diver = ifelse(is.na(prop_diver), 0, prop_diver)) %>%
-  spread(date, prop_diver) %>%
-  left_join(cvpiaData::watershed_ordering) %>%
-  arrange(order) %>%
-  select(-watershed, -order) %>%
-  create_SIT_array()
-
-dim(prop_diversion)
-
-# usethis::use_data(prop_diversion, overwrite = TRUE)
-
-total_diversion <- cvpiaFlow::total_diverted %>%
-  filter(year(date) >= 1980, year(date) <= 2000) %>%
-  gather(watershed, tot_diver, -date) %>%
-  mutate(tot_diver = ifelse(is.na(tot_diver), 0, tot_diver)) %>%
-  spread(date, tot_diver) %>%
-  left_join(cvpiaData::watershed_ordering) %>%
-  arrange(order) %>%
-  select(-watershed, -order) %>%
-  create_SIT_array()
-
-dim(total_diversion)
-
-# usethis::use_data(total_diversion, overwrite = TRUE)
-
 # flow at freeport
 # TODO freeport_flows <- calib_data$Q_free, is calib_data$Q_free the same?
 freeportQcms <- cvpiaFlow::freeportQ %>%
