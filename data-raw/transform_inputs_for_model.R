@@ -69,41 +69,11 @@ dim(total_diversion)
 
 # usethis::use_data(total_diversion, overwrite = TRUE)
 
-# bypass flows for rearing habitat
-bp_pf <- cvpiaFlow::propQbypass %>%
-  select(-propQyolo, -propQsutter) %>%
-  filter(between(year(date), 1980, 2000)) %>%
-  gather(bypass, flow, -date) %>%
-  spread(date, flow)
-
-bypass_prop_Q <- array(NA, dim = c(12, 21, 6))
-for (i in 1:6) {
-  bypass_prop_Q[ , , i] <- as.matrix(bp_pf[i, -1])
-}
-
-dim(bypass_prop_Q)
-
-# usethis::use_data(bypass_prop_Q, overwrite = TRUE)
-
-returnQ <- cvpiaFlow::return_flow %>%
-  mutate(year = year(date)) %>%
-  filter(year >= 1979, year <= 2000) %>%
-  select(watershed, year, retQ) %>%
-  mutate(retQ = ifelse(is.na(retQ), 0, retQ)) %>%
-  spread(year, retQ) %>%
-  left_join(cvpiaData::watershed_ordering) %>%
-  arrange(order) %>%
-  select(-order)
-
-# usethis::use_data(returnQ, overwrite = TRUE)
-
-
-
 # flow at freeport
 # TODO freeport_flows <- calib_data$Q_free, is calib_data$Q_free the same?
 freeportQcms <- cvpiaFlow::freeportQ %>%
   mutate(year = year(date), month = month(date)) %>%
-  filter(year >= 1980, year <= 1999) %>%
+  filter(year >= 1980, year <= 2000) %>%
   select(-date, -freeportQcfs) %>%
   spread(year, freeportQcms) %>%
   select(-month) %>%

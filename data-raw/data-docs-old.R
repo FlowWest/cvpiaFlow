@@ -191,46 +191,6 @@
 #'
 "flows_cfs"
 
-#' Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses
-#' @description A dataset containing the proportion of Sacramento River flow within the bypasses for
-#' use with the CVPIA SIT Salmon Population Model to apportion fish onto the bypasses.
-#'
-#' @format dataframe with 984 rows and 9 variables:
-#' \describe{
-#' \item{date}{CALSIM II date}
-#' \item{propQyolo}{D160/C134}
-#' \item{propQyolo1}{D160/C134}
-#' \item{propQyolo2}{D166A/C165}
-#' \item{propQsutter}{(D117 + D124 + D125 + D126)/C116}
-#' \item{propQsutter1}{D117/C116}
-#' \item{propQsutter2}{D124/C123}
-#' \item{propQsutter3}{D125/C124}
-#' \item{propQsutter4}{D126/C125}
-#' }
-#'
-#' @details The proportions of Sacramento River flowing through the bypasses are represented using
-#' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
-#' The nodes and calculation for each watershed are outlined above.
-#'
-#'
-#' \strong{Model Usage:}
-#' \enumerate{
-#'   \item propQyolo and propQsutter represent the proportion of flow as a single value for the bypasses
-#'   \item use the numbered propQ columns to represent the proportion of flow at each weir
-#' }
-#'
-#'
-#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
-#'
-#' @source
-#' \itemize{
-#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
-#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
-#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
-#' }
-#'
-"propQbypass"
-
 #' Flow through the Sutter and Yolo Bypasses
 #' @description A dataset containing the flow within the bypasses for
 #' estimating available rearing habitat within the bypasses.

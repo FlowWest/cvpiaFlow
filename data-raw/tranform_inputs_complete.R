@@ -1,8 +1,10 @@
 library(dplyr)
 library(tidyr)
+library(readr)
 library(lubridate)
 # tributary
-# upsacQ--------------------------
+
+# Replaces upsacQ
 # flow at Bend C109, CALSIMII units cfs, sit-model units cms
 upper_sacramento_flows <- misc_flows %>%
   select(date, upsacQcfs = C109) %>%
@@ -17,10 +19,8 @@ upper_sacramento_flows <- misc_flows %>%
 rownames(upper_sacramento_flows) <- month.abb[1:12]
 usethis::use_data(upper_sacramento_flows, overwrite = TRUE)
 
-# retQ----------------------------
+# Replaces retQ
 # proportion flows at tributary junction coming from natal watershed using october average flow
-
-
 # create lookup vector for retQ denominators based on Jim's previous input
 tributary_junctions <- c(rep(watersheds[16], 16), NA, watersheds[19], watersheds[21], watersheds[19],
                   watersheds[21], NA, rep(watersheds[24],2), watersheds[25:27], rep(watersheds[31],4))
@@ -34,7 +34,7 @@ denominator <- cvpiaFlow::flows_cfs %>%
   filter(month(date) == 10, watershed %in% unique(tributary_junctions)) %>%
   rename(denominator = watershed, junction_flow = flow)
 
-prop_flow_natal <- cvpiaFlow::flows_cfs %>%
+proportion_flow_natal <- cvpiaFlow::flows_cfs %>%
   select(-`Lower-mid Sacramento River1`) %>% #Feather river comes in below Fremont Weir use River2 for Lower-mid Sac
   rename(`Lower-mid Sacramento River` = `Lower-mid Sacramento River2`) %>%
   gather(watershed, flow, -date) %>%
@@ -59,9 +59,9 @@ prop_flow_natal <- cvpiaFlow::flows_cfs %>%
   select(-order, -watershed) %>%
   as.matrix()
 
-rownames(prop_flow_natal) <- watersheds
+rownames(proportion_flow_natal) <- watersheds
 
-usethis::use_data(prop_flow_natal, overwrite = TRUE)
+usethis::use_data(proportion_flow_natal, overwrite = TRUE)
 
 # Replaces prop.pulse
 prop_pulse_flows <- cvpiaFlow::flows_cfs %>%
@@ -191,3 +191,24 @@ dimnames(delta_total_diverted) <- list(month.abb[1:12], 1980:2000, c('North Delt
 
 usethis::use_data(delta_total_diverted, overwrite = TRUE)
 
+# bypasses -------------
+
+# Replaces prop.Q.bypasses
+bypass_prop_flow <- misc_flows %>%
+  mutate(yolo = D160/C134,
+         sutter = (D117 + D124 + D125 + D126)/C116,
+         year = year(date), month = month(date)) %>%
+  select(month, year, yolo, sutter) %>%
+  filter(between(year, 1980, 2000)) %>%
+  gather(bypass, prop_flow, -month, -year) %>%
+  spread(year, prop_flow) %>%
+  arrange(bypass, month) %>%
+  select(-month, -bypass) %>%
+  as.matrix()
+
+proportion_flow_bypasses <- array(NA, dim = c(12, 21, 2))
+dimnames(proportion_flow_bypasses) <- list(month.abb[1:12], 1980:2000, c('Sutter Bypass', 'Yolo Bypass'))
+proportion_flow_bypasses[ , , 1] <- bypass_prop_flow[1:12, ]
+proportion_flow_bypasses[ , , 2] <- bypass_prop_flow[13:24, ]
+
+usethis::use_data(proportion_flow_bypasses, overwrite = TRUE)

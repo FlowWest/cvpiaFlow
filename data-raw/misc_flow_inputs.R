@@ -23,28 +23,7 @@ misc_flows <- left_join(cs, ds) %>%
   spread(node, flow)
 
 names(misc_flows)
-# propQbypass----------------------
 
-# propQyolo
-# option 1: D160/C134
-# option 2: to props, yolo 1 - D160/C134 & yolo 2 - D166A/C165
-
-# propQsutter
-# option 1: (D117 + D124 + D125 + D126)/C116
-# option 2: sutter 1 - D117/C116 & sutter2 - D124/C123 & sutter3 - D125/C124 & sutter4 - D126/C125
-
-propQbypass <- misc_flows %>%
-  mutate(propQyolo = D160/C134,
-         propQyolo1 = D160/C134,
-         propQyolo2 = D166A/C165,
-         propQsutter = (D117 + D124 + D125 + D126)/C116,
-         propQsutter1 = D117/C116,
-         propQsutter2 = D124/C123,
-         propQsutter3 = D125/C124,
-         propQsutter4 = D126/C125) %>%
-  select(date, starts_with('propQ'))
-
-use_data(propQbypass)
 
 
 freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%

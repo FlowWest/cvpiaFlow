@@ -104,6 +104,29 @@
 "prop_pulse_flows"
 
 # Bypasses ------
+#' Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses
+#' @description The monthly proportion of Sacramento River flow within the bypasses
+#' (years 1980-2000) for use with the CVPIA SIT Salmon Population Model to
+#' apportion fish onto the bypasses.
+#'
+#' @format a 12 by 21 by 2 array (month, year, bypass):
+#' [ , , 1] = Sutter Bypass represented with CALSIM II nodes (D117 + D124 + D125 + D126)/C116
+#' [ , , 2] = Yolo Bypass represented with CALSIM II nodes D160/C134
+#'
+#' @details The proportions of Sacramento River flowing through the bypasses are represented using
+#' 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
+#'
+#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
+#'
+#' @source
+#' \itemize{
+#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
+#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
+#' }
+#'
+"proportion_flow_bypasses"
+
 
 # Delta -----
 #' Delta Cross Channel Operations
