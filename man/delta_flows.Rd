@@ -5,15 +5,13 @@
 \alias{delta_flows}
 \title{Delta Flows and Diversions}
 \format{
-dataframe with 972 rows and 9 variables:
+dataframe with 972 rows and 7 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{n_dlt_inflow_cfs}{C400 + C157, north delta inflow in cubic feet per second}
 \item{s_dlt_inflow_cfs}{C401B + C504 + C508 + C644, south delta inflow in cubic feet per second}
 \item{n_dlt_div_cfs}{D403A + D403B + D403C + D403D + D404, north delta diversions in cubic feet per second}
 \item{s_dlt_div_cfs}{D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC, south delta diversions in cubic feet per second}
-\item{n_dlt_div_cms}{north delta diversions in cubic meters per second}
-\item{s_dlt_div_cms}{south delta diversions in cubic meters per second}
 \item{n_dlt_prop_div}{north delta diversions / north delta inflow}
 \item{s_dlt_prop_div}{south delta diversions / south delta inflow}
 }
