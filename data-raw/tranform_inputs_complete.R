@@ -7,6 +7,26 @@ library(readxl)
 
 source('R/utils.R')
 # tributary --------------
+# using bypass node that is activated the most for meanQ
+bypass <- cvpiaFlow::bypass_flows %>%
+  select(date, `Sutter Bypass` = sutter4, `Yolo Bypass` = yolo2)
+
+mean_flow <- cvpiaFlow::flows_cfs %>%
+  left_join(bypass) %>%
+  filter(between(year(date), 1980, 2000)) %>%
+  gather(watershed, flow_cfs, -date) %>%
+  filter(watershed != 'Lower-mid Sacramento River1') %>%
+  mutate(flow_cms = cvpiaFlow::cfs_to_cms(flow_cfs),
+         watershed = ifelse(watershed == 'Lower-mid Sacramento River2', 'Lower-mid Sacramento River', watershed)) %>%
+  select(-flow_cfs) %>%
+  spread(date, flow_cms) %>%
+  left_join(cvpiaFlow::watershed_ordering) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  create_SIT_array()
+
+dimnames(mean_flow) <- list(cvpiaFlow::watershed_ordering$watershed, month.abb[1:12], 1980:2000)
+usethis::use_data(mean_flow, overwrite = TRUE)
 
 # Replaces upsacQ
 # flow at Bend C109, CALSIMII units cfs, sit-model units cms
