@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Delta Proportion Diverted — delta_proportion_diverted • cvpiaFlow</title>
+<title>Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses — proportion_flow_bypasses • cvpiaFlow</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,11 @@
 
 
 
-<meta property="og:title" content="Delta Proportion Diverted — delta_proportion_diverted" />
+<meta property="og:title" content="Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses — proportion_flow_bypasses" />
 
-<meta property="og:description" content="The proportion of delta inflow diverted from 1980-2000." />
+<meta property="og:description" content="The monthly proportion of Sacramento River flow within the bypasses
+(years 1980-2000) for use with the CVPIA SIT Salmon Population Model to
+apportion fish onto the bypasses." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -96,31 +98,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Delta Proportion Diverted</h1>
+    <h1>Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses</h1>
     
-    <div class="hidden name"><code>delta_proportion_diverted.Rd</code></div>
+    <div class="hidden name"><code>proportion_flow_bypasses.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The proportion of delta inflow diverted from 1980-2000.</p>
+    <p>The monthly proportion of Sacramento River flow within the bypasses
+(years 1980-2000) for use with the CVPIA SIT Salmon Population Model to
+apportion fish onto the bypasses.</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>delta_proportion_diverted</span></pre>
+    <pre class="usage"><span class='no'>proportion_flow_bypasses</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A 3 dimensional array: 12 by 21 by 2 [months, years, deltas]</p>
-<p>[ , , 1] North Delta</p>
-<p>[ , , 2] South Delta</p>
+    <p>a 12 by 21 by 2 array (month, year, bypass):
+[ , , 1] = Sutter Bypass represented with CALSIM II nodes (D117 + D124 + D125 + D126)/C116
+[ , , 2] = Yolo Bypass represented with CALSIM II nodes D160/C134</p>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <ul>
+<li><p><strong>Data Wrangling:</strong> Sadie Gill  <a href='mailto:sgill@flowwest.com'>sgill@flowwest.com</a></p></li>
+<li><p><strong>Node Selection:</strong> Mark Tompkins <a href='mailto:mtompkins@flowwest.com'>mtompkins@flowwest.com</a> and Mike Urkov <a href='mailto:mike.urkov@gmail.com'>mike.urkov@gmail.com</a></p></li>
+<li><p><strong>CALSIM Model Output:</strong> Michael Wright <a href='mailto:mwright@usbr.gov'>mwright@usbr.gov</a></p></li>
+</ul>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.</p>
-<p>The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-below Vernalis.</p>
-<p>Calculated using <code><a href='delta_flows.html'>delta_flows</a></code></p>
+    <p>The proportions of Sacramento River flowing through the bypasses are represented using
+'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.</p>
+<p><a href='https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg'>CALSIM II schematic</a></p>
     
 
   </div>
@@ -129,6 +140,8 @@ below Vernalis.</p>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
 
       <li><a href="#details">Details</a></li>
           </ul>

@@ -64,7 +64,7 @@ use with the CVPIA SIT Salmon Population Model." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cvpiaFlow</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -113,40 +113,7 @@ use with the CVPIA SIT Salmon Population Model.</p>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>dataframe with 985 rows and 32 variables:</p><dl class='dl-horizontal'>
-<dt>date</dt><dd><p>CALSIM II date</p></dd>
-<dt>Upper Sacramento River</dt><dd><p>D104 / C104</p></dd>
-<dt>Antelope Creek</dt><dd><p>(C11307 / (C11307 + C11308 + C11309) * D11305) / C11307</p></dd>
-<dt>Battle Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Bear Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Big Chico Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Butte Creek</dt><dd><p>(C217B + D217) / (C217B + D217 + C217A)</p></dd>
-<dt>Clear Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Cottonwood Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Cow Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Deer Creek</dt><dd><p>(C11309 / (C11307 + C11308 + C11309) * D11305) / C11309</p></dd>
-<dt>Elder Creek</dt><dd><p>(C11303 / (C11303 + C11304) * D11301) / C11303</p></dd>
-<dt>Mill Creek</dt><dd><p>(C11308 / (C11307 + C11308 + C11309) * D11305) / C11308</p></dd>
-<dt>Paynes Creek</dt><dd><p>no modeled diversions</p></dd>
-<dt>Stony Creek</dt><dd><p>D17301 / C42</p></dd>
-<dt>Thomes Creek</dt><dd><p>(C11304 / (C11303 + C11304) * D11301) / C11304</p></dd>
-<dt>Upper-mid Sacramento River</dt><dd><p>(D109 + D112 + D113A + D113B + D114 + D118 + D122A + D122B + D123 + D124A + D128_WTS + D128) / C110</p></dd>
-<dt>Sutter Bypass</dt><dd><p>no modeled diversions</p></dd>
-<dt>Bear River</dt><dd><p>D285 / (C285 + D285)</p></dd>
-<dt>Feather River</dt><dd><p>(D201 + D202 + D7A + D7B) / C6</p></dd>
-<dt>Yuba River</dt><dd><p>D230 / (C230 + D230)</p></dd>
-<dt>Lower-mid Sacramento River</dt><dd><p>(D129A + D134 + D162 + D165) / C128</p></dd>
-<dt>Yolo Bypass</dt><dd><p>no modeled diversions</p></dd>
-<dt>American River</dt><dd><p>D302 / C9</p></dd>
-<dt>Lower Sacramento River</dt><dd><p>(D167 + D168 + D168A_WTS) / C166</p></dd>
-<dt>Calaveras River</dt><dd><p>(D506A + D506B + D506C + D507) / C92</p></dd>
-<dt>Cosumnes River</dt><dd><p>no modeled diversions</p></dd>
-<dt>Mokelumne River</dt><dd><p>(D503A + D503B + D503C + D502A + D502B) / C91*</p></dd>
-<dt>Merced River</dt><dd><p>(D562 + D566) / C561</p></dd>
-<dt>Stanislaus River</dt><dd><p>D528 / C520</p></dd>
-<dt>Tuolumne River</dt><dd><p>D545 / C540</p></dd>
-<dt>San Joaquin River</dt><dd><p>(D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)</p></dd>
-</dl>
+    <p>a 31 by 12 by 21 array [watershed, month, year (1980-2000)]</p>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
@@ -159,10 +126,43 @@ use with the CVPIA SIT Salmon Population Model.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The proportion diverted was calculated using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
-The nodes and calculation for each watershed are outlined above.</p>
+The nodes and calculation for each watershed are outlined below</p>
 <p>The diversions of Antelope Creek, Deer Creek and Mill Creek are represented by one diversion node.
 Diversions for these creeks were estimated in proportion to their flow. Elder Creek and Thomes Creek
 are also represented with a single node and their diversions were estimated using the same method.</p>
+<dl class='dl-horizontal'>
+  <dt>Upper Sacramento River</dt><dd><p>D104 / C104</p></dd>
+  <dt>Antelope Creek</dt><dd><p>(C11307 / (C11307 + C11308 + C11309) * D11305) / C11307</p></dd>
+  <dt>Battle Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Bear Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Big Chico Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Butte Creek</dt><dd><p>(C217B + D217) / (C217B + D217 + C217A)</p></dd>
+  <dt>Clear Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Cottonwood Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Cow Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Deer Creek</dt><dd><p>(C11309 / (C11307 + C11308 + C11309) * D11305) / C11309</p></dd>
+  <dt>Elder Creek</dt><dd><p>(C11303 / (C11303 + C11304) * D11301) / C11303</p></dd>
+  <dt>Mill Creek</dt><dd><p>(C11308 / (C11307 + C11308 + C11309) * D11305) / C11308</p></dd>
+  <dt>Paynes Creek</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Stony Creek</dt><dd><p>D17301 / C42</p></dd>
+  <dt>Thomes Creek</dt><dd><p>(C11304 / (C11303 + C11304) * D11301) / C11304</p></dd>
+  <dt>Upper-mid Sacramento River</dt><dd><p>(D109 + D112 + D113A + D113B + D114 + D118 + D122A + D122B + D123 + D124A + D128_WTS + D128) / C110</p></dd>
+  <dt>Sutter Bypass</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Bear River</dt><dd><p>D285 / (C285 + D285)</p></dd>
+  <dt>Feather River</dt><dd><p>(D201 + D202 + D7A + D7B) / C6</p></dd>
+  <dt>Yuba River</dt><dd><p>D230 / (C230 + D230)</p></dd>
+  <dt>Lower-mid Sacramento River</dt><dd><p>(D129A + D134 + D162 + D165) / C128</p></dd>
+  <dt>Yolo Bypass</dt><dd><p>no modeled diversions</p></dd>
+  <dt>American River</dt><dd><p>D302 / C9</p></dd>
+  <dt>Lower Sacramento River</dt><dd><p>(D167 + D168 + D168A_WTS) / C166</p></dd>
+  <dt>Calaveras River</dt><dd><p>(D506A + D506B + D506C + D507) / C92</p></dd>
+  <dt>Cosumnes River</dt><dd><p>no modeled diversions</p></dd>
+  <dt>Mokelumne River</dt><dd><p>(D503A + D503B + D503C + D502A + D502B) / C91*</p></dd>
+  <dt>Merced River</dt><dd><p>(D562 + D566) / C561</p></dd>
+  <dt>Stanislaus River</dt><dd><p>D528 / C520</p></dd>
+  <dt>Tuolumne River</dt><dd><p>D545 / C540</p></dd>
+  <dt>San Joaquin River</dt><dd><p>(D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)</p></dd>
+</dl>
     <p><em>*Mokelumne River flow and diversions are from a separate model provided by EBMUD.</em></p>
     <p><a href='https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg'>CALSIM II schematic</a></p>
     

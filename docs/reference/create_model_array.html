@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Delta Proportion Diverted — delta_proportion_diverted • cvpiaFlow</title>
+<title>Generate SIT Model Compatible Array — create_model_array • cvpiaFlow</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Delta Proportion Diverted — delta_proportion_diverted" />
+<meta property="og:title" content="Generate SIT Model Compatible Array — create_model_array" />
 
-<meta property="og:description" content="The proportion of delta inflow diverted from 1980-2000." />
+<meta property="og:description" content="transforms to array data structure for SIT model input" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -96,41 +96,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Delta Proportion Diverted</h1>
+    <h1>Generate SIT Model Compatible Array</h1>
     
-    <div class="hidden name"><code>delta_proportion_diverted.Rd</code></div>
+    <div class="hidden name"><code>create_model_array.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The proportion of delta inflow diverted from 1980-2000.</p>
+    <p>transforms to array data structure for SIT model input</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>delta_proportion_diverted</span></pre>
-        
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>A 3 dimensional array: 12 by 21 by 2 [months, years, deltas]</p>
-<p>[ , , 1] North Delta</p>
-<p>[ , , 2] South Delta</p>
+    <pre class="usage"><span class='fu'>create_model_array</span>(<span class='no'>input</span>)</pre>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>input</th>
+      <td><p>a vector of data, length = 252 for 12 months and 20 years of data</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.</p>
-<p>The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-below Vernalis.</p>
-<p>Calculated using <code><a href='delta_flows.html'>delta_flows</a></code></p>
+    <p>3 dimension array [location, month, year]</p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
           </ul>
 
   </div>
