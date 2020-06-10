@@ -13,23 +13,27 @@ home:
 
 reference:
 - title: CALSIM II Data Sets
-  desc: Flow related data sets used by the CVPIA Salmon Population Model
+  desc: Flow related data sets used by the CVPIA Population Models
   contents:
   - flows_cfs
-  - delta_flows
   - bypass_flows
-  - proportion_diverted
+  - delta_flows
+  - delta_inflow
+  - delta_proportion_diverted
+  - delta_total_diverted
   - total_diverted
-  - propQbypass
-  - return_flow
-  - upsacQ
-  - freeportQ
+  - proportion_diverted
+  - proportion_flow_bypasses
+  - proportion_flow_natal
+  - upper_sacramento_flows
+  - mean_flow
   - delta_cross_channel_closed
-  - bypass_overtopped
+  - prop_pulse_flows
 - title: Helpers
   desc: Functions for convenience
   contents:
   - cfs_to_cms
+  - create_model_array
 
 navbar:
   type: default
