@@ -43,7 +43,9 @@ med_flow <- cvpiaFlow::flows_cfs %>%
 
 # usethis::use_data(med_flow, overwrite = TRUE)
 ```
+
 * bypass_over - was gate.top in model, not used
+
 ```
 #' Sutter and Yolo Bypasses Overtopped
 #' @description A dataset containing a boolean representation of bypasses overtopped
@@ -125,4 +127,72 @@ bypass_over <- array(as.logical(NA), dim = c(12, 20, 2))
 bypass_over[ , , 1] <- sutter_overtopped
 bypass_over[ , , 2] <- yolo_overtopped
 # usethis::use_data(bypass_over, overwrite = TRUE)
+```
+
+* freeportQ, is calib_data$Q_free the same
+```
+#' The Flow from Lower Sacramento River into the Central/South Delta
+#' @description A dataset containing the flow at Freeport Weir. To be used for routing fish from the Lower
+#' Sacramento River into the Central/South delta in the SIT Salmon Population Model.
+#'
+#' @format dataframe with 996 rows and 3 variables:
+#' \describe{
+#' \item{date}{CALSIM II date}
+#' \item{freeportQcfs}{C400 - flow in cubic feet per second}
+#' \item{freeportQcms}{C400 - flow in cubic meters per second}
+#' }
+#'
+#' @details The flow at Freeport Weir is represented using node CALSIM II 'FLOW-CHANNEL' C400.
+#'
+#'
+#' \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
+#'
+#' @source
+#' \itemize{
+#'   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@@flowwest.com}
+#'   \item \strong{Node Selection:} Mark Tompkins \email{mtompkins@@flowwest.com} and Mike Urkov \email{mike.urkov@@gmail.com}
+#'   \item \strong{CALSIM Model Output:} Michael Wright \email{mwright@@usbr.gov}
+#' }
+#'
+"freeportQ"
+freeportQ <- read_csv('data-raw/MikeWrightCalSimOct2017/C169-422.csv', skip = 1) %>%
+  select(date = X2, C400) %>%
+  filter(!is.na(date)) %>%
+  mutate(date = dmy(date),
+         freeportQcfs = as.numeric(C400),
+         freeportQcms = cfs_to_cms(freeportQcfs)) %>%
+  select(date, freeportQcfs, freeportQcms) %>%
+  filter(!is.na(freeportQcfs))
+
+usethis::use_data(freeportQ)
+
+#' Flow at Freeport
+#' @description The inflow at Freeport in cubic meters per second from 1980-2000.
+#'
+#' @format A dataframe with 12 rows and 21 variables
+#' Each row represents a month, each column a year from 1980-2000.
+#' This data is used to route fish into the delta.
+#'
+#' @details For more details see:
+#'  \itemize{
+#'   \item use this link within R \code{\link[cvpiaFlow]{freeportQ}}
+#'   \item use this \href{https://flowwest.github.io/cvpiaFlow/reference/freeportQ.html}{link} if in a web browser
+#' }
+#'
+#'
+"freeportQcms"
+# flow at freeport
+# TODO freeport_flows <- calib_data$Q_free, is calib_data$Q_free the same?
+freeportQcms <- cvpiaFlow::freeportQ %>%
+  mutate(year = year(date), month = month(date)) %>%
+  filter(year >= 1980, year <= 2000) %>%
+  select(-date, -freeportQcfs) %>%
+  spread(year, freeportQcms) %>%
+  select(-month) %>%
+  as.matrix()
+
+rownames(freeportQcms) <- month.abb[1:12]
+
+usethis::use_data(freeportQcms, overwrite = TRUE)
+
 ```
