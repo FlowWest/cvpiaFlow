@@ -178,7 +178,7 @@ total_diverted <- temp_diver %>%
   mutate_all(~replace_na(., 0)) %>%
   arrange(order) %>%
   select(-watershed, -order) %>%
-  create_SIT_array()
+  create_model_array()
 
 dimnames(total_diverted) <- list(watershed_ordering$watershed, month.abb[1:12], 1980:2000)
 usethis::use_data(total_diverted, overwrite = TRUE)
@@ -244,7 +244,7 @@ proportion_diverted <- temp_prop_diver %>%
   mutate_all(~replace_na(., 0)) %>%
   arrange(order) %>%
   select(-watershed, -order) %>%
-  create_SIT_array()
+  create_model_array()
 
 dimnames(proportion_diverted) <- list(watershed_ordering$watershed, month.abb[1:12], 1980:2000)
 
@@ -284,7 +284,7 @@ mean_flow <- cvpiaFlow::flows_cfs %>%
   left_join(cvpiaFlow::watershed_ordering) %>%
   arrange(order) %>%
   select(-watershed, -order) %>%
-  create_SIT_array()
+  create_model_array()
 
 dimnames(mean_flow) <- list(cvpiaFlow::watershed_ordering$watershed, month.abb[1:12], 1980:2000)
 usethis::use_data(mean_flow, overwrite = TRUE)
