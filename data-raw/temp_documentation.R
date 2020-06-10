@@ -24,12 +24,3 @@
 #' }
 "meanQ"
 
-#' Proportion of Flow Diverted
-#' @description The proportion of flow diverted for each watershed every month of every year in the simulation (1980-2000).
-#' @format a 3 dimensional array [31 watersheds, 12 months, 21 years]
-#' @details For more details see:
-#' \itemize{
-#'   \item use this link within R \code{\link[cvpiaFlow]{proportion_diverted}}
-#'   \item use this \href{https://flowwest.github.io/cvpiaFlow/reference/proportion_diverted.html}{link} if in a web browser
-#' }
-"prop_diversion"

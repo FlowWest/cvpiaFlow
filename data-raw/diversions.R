@@ -1,7 +1,11 @@
-library(tidyverse)
-library(devtools)
-library(readxl)
+library(dplyr)
+library(tidyr)
+library(readr)
 library(lubridate)
+library(stringr)
+library(readxl)
+
+source('R/utils.R')
 
 calsim <- read_rds('data-raw/MikeWrightCalSimOct2017/cvpia_calsim.rds')
 cvpia_nodes <- read_csv('data-raw/MikeWrightCalSimOct2017/cvpia_calsim_nodes.csv', skip = 1)
@@ -23,7 +27,6 @@ all_div_nodes
 node_columns <- names(calsim) %in% all_div_nodes
 
 div_calsim <- calsim[, node_columns]
-
 
 # total diverted------------------------------------
 temp_diver <- div_calsim %>%
@@ -62,19 +65,27 @@ temp_diver <- div_calsim %>%
   select(date, watersheds[-27])
 
 # bring in Moke diversions from other model run
-moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
+moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx',
+                   sheet = 'Tableau Clean-up') %>%
   mutate(date = as_date(Date), `Mokelumne River` = (D503A + D503B + D503C + D502A + D502B)) %>%
   select(date, `Mokelumne River`)
 
 total_diverted <- temp_diver %>%
   left_join(moke) %>%
-  select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
+  select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`) %>%
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  gather(watershed, tot_diver, -date) %>%
+  spread(date, tot_diver) %>%
+  left_join(cvpiaFlow::watershed_ordering) %>%
+  mutate_all(~replace_na(., 0)) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  create_SIT_array()
 
-use_data(total_diverted, overwrite = TRUE)
+dimnames(total_diverted) <- list(watershed_ordering$watershed, month.abb[1:12], 1980:2000)
+usethis::use_data(total_diverted, overwrite = TRUE)
 
-# proportion diverted------------------------------------
-
-temp_diver <- div_calsim %>%
+temp_prop_diver <- div_calsim %>%
   mutate(`Upper Sacramento River` = D104 / C104,
          `Antelope Creek` = (C11307 / (C11307 + C11308 + C11309) * D11305) / C11307,
          `Battle Creek` = NA,
@@ -105,15 +116,12 @@ temp_diver <- div_calsim %>%
          `Lower Sacramento River` = (D167 + D168 + D168A_WTS) / C166,
          `Calaveras River` = (D506A + D506B + D506C + D507) / C92,
          `Cosumnes River` = NA,
-         # `Mokelumne River` = NA, # waiting on other run from mike U
+         # `Mokelumne River` = NA, # external model
          `Merced River` = (D562 + D566) / C561,
          `Stanislaus River` = D528 / C520,
          `Tuolumne River` = D545 / C540,
          `San Joaquin River` = (D637 + D630B + D630A + D620B) / (D637 + D630B + D630A + D620B + C637)) %>%
-  select(date, watersheds[-27])
-
-#fix prop_div > 1 or inf or nan
-prop_diverted <- temp_diver %>%
+  select(date, watersheds[-27]) %>%
   gather(watershed, prop_diver, -date) %>%
   mutate(prop_diver = round(prop_diver, 6),
          prop_diver = case_when(
@@ -122,66 +130,24 @@ prop_diverted <- temp_diver %>%
            prop_diver > 1 ~ 1,
            TRUE ~ prop_diver
          )) %>%
-  spread(watershed, prop_diver) %>%
-  select(date, watersheds[-27])
+  spread(watershed, prop_diver)
 
 # bring in Moke diversions from other model run
 moke <- read_excel('data-raw/EBMUDSIM/CVPIA_SIT_Data_RequestEBMUDSIMOutput_ExCond.xlsx', sheet = 'Tableau Clean-up') %>%
   mutate(date = as_date(Date), `Mokelumne River` = (D503A + D503B + D503C + D502A + D502B) / C91) %>%
   select(date, `Mokelumne River`)
 
-proportion_diverted <- prop_diverted %>%
+proportion_diverted <- temp_prop_diver %>%
   left_join(moke) %>%
-  select(date:`Cosumnes River`, `Mokelumne River`, `Merced River`:`San Joaquin River`)
+  filter(year(date) >= 1980, year(date) <= 2000) %>%
+  gather(watershed, prop_diver, -date) %>%
+  spread(date, prop_diver) %>%
+  left_join(cvpiaFlow::watershed_ordering) %>%
+  mutate_all(~replace_na(., 0)) %>%
+  arrange(order) %>%
+  select(-watershed, -order) %>%
+  create_SIT_array()
 
-use_data(proportion_diverted, overwrite = TRUE)
+dimnames(proportion_diverted) <- list(watershed_ordering$watershed, month.abb[1:12], 1980:2000)
 
-# diagnostic plots and solutions for prop_div > 1 or inf or nan-----------------------------------
-  #yuba div/div+flow is solution
-  div_calsim %>%
-    select(date, C230, D230) %>%
-    mutate(C231 = C230 + D230) %>%
-    select(-C230) %>%
-    gather(node, flow, -date) %>%
-    ggplot(aes(x = date, y = flow, color = node)) +
-    geom_line()
-    mutate(prop_div = round(D230/C230, 6)) %>% View()
-
-    #merced cap prop div to 1
-    div_calsim %>%
-      select(date, D562, D566, C561) %>%
-      mutate(diver = D562 + D566) %>%
-      select(date, C561, diver) %>%
-      filter(year(date) >= 1980, year(date) < 2000, month(date) < 9) %>%
-      gather(node, flow, -date) %>%
-      ggplot(aes(x = date, y = flow, fill = node)) +
-      geom_col(position = 'dodge')
-
-    #butte creek sum(C217B, D217)/sum(C217A, C217B, D217)
-    div_calsim %>%
-      select(date, C217A, C217B, D217) %>%
-      mutate(diver = C217B + D217) %>%
-      select(date, C217A, diver) %>%
-      filter(year(date) >= 1980, year(date) < 2000, month(date) < 9) %>%
-      gather(node, flow, -date) %>%
-      ggplot(aes(x = date, y = flow, fill = node)) +
-      geom_col(position = 'dodge')
-
-    #bear river div/div+flow is solution
-
-    #calaveras cap prop div to 1
-    div_calsim %>%
-      select(date, C92, D506A, D506B, D506C, D507) %>%
-      mutate(diver = D506A + D506B + D506C + D507) %>%
-      select(date, C92, diver) %>%
-      filter(year(date) >= 1980, year(date) < 2000, month(date) < 9) %>%
-      gather(node, flow, -date) %>%
-      ggplot(aes(x = date, y = flow, fill = node)) +
-      geom_col(position = 'dodge')
-
-    # elder and thomes cap prop div to 1 and sum their flows instead of combined node
-    div_calsim %>%
-      select(date, elder_flow = C11303,  thomes_flow = C11304, combined_diver = D11301,
-             C11301) %>%
-      mutate(combined_flow = elder_flow + thomes_flow) %>%
-      filter(year(date) >= 1980, year(date) < 2000, month(date) < 9, combined_flow < combined_diver) %>% View()
+usethis::use_data(proportion_diverted, overwrite = TRUE)
