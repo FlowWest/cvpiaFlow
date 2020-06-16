@@ -293,12 +293,13 @@
 #'
 "proportion_flow_natal"
 
-# TODO not sure what units this should be or description because of /100,
 # replaces prop.pulse
 #' Proportion Pulse Flow
 #' @description Estimated monthly proportion of flow that is a pulse
 #' @format a 31 by 12 matrix (watersheds by months)
 #' @details prop_pulse_flows = sd(flow)/median(flow)/100
+#'
+#' The value is divided by 100 to adjust the scaling to more closely resemble measured data.
 #'
 #' Calculated using \code{\link{flows_cfs}}
 #'
