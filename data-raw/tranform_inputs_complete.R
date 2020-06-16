@@ -349,7 +349,7 @@ rownames(proportion_flow_natal) <- watersheds
 usethis::use_data(proportion_flow_natal, overwrite = TRUE)
 
 # Replaces prop.pulse
-prop_pulse_flows <- cvpiaFlow::flows_cfs %>%
+proportion_pulse_flows <- cvpiaFlow::flows_cfs %>%
   filter(between(year(date), 1980, 1999)) %>%
   mutate(`Lower-mid Sacramento River` = 35.6/58 * `Lower-mid Sacramento River1` + 22.4/58 *`Lower-mid Sacramento River2`) %>%
   select(-`Lower-mid Sacramento River1`, -`Lower-mid Sacramento River2`) %>%
@@ -369,10 +369,10 @@ prop_pulse_flows <- cvpiaFlow::flows_cfs %>%
   select(-order, -watershed) %>%
   as.matrix()
 
-colnames(prop_pulse_flows) <- month.abb[1:12]
-rownames(prop_pulse_flows) <- cvpiaFlow::watershed_ordering$watershed
+colnames(proportion_pulse_flows) <- month.abb[1:12]
+rownames(proportion_pulse_flows) <- cvpiaFlow::watershed_ordering$watershed
 
-usethis::use_data(prop_pulse_flows, overwrite = TRUE)
+usethis::use_data(proportion_pulse_flows, overwrite = TRUE)
 
 # DELTA ----
 #  C400 flow at freeport

@@ -34,9 +34,6 @@
     <loc>https://flowwest.github.io/cvpiaFlow//reference/mean_flow.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/prop_pulse_flows.html</loc>
-  </url>
-  <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_diverted.html</loc>
   </url>
   <url>
@@ -44,6 +41,9 @@
   </url>
   <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_flow_natal.html</loc>
+  </url>
+  <url>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_pulse_flows.html</loc>
   </url>
   <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/total_diverted.html</loc>

@@ -297,13 +297,13 @@
 #' Proportion Pulse Flow
 #' @description Estimated monthly proportion of flow that is a pulse
 #' @format a 31 by 12 matrix (watersheds by months)
-#' @details prop_pulse_flows = sd(flow)/median(flow)/100
+#' @details proportion_pulse_flows = sd(flow)/median(flow)/100
 #'
 #' The value is divided by 100 to adjust the scaling to more closely resemble measured data.
 #'
 #' Calculated using \code{\link{flows_cfs}}
 #'
-"prop_pulse_flows"
+"proportion_pulse_flows"
 
 # Bypasses ------
 #' Flow through the Sutter and Yolo Bypasses
