@@ -29,6 +29,7 @@ reference:
   - mean_flow
   - delta_cross_channel_closed
   - proportion_pulse_flows
+  - watershed_ordering
 - title: Helpers
   desc: Functions for convenience
   contents:
