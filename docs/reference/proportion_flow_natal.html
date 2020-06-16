@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flow through the Sutter and Yolo Bypasses — bypass_flows • cvpiaFlow</title>
+<title>Return Flow — proportion_flow_natal • cvpiaFlow</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="Flow through the Sutter and Yolo Bypasses — bypass_flows" />
+<meta property="og:title" content="Return Flow — proportion_flow_natal" />
 
-<meta property="og:description" content="A dataset containing the flow within the bypasses for
-estimating available rearing habitat within the bypasses." />
+<meta property="og:description" content="A dataset containing the proportion flows at tributary junction
+coming from natal watershed using October CALSIM II flows. These proportions are used to estimate
+straying in the CVPIA SIT Salmon Population Model." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,50 +98,73 @@ estimating available rearing habitat within the bypasses." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Flow through the Sutter and Yolo Bypasses</h1>
+    <h1>Return Flow</h1>
     
-    <div class="hidden name"><code>bypass_flows.Rd</code></div>
+    <div class="hidden name"><code>proportion_flow_natal.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A dataset containing the flow within the bypasses for
-estimating available rearing habitat within the bypasses.</p>
+    <p>A dataset containing the proportion flows at tributary junction
+coming from natal watershed using October CALSIM II flows. These proportions are used to estimate
+straying in the CVPIA SIT Salmon Population Model.</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>bypass_flows</span></pre>
+    <pre class="usage"><span class='no'>proportion_flow_natal</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>dataframe with 972 rows and 7 variables:</p><dl class='dl-horizontal'>
-<dt>date</dt><dd><p>CALSIM II date</p></dd>
-<dt>sutter1</dt><dd><p>D117</p></dd>
-<dt>sutter2</dt><dd><p>C135</p></dd>
-<dt>sutter3</dt><dd><p>C136A</p></dd>
-<dt>sutter4</dt><dd><p>C137</p></dd>
-<dt>yolo1</dt><dd><p>D160</p></dd>
-<dt>yolo2</dt><dd><p>C157</p></dd>
-</dl>
+    <p>31 by 22 matrix (watersheds by years 1979-2000):</p>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <ul>
 <li><p><strong>Data Wrangling:</strong> Sadie Gill  <a href='mailto:sgill@flowwest.com'>sgill@flowwest.com</a></p></li>
-<li><p><strong>Node Selection:</strong> Mark Tompkins <a href='mailto:mtompkins@flowwest.com'>mtompkins@flowwest.com</a></p></li>
+<li><p><strong>Node Selection:</strong> Mark Tompkins <a href='mailto:mtompkins@flowwest.com'>mtompkins@flowwest.com</a> and Mike Urkov <a href='mailto:mike.urkov@gmail.com'>mike.urkov@gmail.com</a></p></li>
 <li><p><strong>CALSIM Model Output:</strong> Michael Wright <a href='mailto:mwright@usbr.gov'>mwright@usbr.gov</a></p></li>
 </ul>
+    <p>Calculated using <code><a href='flows_cfs.html'>flows_cfs</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The flow in cubic feet per second through the bypasses are represented using
-'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
-The nodes for each watershed are outlined above.</p>
-    
-    <h2 class="hasAnchor" id="model-usage"><a class="anchor" href="#model-usage"></a>Model Usage</h2>
-
-    
-    <p>The habitat within the bypasses are split at the major weirs.</p>
+    <p>The return flow proportion is calculated using the average October flow
+in each watershed divided by the average October flow of the tributary it flows
+into for each year of the simulation. These tributary relationships
+are described in detail below.</p>
+    <p><strong>Flow into Upper-mid Sacramento River:</strong></p><ul>
+<li><p>Upper Sacramento River</p></li>
+<li><p>Antelope Creek</p></li>
+<li><p>Battle Creek</p></li>
+<li><p>Bear Creek</p></li>
+<li><p>Big Chico Creek</p></li>
+<li><p>Butte Creek</p></li>
+<li><p>Clear Creek</p></li>
+<li><p>Cottonwood Creek</p></li>
+<li><p>Cow Creek</p></li>
+<li><p>Deer Creek</p></li>
+<li><p>Elder Creek</p></li>
+<li><p>Mill Creek</p></li>
+<li><p>Paynes Creek</p></li>
+<li><p>Stony Creek</p></li>
+<li><p>Thomes Creek</p></li>
+</ul>
+    <p><strong>Flow into Feather River:</strong></p><ul>
+<li><p>Bear River</p></li>
+<li><p>Yuba River</p></li>
+</ul>
+    <p><strong>Flow into Lower-mid Sacramento River:</strong></p><ul>
+<li><p>Feather River</p></li>
+</ul>
+    <p><strong>Flow into Lower Sacramento River:</strong></p><ul>
+<li><p>American River</p></li>
+</ul>
+    <p><strong>Flow into San Joaquin River:</strong></p><ul>
+<li><p>Merced River</p></li>
+<li><p>Tuolumne River</p></li>
+<li><p>Stanislaus River</p></li>
+</ul>
+    <p>The Mokulumne River, Calaveras River, and Cosumnes River are assigened 100%.</p>
     <p><a href='https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg'>CALSIM II schematic</a></p>
     
 
@@ -154,8 +178,6 @@ The nodes for each watershed are outlined above.</p>
       <li><a href="#source">Source</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#model-usage">Model Usage</a></li>
           </ul>
 
   </div>

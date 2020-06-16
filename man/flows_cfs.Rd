@@ -4,7 +4,8 @@
 \name{flows_cfs}
 \alias{flows_cfs}
 \title{Flow in cfs}
-\format{dataframe with 985 rows and 33 variables:
+\format{
+dataframe with 985 rows and 33 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{Upper Sacramento River}{C104}
@@ -37,7 +38,8 @@
 \item{Stanislaus River}{C520}
 \item{Tuolumne River}{C540}
 \item{San Joaquin River}{C630}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

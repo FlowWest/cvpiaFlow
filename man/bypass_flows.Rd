@@ -4,7 +4,8 @@
 \name{bypass_flows}
 \alias{bypass_flows}
 \title{Flow through the Sutter and Yolo Bypasses}
-\format{dataframe with 972 rows and 7 variables:
+\format{
+dataframe with 972 rows and 7 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{sutter1}{D117}
@@ -13,7 +14,8 @@
 \item{sutter4}{C137}
 \item{yolo1}{D160}
 \item{yolo2}{C157}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}

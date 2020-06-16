@@ -4,12 +4,10 @@
 \name{delta_cross_channel_closed}
 \alias{delta_cross_channel_closed}
 \title{Delta Cross Channel Operations}
-\format{dataframe with 12 rows and 2 variables:
-\describe{
-\item{month}{Integar representation of months}
-\item{days_closed}{the number of days the delta cross channel gates are typically closed}
-\item{prop_days_closed}{the proportion of days during the month that the delta cross channel gates are typically closed}
-}}
+\format{
+a 2 by 12 matrix, row one and two are the count and proportion of days
+closed respectively, columns are months
+}
 \source{
 \href{http://www.westcoast.fisheries.noaa.gov/central_valley/water_operations/ocap.html}{2009 NMFS BiOp Action IV.1 and D-1641}
 
@@ -19,7 +17,8 @@ Compiled by Mike Urkov \email{mike.urkov@gmail.com}
 delta_cross_channel_closed
 }
 \description{
-The number of days the Delta Cross Channel gates are closed for each month
+The number of days and proportion of days the Delta Cross Channel
+gates are typically closed for each month
 }
 \details{
 By rule, 45 days between November-January, based on real time monitoring.

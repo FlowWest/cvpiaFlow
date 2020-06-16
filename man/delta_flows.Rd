@@ -4,20 +4,18 @@
 \name{delta_flows}
 \alias{delta_flows}
 \title{Delta Flows and Diversions}
-\format{dataframe with 972 rows and 11 variables:
+\format{
+dataframe with 972 rows and 7 variables:
 \describe{
 \item{date}{CALSIM II date}
 \item{n_dlt_inflow_cfs}{C400 + C157, north delta inflow in cubic feet per second}
 \item{s_dlt_inflow_cfs}{C401B + C504 + C508 + C644, south delta inflow in cubic feet per second}
-\item{n_dlt_inflow_cms}{north delta inflow in cubic meters per second}
-\item{s_dlt_inflow_cms}{south delta inflow in cubic meters per second}
 \item{n_dlt_div_cfs}{D403A + D403B + D403C + D403D + D404, north delta diversions in cubic feet per second}
 \item{s_dlt_div_cfs}{D418 + D419 + D412 + D410 + D413 + D409B + D416 + D408_OR + D408_VC, south delta diversions in cubic feet per second}
-\item{n_dlt_div_cms}{north delta diversions in cubic meters per second}
-\item{s_dlt_div_cms}{south delta diversions in cubic meters per second}
 \item{n_dlt_prop_div}{north delta diversions / north delta inflow}
 \item{s_dlt_prop_div}{south delta diversions / south delta inflow}
-}}
+}
+}
 \source{
 \itemize{
   \item \strong{Data Wrangling:} Sadie Gill  \email{sgill@flowwest.com}
@@ -29,14 +27,19 @@
 delta_flows
 }
 \description{
-A dataset containing the inflow, total diversions, and proportion diverted for the North and South Deltas.
+A dataset containing the inflow, total diversions, and proportion
+diverted for the North and South Deltas.
 }
 \details{
-The inflow, diversions, and proportions diverted in the North and South Deltas are represented using
-'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
-The North Delta is defined as the area west of and including the Sacramento River below Freeport to Chips Island.
-The South Delta is defined as the area east of the Sacramento River below Freeport to Chips Island and the San Joaquin River
-below Vernalis. The nodes and calculation for each delta are outlined above.
+The inflow, diversions, and proportions diverted in the North and South
+Deltas are represented using 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
+
+The North Delta is defined as the area west of and including the Sacramento River
+below Freeport to Chips Island.
+
+The South Delta is defined as the area east of the Sacramento River below Freeport
+to Chips Island and the San Joaquin River below Vernalis. The nodes and calculation
+for each delta are outlined above.
 
 
 \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}

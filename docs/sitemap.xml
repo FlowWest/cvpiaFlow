@@ -7,10 +7,10 @@
     <loc>https://flowwest.github.io/cvpiaFlow//reference/bypass_flows.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/bypass_overtopped.html</loc>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/cfs_to_cms.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/cfs_to_cms.html</loc>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/create_model_array.html</loc>
   </url>
   <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/delta_cross_channel_closed.html</loc>
@@ -19,24 +19,36 @@
     <loc>https://flowwest.github.io/cvpiaFlow//reference/delta_flows.html</loc>
   </url>
   <url>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/delta_inflow.html</loc>
+  </url>
+  <url>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/delta_proportion_diverted.html</loc>
+  </url>
+  <url>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/delta_total_diverted.html</loc>
+  </url>
+  <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/flows_cfs.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/freeportQ.html</loc>
-  </url>
-  <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/propQbypass.html</loc>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/mean_flow.html</loc>
   </url>
   <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_diverted.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/return_flow.html</loc>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_flow_bypasses.html</loc>
+  </url>
+  <url>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_flow_natal.html</loc>
+  </url>
+  <url>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/proportion_pulse_flows.html</loc>
   </url>
   <url>
     <loc>https://flowwest.github.io/cvpiaFlow//reference/total_diverted.html</loc>
   </url>
   <url>
-    <loc>https://flowwest.github.io/cvpiaFlow//reference/upsacQ.html</loc>
+    <loc>https://flowwest.github.io/cvpiaFlow//reference/upper_sacramento_flows.html</loc>
   </url>
 </urlset>
