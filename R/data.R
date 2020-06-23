@@ -483,3 +483,15 @@
 #' Calculated using \code{\link{delta_flows}}
 #'
 "delta_total_diverted"
+
+#' Ordering of Watersheds
+#'
+#' @format A data frame with 31 rows and 2 variables:
+#' \describe{
+#'   \item{order}{The order of the streams, used for indexing in the SIT model}
+#'   \item{watershed}{The name of the stream reach}
+#' }
+#'
+#' @source James T. Peterson \email{jt.peterson@@oregonstate.edu}
+#'
+"watershed_ordering"
