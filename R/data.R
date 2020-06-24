@@ -483,3 +483,52 @@
 #' Calculated using \code{\link{delta_flows}}
 #'
 "delta_total_diverted"
+
+
+#' @title Delta Routing Flows
+#' @description Flows is cms for the
+#' @format A matrix with
+#' \describe{
+#' \item{Q_free}{flow at Freeport (C400) in cms}
+#' \item{Q_vern}{flow at Vernalis (C639) in cms}
+#' \item{Q_stck}{flow at Stockton (C417A) in cms}
+#' \item{CVP_exp}{CVP Exports in cms, uses CALSIM variable DEL_CVP_TOTAL}
+#' \item{SWP_exp}{SWP Exports in cms, uses CALSIM variable DEL_SWP_TOTAL}
+#' }
+#'
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
+#' @name delta_routing_flows
+NULL
+
+
+#' @rdname delta_routing_flows
+"Q_free"
+
+#' @rdname delta_routing_flows
+"Q_vern"
+
+#' @rdname delta_routing_flows
+"Q_stck"
+
+#' @rdname delta_routing_flows
+"CVP_exp"
+
+#' @rdname delta_routing_flows
+"SWP_exp"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
