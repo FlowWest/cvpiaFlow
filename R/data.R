@@ -490,7 +490,7 @@
 #' @details
 #' The flows here are obtained from a CALSIM run designed for the structured
 #' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
-"Q_free"
+"freeport_flow"
 
 #' @title Flow at Vernalis
 #' @description flow in cms at Vernalis (C639)
@@ -498,7 +498,7 @@
 #' @details
 #' The flows here are obtained from a CALSIM run designed for the structured
 #' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
-"Q_vern"
+"vernalis_flow"
 
 #' @title Flow at Stockton
 #' @description flow in cms at Stockton (C417A)
@@ -506,7 +506,7 @@
 #' @details
 #' The flows here are obtained from a CALSIM run designed for the structured
 #' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
-"Q_stck"
+"stockton_flow"
 
 #' @title CVP Exports
 #' @description Total exports for CVP in cms. Value is obtained using CALSIM variable DEL_CVP_EXP.
@@ -514,7 +514,7 @@
 #' @details
 #' The flows here are obtained from a CALSIM run designed for the structured
 #' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
-"CVP_exp"
+"cvp_exports"
 
 #' @title SWP Exports
 #' @description Total exports for SWP in cms. Value is obtained using CALSIM variable DEL_SWP_EXP.
@@ -522,7 +522,7 @@
 #' @details
 #' The flows here are obtained from a CALSIM run designed for the structured
 #' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
-"SWP_exp"
+"swp_exports"
 
 
 
