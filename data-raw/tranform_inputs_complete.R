@@ -499,13 +499,13 @@ usethis::use_data(proportion_flow_bypasses, overwrite = TRUE)
 # Delta Routing Flows ---------------------
 
 library(cvpiaFlow)
-
+library(tibble)
 baseline_data <- read_csv("data-raw/delta-dsm-calsim/FullObsJul18_NoNotch_Base_DV_filtered.csv")
 
 # freeport flow
 freeport_node <- c("C400")
 
-Q_free <- baseline_data %>%
+freeport_flow <- baseline_data %>%
   filter(
     year(Date_Time) >= 1980, year(Date_Time) <= 1999,
     Variable == freeport_node) %>%
@@ -518,15 +518,17 @@ Q_free <- baseline_data %>%
   ) %>%
   select(year, month, freeportQcms) %>%
   spread(year, freeportQcms) %>%
-  column_to_rownames(var = "month") %>%
+  select(-month) %>%
   as.matrix()
 
-usethis::use_data(Q_free, overwrite = TRUE)
+rownames(freeport_flow) <- month.abb
+
+usethis::use_data(freeport_flow, overwrite = TRUE)
 
 # vernalis flow
 vernalis_node <- "C639"
 
-Q_vern <- baseline_data %>%
+vernalis_flow <- baseline_data %>%
   filter(
     year(Date_Time) >= 1980, year(Date_Time) <= 1999,
     Variable == vernalis_node) %>%
@@ -539,16 +541,18 @@ Q_vern <- baseline_data %>%
   ) %>%
   select(year, month, vernalisQcms) %>%
   spread(year, vernalisQcms) %>%
-  column_to_rownames(var = "month") %>%
+  select(-month) %>%
   as.matrix()
 
-usethis::use_data(Q_vern, overwrite = TRUE)
+rownames(vernalis_flow) <- month.abb
+
+usethis::use_data(vernalis_flow, overwrite = TRUE)
 
 # stockton flow
 
 stockton_node <- "C417A"
 
-Q_stck <- baseline_data %>%
+stockton_flow <- baseline_data %>%
   filter(
     year(Date_Time) >= 1980, year(Date_Time) <= 1999,
     Variable == stockton_node) %>%
@@ -561,15 +565,17 @@ Q_stck <- baseline_data %>%
   ) %>%
   select(year, month, stocktonQcms) %>%
   spread(year, stocktonQcms) %>%
-  column_to_rownames(var = "month") %>%
+  select(-month) %>%
   as.matrix()
 
-usethis::use_data(Q_stck, overwrite = TRUE)
+rownames(stockton_flow) <- month.abb
+
+usethis::use_data(stockton_flow, overwrite = TRUE)
 
 # cvp exports
 cvp_exports_node <- "DEL_CVP_TOTAL"
 
-CVP_exp <- baseline_data %>%
+cvp_exports <- baseline_data %>%
   filter(
     year(Date_Time) >= 1980, year(Date_Time) <= 1999,
     Variable == cvp_exports_node) %>%
@@ -582,15 +588,17 @@ CVP_exp <- baseline_data %>%
   ) %>%
   select(year, month, cvpExportsQcms) %>%
   spread(year, cvpExportsQcms) %>%
-  column_to_rownames(var = "month") %>%
+  select(-month) %>%
   as.matrix()
 
-usethis::use_data(CVP_exp, overwrite = TRUE)
+rownames(cvp_exports) <- month.abb
+
+usethis::use_data(cvp_exports, overwrite = TRUE)
 
 # swp exports
 swp_exports_node <- "DEL_SWP_TOTAL"
 
-SWP_exp <- baseline_data %>%
+swp_exports <- baseline_data %>%
   filter(
     year(Date_Time) >= 1980, year(Date_Time) <= 1999,
     Variable == swp_exports_node) %>%
@@ -603,17 +611,9 @@ SWP_exp <- baseline_data %>%
   ) %>%
   select(year, month, swpExportsQcms) %>%
   spread(year, swpExportsQcms) %>%
-  column_to_rownames(var = "month") %>%
+  select(-month) %>%
   as.matrix()
 
-usethis::use_data(SWP_exp, overwrite = TRUE)
+rownames(swp_exports) <- month.abb
 
-
-
-
-
-
-
-
-
-
+usethis::use_data(swp_exports, overwrite = TRUE)
