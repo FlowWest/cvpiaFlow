@@ -34,6 +34,7 @@ reference:
   - stockton_flow
   - cvp_exports
   - swp_exports
+  - watershed_ordering
 - title: Helpers
   desc: Functions for convenience
   contents:
