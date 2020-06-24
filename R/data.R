@@ -484,39 +484,46 @@
 #'
 "delta_total_diverted"
 
-
-#' @title Delta Routing Flows
-#' @description Flows is cms for the
-#' @format A matrix with
-#' \describe{
-#' \item{Q_free}{flow at Freeport (C400) in cms}
-#' \item{Q_vern}{flow at Vernalis (C639) in cms}
-#' \item{Q_stck}{flow at Stockton (C417A) in cms}
-#' \item{CVP_exp}{CVP Exports in cms, uses CALSIM variable DEL_CVP_TOTAL}
-#' \item{SWP_exp}{SWP Exports in cms, uses CALSIM variable DEL_SWP_TOTAL}
-#' }
-#'
+#' @title Flow at Freeport
+#' @description flow in cms at Freeport (C400)
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
 #' @details
 #' The flows here are obtained from a CALSIM run designed for the structured
 #' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
-#' @name delta_routing_flows
-NULL
-
-
-#' @rdname delta_routing_flows
 "Q_free"
 
-#' @rdname delta_routing_flows
+#' @title Flow at Vernalis
+#' @description flow in cms at Vernalis (C639)
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
 "Q_vern"
 
-#' @rdname delta_routing_flows
+#' @title Flow at Stockton
+#' @description flow in cms at Stockton (C417A)
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
 "Q_stck"
 
-#' @rdname delta_routing_flows
+#' @title CVP Exports
+#' @description Total exports for CVP in cms. Value is obtained using CALSIM variable DEL_CVP_EXP.
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
 "CVP_exp"
 
-#' @rdname delta_routing_flows
+#' @title SWP Exports
+#' @description Total exports for SWP in cms. Value is obtained using CALSIM variable DEL_SWP_EXP.
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
 "SWP_exp"
+
 
 
 
