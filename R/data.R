@@ -484,6 +484,46 @@
 #'
 "delta_total_diverted"
 
+#' @title Flow at Freeport
+#' @description flow in cms at Freeport (C400)
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
+"freeport_flow"
+
+#' @title Flow at Vernalis
+#' @description flow in cms at Vernalis (C639)
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
+"vernalis_flow"
+
+#' @title Flow at Stockton
+#' @description flow in cms at Stockton (C417A)
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
+"stockton_flow"
+
+#' @title CVP Exports
+#' @description Total exports for CVP in cms. Value is obtained using CALSIM variable DEL_CVP_EXP.
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
+"cvp_exports"
+
+#' @title SWP Exports
+#' @description Total exports for SWP in cms. Value is obtained using CALSIM variable DEL_SWP_EXP.
+#' @format A matrix with months (1-12) as rows and years (1980-1999) as columns
+#' @details
+#' The flows here are obtained from a CALSIM run designed for the structured
+#' decision making in the delta. The name of the scenario is: Full Obs No Notch Baseline.
+"swp_exports"
+
 #' Ordering of Watersheds
 #'
 #' @format A data frame with 31 rows and 2 variables:
