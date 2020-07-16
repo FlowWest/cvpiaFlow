@@ -8,12 +8,12 @@
 #### Installation
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("FlowWest/cvpiaFlow")
+# install.packages("remotes")
+remotes::install_github("FlowWest/cvpiaFlow")
 ```
 
 #### Usage
-This package provides flow related datasets to the [`cvpiaData`](https://flowwest.github.io/cvpiaData/) package.
+This package provides flow related datasets to the [`cvpiaModels `](https://flowwest.github.io/cvpiaModels/) package.
 
 ``` r
 # datasets within the package
