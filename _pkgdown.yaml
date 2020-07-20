@@ -34,10 +34,10 @@ reference:
   - stockton_flow
   - cvp_exports
   - swp_exports
-  - watershed_ordering
 - title: Helpers
-  desc: Functions for convenience
+  desc: Functions and datasets for convenience
   contents:
+  - watershed_ordering
   - cfs_to_cms
   - create_model_array
 
