@@ -6,7 +6,9 @@
 \title{Proportion of Sacramento River Flow through the Sutter and Yolo Bypasses}
 \format{
 a 12 by 21 by 2 array (month, year, bypass):
+
 [ , , 1] = Sutter Bypass represented with CALSIM II nodes (D117 + D124 + D125 + D126)/C116
+
 [ , , 2] = Yolo Bypass represented with CALSIM II nodes D160/C134
 }
 \source{
@@ -27,6 +29,9 @@ apportion fish onto the bypasses.
 \details{
 The proportions of Sacramento River flowing through the bypasses are represented using
 'FLOW-CHANNEL' and 'FLOW-DELIVERY' nodes from CALSIM II.
+
+ Some of the calculated values for Yolo Bypass were greater than 1.
+ These values were capped at 1 for model usage.
 
 \href{https://s3-us-west-2.amazonaws.com/cvpiaflow-r-package/BST_CALSIMII_schematic_040110.jpg}{CALSIM II schematic}
 }

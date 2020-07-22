@@ -475,8 +475,9 @@ usethis::use_data(delta_total_diverted, overwrite = TRUE)
 # bypasses -------------
 
 # Replaces prop.Q.bypasses
+# cap values greater than 1 at 1
 bypass_prop_flow <- misc_flows %>%
-  mutate(yolo = D160/C134,
+  mutate(yolo = pmin(D160/C134, 1),
          sutter = (D117 + D124 + D125 + D126)/C116,
          year = year(date), month = month(date)) %>%
   select(month, year, yolo, sutter) %>%
