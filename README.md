@@ -1,3 +1,8 @@
+# Development on CVPIA DSM flow inputs has moved to [Central Valley Project Improvement Act - Open Science Collaborative](https://github.com/CVPIA-OSC)
+
+This repository remains posted for archive purposes. The temperature inputs were used to inform FY2017-2019 recommendations.
+
+-----
 -----
 <img src="cvpia_logo.jpg" align="right" width="40%"/>
 
